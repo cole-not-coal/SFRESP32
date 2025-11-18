@@ -75,7 +75,7 @@ esp_err_t adc_register(adc_atten_t eNAtten, adc_unit_t eNUnit, stADCHandles_t *s
 
     adc_cali_curve_fitting_config_t stCalibrationConfig = {
         .unit_id = eNUnit,
-        .chan = stADCHandle->eNChannel,
+      //  .chan = stADCHandle->eNChannel,
         .atten = eNAtten,
         .bitwidth = ADC_BITWIDTH_DEFAULT,
     };
@@ -88,7 +88,7 @@ esp_err_t adc_register(adc_atten_t eNAtten, adc_unit_t eNUnit, stADCHandles_t *s
     return NStatus;
 }
 
-float adc_read_voltage(stADCHandles_t *stADCHandle)
+float adc_read_voltage(stADCHandles_t *stADCHandle);
 /*
 *===========================================================================
 *   adc_read_voltage

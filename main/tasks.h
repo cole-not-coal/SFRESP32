@@ -1,6 +1,7 @@
 #ifndef SFRTasks
 #include "driver/gpio.h"
 #include <stdint.h>
+#include <math.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_task_wdt.h"
@@ -11,6 +12,7 @@
 #include "can.h"
 #include "espnow.h"
 #include "sdcard.h"
+#include "contactors.h"
 #include "adc.h"
 #include "I2C.h"
 #include "NVHDisplay.h"

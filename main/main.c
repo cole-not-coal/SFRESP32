@@ -37,6 +37,8 @@ Written by Cole Perera for Sheffield Formula Racing 2025
 esp_timer_handle_t stTaskInterrupt1ms;
 esp_timer_handle_t stTaskInterrupt100ms;
 esp_reset_reason_t eResetReason;
+stADCHandles_t stADCHandle1;
+stADCHandles_t stADCHandle2;
 
 /* --------------------------- Function prototypes ----------------------------- */
 static void timers_init(void);
@@ -150,5 +152,8 @@ static void GPIO_init(void)
         .intr_type = GPIO_INTR_DISABLE
     };
     gpio_config(&onboardLEDConfig);
+    adc_register(ADC_MAIN_POS_ACCU_SIDE, ADC_ATTEN_DB_11, ADC_UNIT_1, &stADCHandle1);
+    adc_register(ADC_MAIN_POS_CAR_SIDE, ADC_ATTEN_DB_11, ADC_UNIT_1, &stADCHandle2);
+
 }
 
