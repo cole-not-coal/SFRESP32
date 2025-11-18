@@ -12,17 +12,7 @@ Written by Cole Perera for Sheffield Formula Racing 2025
 #include "tasks.h"
 
 /* --------------------------- Local Types ----------------------------- */
-typedef enum {
-    eTASK_BG = 0,
-    eTASK_1MS,
-    eTASK_100MS,
-    eTASK_TOTAL,
-} eTasks_t;
 
-typedef enum {
-    eTASK_ACTIVE = 0,
-    eTASK_INACTIVE,
-} eTaskState_t;
 
 /* --------------------------- Local Variables ----------------------------- */
 extern twai_node_handle_t stCANBus0;

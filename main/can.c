@@ -21,12 +21,14 @@ _Atomic word wRingBufHead = 0; // next write index
 _Atomic word wRingBufTail = 0; // next read index
 
 /* --------------------------- Local Variables ------------------------------ */
+extern dword adwMaxTaskTime[eTASK_TOTAL];
 
 
 /* --------------------------- Function prototypes -------------------------- */
 esp_err_t CAN_init(boolean bEnableRx);
 esp_err_t CAN_transmit(twai_node_handle_t stCANBus, CAN_frame_t stFrame);
 bool CAN_receive_callback(twai_node_handle_t stCANBus, const twai_rx_done_event_data_t *edata, void *stRxCallback);
+bool CAN_receive_callback_no_queue(twai_node_handle_t stCANBus, const twai_rx_done_event_data_t *edata, void *stRxCallback);
 esp_err_t CAN_receive_debug();
 void CAN_bus_diagnosics();
 const char* CAN_error_state_to_string(twai_error_state_t stState);
@@ -40,6 +42,12 @@ esp_err_t CAN_empty_buffer(twai_node_handle_t stCANBus);
 #define CAN1_TX_QUEUE_LENGTH 10
 
 #define MAX_CAN_TXS_PER_CALL 1
+
+#define CAN_CMD_ID 0x010
+#define CAN_CMD_RESET_OFFSET        0
+#define CAN_CMD_CLEAR_MINMAX_OFFSET 1
+#define CAN_CMD_CLEAR_ERRORS_OFFSET 2
+
 
 /* --------------------------- Functions ------------------------------------ */
 
@@ -84,6 +92,17 @@ esp_err_t CAN_init(boolean bEnableRx)
         twai_event_callbacks_t stRxCallback =
         {
             .on_rx_done = CAN_receive_callback,
+        };
+        stState = twai_node_register_event_callbacks(stCANBus0, &stRxCallback, NULL);
+        if ( stState != ESP_OK )
+        {
+            ESP_LOGE("CAN", "CAN0 failed to register callback: %s", esp_err_to_name(stState));  
+        }
+    } else
+    {
+        twai_event_callbacks_t stRxCallback =
+        {
+            .on_rx_done = CAN_receive_callback_no_queue,
         };
         stState = twai_node_register_event_callbacks(stCANBus0, &stRxCallback, NULL);
         if ( stState != ESP_OK )
@@ -317,6 +336,7 @@ bool CAN_receive_callback(twai_node_handle_t stCANBus, const twai_rx_done_event_
     *   20/04/25 CP Initial Version
     *   08/10/25 CP Updated to implement ring buffer
     *   30/10/25 CP Updated to use onchip driver, old driver depriecated
+    *   16/11/25 CP Respond to Command message
     *
     *===========================================================================
     */
@@ -331,6 +351,30 @@ bool CAN_receive_callback(twai_node_handle_t stCANBus, const twai_rx_done_event_
     };
     
     stState = twai_node_receive_from_isr(stCANBus, &stRxFrame);
+    
+    /* Respond to command message */
+    if (stRxFrame.header.id == CAN_CMD_ID)
+    {
+        if (stRxFrame.buffer[0] >> CAN_CMD_RESET_OFFSET && 0x1)
+        {
+            ESP_LOGE("CAN", "Received RESET command, resetting system");
+            esp_restart();
+        }
+        if (stRxFrame.buffer[0] >> CAN_CMD_CLEAR_MINMAX_OFFSET && 0x1)
+        {
+            ESP_LOGI("CAN", "Received CLEAR MIN/MAX command");
+            for (word wNCounter = 0; wNCounter < eTASK_TOTAL; wNCounter++)
+            {
+                adwMaxTaskTime[wNCounter] = 0;
+            }
+        }
+        if (stRxFrame.buffer[0] >> CAN_CMD_CLEAR_ERRORS_OFFSET && 0x1)
+        {
+            ESP_LOGI("CAN", "Received CLEAR ERRORS command");
+            /* Nothing Here Yet */
+        }
+    }
+
     if ( stState == ESP_OK )
     {
         /* Put CAN Frame into Ring Buffer */
@@ -364,6 +408,68 @@ bool CAN_receive_callback(twai_node_handle_t stCANBus, const twai_rx_done_event_
         return TRUE;
     }
 
+    return FALSE;
+}
+
+bool CAN_receive_callback_no_queue(twai_node_handle_t stCANBus, const twai_rx_done_event_data_t *edata, void *stRxCallback)
+{
+    /*
+    *===========================================================================
+    *   CAN_receive_callback_no_queue
+    *   Takes:   stCANBus: Pointer to the CAN bus handle
+    *            edata: No idea read https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/twai.html
+    *            stRxCallback: see above
+    * 
+    *   Returns: 1 if successful, 0 not.
+    * 
+    *   The callback for CAN Rx when the ring buffer is not used. Only responds
+    *   to command messages.
+    * 
+    *=========================================================================== 
+    *   Revision History:
+    *   16/11/25 CP Initial Version
+    *
+    *===========================================================================
+    */
+
+    esp_err_t stState;
+    CAN_frame_t stRxedFrame;
+    /* Initialise Rx Buffer */
+    uint8_t abyRxBuffer[8];
+    twai_frame_t stRxFrame = {
+        .buffer = abyRxBuffer,
+        .buffer_len = sizeof(abyRxBuffer),
+    };
+    
+    stState = twai_node_receive_from_isr(stCANBus, &stRxFrame);
+    
+    /* Respond to command message */
+    if (stRxFrame.header.id == CAN_CMD_ID)
+    {
+        if (stRxFrame.buffer[0] >> CAN_CMD_RESET_OFFSET && 0x1)
+        {
+            ESP_LOGE("CAN", "Received RESET command, resetting system");
+            esp_restart();
+        }
+        if (stRxFrame.buffer[0] >> CAN_CMD_CLEAR_MINMAX_OFFSET && 0x1)
+        {
+            ESP_LOGI("CAN", "Received CLEAR MIN/MAX command");
+            for (word wNCounter = 0; wNCounter < eTASK_TOTAL; wNCounter++)
+            {
+                adwMaxTaskTime[wNCounter] = 0;
+            }
+        }
+        if (stRxFrame.buffer[0] >> CAN_CMD_CLEAR_ERRORS_OFFSET && 0x1)
+        {
+            ESP_LOGI("CAN", "Received CLEAR ERRORS command");
+            /* Nothing Here Yet */
+        }
+    }
+
+    if (stState == ESP_OK)
+    {
+        return TRUE;
+    }
     return FALSE;
 }
 

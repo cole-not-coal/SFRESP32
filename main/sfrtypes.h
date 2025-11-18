@@ -45,5 +45,17 @@ typedef struct {
     float afLookupTable[2][101];
 } stSensorMap_t;
 
+typedef enum {
+    eTASK_BG = 0,
+    eTASK_1MS,
+    eTASK_100MS,
+    eTASK_TOTAL,
+} eTasks_t;
+
+typedef enum {
+    eTASK_ACTIVE = 0,
+    eTASK_INACTIVE,
+} eTaskState_t;
+
 #define SFRTypes
 #endif
