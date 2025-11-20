@@ -36,6 +36,13 @@ typedef struct {
 } espnow_event_t;
 
 /* --------------------------- Local Variables ------------------------ */
+extern CAN_frame_t *stCANRingBuffer;
+extern _Atomic word wCANRingBufHead;
+extern _Atomic word wCANRingBufTail;
+
+extern CAN_frame_t *stESPNOWRingBuffer;
+extern _Atomic word wESPNOWRingBufHead;
+extern _Atomic word wESPNOWRingBufTail;
 
 /* --------------------------- Global Variables ----------------------- */
 /*
@@ -45,14 +52,11 @@ typedef struct {
 * 3: 9C:9E:6E:77:AF:50
 */
 uint8_t byMACAddress[6] = {0x8C, 0xBF, 0xEA, 0xCF, 0x94, 0x24}; // Change to the MAC address of target device
-extern CAN_frame_t *stCANRingBuffer;
-extern _Atomic word wRingBufHead;
-extern _Atomic word wRingBufTail;
+
 
 /* --------------------------- Definitions ----------------------------- */
 #define PACKED_FRAME_SIZE 11 // 2 bytes ID + 1 byte DLC + 8 bytes data
-
-//#define TX_SIDE  // Comment out the line acordingly for RX or TX side
+#define TX_ENABLE  // Comment out if TX undesired
 
 /* --------------------------- Function prototypes --------------------- */
 esp_err_t ESPNOW_init(void);
@@ -117,7 +121,7 @@ esp_err_t ESPNOW_init(void)
              abyThisESPMacAddr[0], abyThisESPMacAddr[1], abyThisESPMacAddr[2],
              abyThisESPMacAddr[3], abyThisESPMacAddr[4], abyThisESPMacAddr[5]);  
 
-    #ifdef TX_SIDE
+    #ifdef TX_ENABLE
     /* Add Peers */
     esp_now_peer_info_t stPeerInfo = {0};
     memcpy(stPeerInfo.peer_addr, byMACAddress, ESP_NOW_ETH_ALEN);
@@ -258,8 +262,8 @@ esp_err_t ESPNOW_empty_buffer(void)
     }
     
     /* Load ring buffer head and tail */
-    dword dwLocalHead = __atomic_load_n(&wRingBufHead, __ATOMIC_ACQUIRE);
-    dword dwLocalTail = __atomic_load_n(&wRingBufTail, __ATOMIC_RELAXED);
+    dword dwLocalHead = __atomic_load_n(&wCANRingBufHead, __ATOMIC_ACQUIRE);
+    dword dwLocalTail = __atomic_load_n(&wCANRingBufTail, __ATOMIC_RELAXED);
     dword dwOffset = 0;
 
     /* Until the ring buffer is empty or the ESP-NOW message is full, pack the message */ 
@@ -281,7 +285,7 @@ esp_err_t ESPNOW_empty_buffer(void)
         }
     }
     /* Publish new tail */
-    __atomic_store_n(&wRingBufTail, dwLocalTail, __ATOMIC_RELEASE);
+    __atomic_store_n(&wCANRingBufTail, dwLocalTail, __ATOMIC_RELEASE);
 
     /* If data is present send it otherwise return ESP_OK */
     if (dwOffset > 0) 
@@ -319,12 +323,12 @@ esp_err_t ESPNOW_fill_buffer(const byte *abyData, byte byNDataLength)
     }
 
     /* Check out Ring buffer Vars */
-    if (!stCANRingBuffer) 
+    if (!stESPNOWRingBuffer) 
     {
         return ESP_ERR_INVALID_STATE;
     }
-    word wLocalHead = __atomic_load_n(&wRingBufHead, __ATOMIC_RELAXED);
-    word wLocalTail = __atomic_load_n(&wRingBufTail, __ATOMIC_ACQUIRE);
+    word wLocalHead = __atomic_load_n(&wESPNOWRingBufHead, __ATOMIC_RELAXED);
+    word wLocalTail = __atomic_load_n(&wESPNOWRingBufTail, __ATOMIC_ACQUIRE);
     
     byte offset = 0;
     while (offset + PACKED_FRAME_SIZE <= byNDataLength) {
@@ -340,7 +344,7 @@ esp_err_t ESPNOW_fill_buffer(const byte *abyData, byte byNDataLength)
         {
             /* Buffer full, drop frames */
             ESP_LOGE("ESP-NOW", "CAN Ring Buffer Full, Dropping Frames");
-            __atomic_store_n(&wRingBufHead, wLocalHead, __ATOMIC_RELEASE);
+            __atomic_store_n(&wESPNOWRingBufHead, wLocalHead, __ATOMIC_RELEASE);
             return ESP_ERR_NO_MEM;
         }
 
@@ -349,12 +353,12 @@ esp_err_t ESPNOW_fill_buffer(const byte *abyData, byte byNDataLength)
         {
             wLocalHead = 0;
         }
-        stCANRingBuffer[wLocalHead] = stFrame;
+        stESPNOWRingBuffer[wLocalHead] = stFrame;
         wLocalHead++;
         offset += PACKED_FRAME_SIZE;
     }
 
     /* Publish new head */
-    __atomic_store_n(&wRingBufHead, wLocalHead, __ATOMIC_RELEASE);
+    __atomic_store_n(&wESPNOWRingBufHead, wLocalHead, __ATOMIC_RELEASE);
     return ESP_OK;
 }

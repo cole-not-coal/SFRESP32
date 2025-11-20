@@ -17,8 +17,12 @@ twai_node_handle_t stCANBus0;
 twai_node_handle_t stCANBus1;
 #endif
 CAN_frame_t *stCANRingBuffer = NULL;
-_Atomic word wRingBufHead = 0; // next write index
-_Atomic word wRingBufTail = 0; // next read index
+_Atomic word wCANRingBufHead = 0; // next write index
+_Atomic word wCANRingBufTail = 0; // next read index
+
+CAN_frame_t *stESPNOWRingBuffer = NULL;
+_Atomic word wESPNOWRingBufHead = 0; // next write index
+_Atomic word wESPNOWRingBufTail = 0; // next read index
 
 /* --------------------------- Local Variables ------------------------------ */
 extern dword adwMaxTaskTime[eTASK_TOTAL];
@@ -32,7 +36,7 @@ bool CAN_receive_callback_no_queue(twai_node_handle_t stCANBus, const twai_rx_do
 esp_err_t CAN_receive_debug();
 void CAN_bus_diagnosics();
 const char* CAN_error_state_to_string(twai_error_state_t stState);
-esp_err_t CAN_empty_buffer(twai_node_handle_t stCANBus);
+esp_err_t CAN_empty_ESPNOW_buffer(twai_node_handle_t stCANBus);
 
 /* --------------------------- Definitions ---------------------------------- */
 #define CAN0_BITRATE 1000000  // 1000kbps
@@ -153,8 +157,8 @@ esp_err_t CAN_init(boolean bEnableRx)
         return ESP_ERR_NO_MEM;
     }
     stCANRingBuffer = stCANRingBufferInitial;   
-    __atomic_store_n(&wRingBufHead, 0, __ATOMIC_RELAXED);
-    __atomic_store_n(&wRingBufTail, 0, __ATOMIC_RELAXED);  
+    __atomic_store_n(&wCANRingBufHead, 0, __ATOMIC_RELAXED);
+    __atomic_store_n(&wCANRingBufTail, 0, __ATOMIC_RELAXED);  
 
     return stState;
 }
@@ -224,8 +228,8 @@ esp_err_t CAN_receive_debug()
     }
 
     /* Load ring buffer head and tail */
-    dword dwLocalHead = __atomic_load_n(&wRingBufHead, __ATOMIC_ACQUIRE);
-    dword dwLocalTail = __atomic_load_n(&wRingBufTail, __ATOMIC_RELAXED);
+    dword dwLocalHead = __atomic_load_n(&wCANRingBufHead, __ATOMIC_ACQUIRE);
+    dword dwLocalTail = __atomic_load_n(&wCANRingBufTail, __ATOMIC_RELAXED);
     word wCounter = 0;
         
     /* Until the ring buffer is empty or the max number of messages is reached send CAN messages */ 
@@ -246,7 +250,7 @@ esp_err_t CAN_receive_debug()
     }
     
     /* Publish new tail */
-    __atomic_store_n(&wRingBufTail, dwLocalTail, __ATOMIC_RELEASE);
+    __atomic_store_n(&wCANRingBufTail, dwLocalTail, __ATOMIC_RELEASE);
     return ESP_OK;
 }
 
@@ -381,13 +385,13 @@ bool CAN_receive_callback(twai_node_handle_t stCANBus, const twai_rx_done_event_
         }
 
         /* Get local copy of queue head and tail */
-        word wLocalHead = __atomic_load_n(&wRingBufHead, __ATOMIC_RELAXED);
+        word wLocalHead = __atomic_load_n(&wCANRingBufHead, __ATOMIC_RELAXED);
         word wNext = wLocalHead + 1;
         if (wNext >= CAN_QUEUE_LENGTH) 
         {
             wNext = 0;
         }
-        word wLocalTail = __atomic_load_n(&wRingBufTail, __ATOMIC_ACQUIRE);
+        word wLocalTail = __atomic_load_n(&wCANRingBufTail, __ATOMIC_ACQUIRE);
 
         if (wNext == wLocalTail) {
             /* Buffer full, drop frame */
@@ -401,7 +405,7 @@ bool CAN_receive_callback(twai_node_handle_t stCANBus, const twai_rx_done_event_
         stCANRingBuffer[wLocalHead] = stRxedFrame;
 
         /* Publish new head */
-        __atomic_store_n(&wRingBufHead, wNext, __ATOMIC_RELEASE);
+        __atomic_store_n(&wCANRingBufHead, wNext, __ATOMIC_RELEASE);
         return TRUE;
     }
 
@@ -467,11 +471,11 @@ bool CAN_receive_callback_no_queue(twai_node_handle_t stCANBus, const twai_rx_do
     return FALSE;
 }
 
-esp_err_t CAN_empty_buffer(twai_node_handle_t stCANBus)
+esp_err_t CAN_empty_ESPNOW_buffer(twai_node_handle_t stCANBus)
 {
     /*
     *===========================================================================
-    *   CAN_empty_buffer
+    *   CAN_empty_ESPNOW_buffer
     *   Takes:   stCANBus: Pointer to the CAN bus handle
     * 
     *   Returns: ESP_OK if successful, error code if not.
@@ -485,25 +489,25 @@ esp_err_t CAN_empty_buffer(twai_node_handle_t stCANBus)
     *===========================================================================
     */
     esp_err_t NStatus = ESP_OK;
-    if (!stCANRingBuffer) 
+    if (!stESPNOWRingBuffer) 
     {
         return ESP_ERR_INVALID_STATE;
     }
 
     /* Load ring buffer head and tail */
-    dword dwLocalHead = __atomic_load_n(&wRingBufHead, __ATOMIC_ACQUIRE);
-    dword dwLocalTail = __atomic_load_n(&wRingBufTail, __ATOMIC_RELAXED);
+    dword dwLocalHead = __atomic_load_n(&wESPNOWRingBufHead, __ATOMIC_ACQUIRE);
+    dword dwLocalTail = __atomic_load_n(&wESPNOWRingBufTail, __ATOMIC_RELAXED);
     word wCounter = 0;
         
     /* Until the ring buffer is empty or the max number of messages is reached send CAN messages */ 
     while (wCounter < MAX_CAN_TXS_PER_CALL && dwLocalTail != dwLocalHead) 
     {
-        CAN_frame_t stCANFrame = stCANRingBuffer[dwLocalTail];   
+        CAN_frame_t stCANFrame = stESPNOWRingBuffer[dwLocalTail];   
         NStatus = CAN_transmit(stCANBus, stCANFrame);  
         if (NStatus != ESP_OK) 
         {
             /* Publish new tail */
-            __atomic_store_n(&wRingBufTail, dwLocalTail, __ATOMIC_RELEASE);
+            __atomic_store_n(&wESPNOWRingBufTail, dwLocalTail, __ATOMIC_RELEASE);
             return NStatus;
         }
 
@@ -517,6 +521,6 @@ esp_err_t CAN_empty_buffer(twai_node_handle_t stCANBus)
     }
     
     /* Publish new tail */
-    __atomic_store_n(&wRingBufTail, dwLocalTail, __ATOMIC_RELEASE);
+    __atomic_store_n(&wESPNOWRingBufTail, dwLocalTail, __ATOMIC_RELEASE);
     return NStatus;
 }

@@ -16,7 +16,7 @@ bool CAN_receive_callback(twai_node_handle_t stCANBus, const twai_rx_done_event_
 esp_err_t CAN_receive_debug();
 void CAN_bus_diagnosics();
 const char* CAN_error_state_to_string(twai_error_state_t stState);
-esp_err_t CAN_empty_buffer(twai_node_handle_t stCANBus);
+esp_err_t CAN_empty_ESPNOW_buffer(twai_node_handle_t stCANBus);
 
 #define LOG_CAN_FRAME(frame) do { \
     char _buf[128]; \

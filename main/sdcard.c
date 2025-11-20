@@ -14,8 +14,8 @@ static char abyFilePath[64] = "/sdcard/log000.txt";
 /* --------------------------- Local Variables ------------------------------ */
 extern dword dwTimeSincePowerUpms;
 extern CAN_frame_t *stCANRingBuffer;
-extern _Atomic word wRingBufHead;
-extern _Atomic word wRingBufTail;
+extern _Atomic word wCANRingBufHead;
+extern _Atomic word wCANRingBufTail;
 
 /* --------------------------- Function prototypes -------------------------- */
 esp_err_t SD_card_init(void);
@@ -207,8 +207,8 @@ esp_err_t sdcard_empty_buffer(void)
     {
         return ESP_ERR_INVALID_STATE;
     }
-    dword dwLocalHead = __atomic_load_n(&wRingBufHead, __ATOMIC_ACQUIRE);
-    dword dwLocalTail = __atomic_load_n(&wRingBufTail, __ATOMIC_RELAXED);
+    dword dwLocalHead = __atomic_load_n(&wCANRingBufHead, __ATOMIC_ACQUIRE);
+    dword dwLocalTail = __atomic_load_n(&wCANRingBufTail, __ATOMIC_RELAXED);
 
     /* Load file */
     FILE *stFile = fopen(abyFilePath, "a");
@@ -239,7 +239,7 @@ esp_err_t sdcard_empty_buffer(void)
         }
     }
     /* Publish new tail */
-    __atomic_store_n(&wRingBufTail, dwLocalTail, __ATOMIC_RELEASE);
+    __atomic_store_n(&wCANRingBufTail, dwLocalTail, __ATOMIC_RELEASE);
     fclose(stFile);
     
     return ESP_OK;
