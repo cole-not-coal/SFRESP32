@@ -44,9 +44,9 @@ esp_err_t CAN_empty_buffer(twai_node_handle_t stCANBus);
 #define MAX_CAN_TXS_PER_CALL 1
 
 #define CAN_CMD_ID 0x010
-#define CAN_CMD_RESET_OFFSET        0
-#define CAN_CMD_CLEAR_MINMAX_OFFSET 1
-#define CAN_CMD_CLEAR_ERRORS_OFFSET 2
+#define CAN_CMD_RESET           0x1
+#define CAN_CMD_CLEAR_MINMAX    0x2
+#define CAN_CMD_CLEAR_ERRORS    0x3
 
 
 /* --------------------------- Functions ------------------------------------ */
@@ -355,22 +355,19 @@ bool CAN_receive_callback(twai_node_handle_t stCANBus, const twai_rx_done_event_
     /* Respond to command message */
     if (stRxFrame.header.id == CAN_CMD_ID)
     {
-        if (stRxFrame.buffer[0] >> CAN_CMD_RESET_OFFSET && 0x1)
+        if (stRxFrame.buffer[0] == CAN_CMD_RESET)
         {
-            ESP_LOGE("CAN", "Received RESET command, resetting system");
             esp_restart();
         }
-        if (stRxFrame.buffer[0] >> CAN_CMD_CLEAR_MINMAX_OFFSET && 0x1)
+        if (stRxFrame.buffer[0] == CAN_CMD_CLEAR_MINMAX)
         {
-            ESP_LOGI("CAN", "Received CLEAR MIN/MAX command");
             for (word wNCounter = 0; wNCounter < eTASK_TOTAL; wNCounter++)
             {
                 adwMaxTaskTime[wNCounter] = 0;
             }
         }
-        if (stRxFrame.buffer[0] >> CAN_CMD_CLEAR_ERRORS_OFFSET && 0x1)
+        if (stRxFrame.buffer[0] == CAN_CMD_CLEAR_ERRORS)
         {
-            ESP_LOGI("CAN", "Received CLEAR ERRORS command");
             /* Nothing Here Yet */
         }
     }
@@ -446,22 +443,19 @@ bool CAN_receive_callback_no_queue(twai_node_handle_t stCANBus, const twai_rx_do
     /* Respond to command message */
     if (stRxFrame.header.id == CAN_CMD_ID)
     {
-        if (stRxFrame.buffer[0] >> CAN_CMD_RESET_OFFSET && 0x1)
+        if (stRxFrame.buffer[0] == CAN_CMD_RESET)
         {
-            ESP_LOGE("CAN", "Received RESET command, resetting system");
             esp_restart();
         }
-        if (stRxFrame.buffer[0] >> CAN_CMD_CLEAR_MINMAX_OFFSET && 0x1)
+        if (stRxFrame.buffer[0] == CAN_CMD_CLEAR_MINMAX)
         {
-            ESP_LOGI("CAN", "Received CLEAR MIN/MAX command");
             for (word wNCounter = 0; wNCounter < eTASK_TOTAL; wNCounter++)
             {
                 adwMaxTaskTime[wNCounter] = 0;
             }
         }
-        if (stRxFrame.buffer[0] >> CAN_CMD_CLEAR_ERRORS_OFFSET && 0x1)
+        if (stRxFrame.buffer[0] == CAN_CMD_CLEAR_ERRORS)
         {
-            ESP_LOGI("CAN", "Received CLEAR ERRORS command");
             /* Nothing Here Yet */
         }
     }
