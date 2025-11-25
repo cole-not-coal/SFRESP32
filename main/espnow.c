@@ -36,23 +36,19 @@ typedef struct {
 } espnow_event_t;
 
 /* --------------------------- Local Variables ------------------------ */
-extern CAN_frame_t *stCANRingBuffer;
-extern _Atomic word wCANRingBufHead;
-extern _Atomic word wCANRingBufTail;
-
-extern CAN_frame_t *stESPNOWRingBuffer;
-extern _Atomic word wESPNOWRingBufHead;
-extern _Atomic word wESPNOWRingBufTail;
+QueueHandle_t xESPNOWRingBuffer = NULL;
+extern QueueHandle_t xCANRingBuffer;
 
 /* --------------------------- Global Variables ----------------------- */
 /*
 * MAC Adresses of my devices
-* 1: 8C:BF:EA:CF:94:24
-* 2: 8C:BF:EA:CF:90:34
-* 3: 9C:9E:6E:77:AF:50
+* 1: 8C:BF:EA:CF:94:24 : {0x8C, 0xBF, 0xEA, 0xCF, 0x94, 0x24}
+* 2: 8C:BF:EA:CF:90:34 : {0x8C, 0xBF, 0xEA, 0xCF, 0x90, 0x34}
+* 3: 9C:9E:6E:77:AF:50 : {0x9C, 0x9E, 0x6E, 0x77, 0xAF, 0x50}
+* 4: 
+* 5: 98:A3:16:85:6C:EC : {0x98, 0xA3, 0x16, 0x85, 0x6C, 0xEC}
 */
-uint8_t byMACAddress[6] = {0x8C, 0xBF, 0xEA, 0xCF, 0x94, 0x24}; // Change to the MAC address of target device
-
+uint8_t byMACAddress[6] = {0x98, 0xA3, 0x16, 0x85, 0x6C, 0xEC}; // Change to the MAC address of target device
 
 /* --------------------------- Definitions ----------------------------- */
 #define PACKED_FRAME_SIZE 11 // 2 bytes ID + 1 byte DLC + 8 bytes data
@@ -81,6 +77,7 @@ esp_err_t ESPNOW_init(void)
     *=========================================================================== 
     *   Revision History:
     *   04/05/25 CP Initial Version
+    *   23/11/25 CP Added FreeRTOS queue for Rxed CAN messages 
     *
     *===========================================================================
     */
@@ -133,6 +130,13 @@ esp_err_t ESPNOW_init(void)
         return NStatus;
     }
     #endif
+
+    /* Allocate Ring Buffer */
+    xESPNOWRingBuffer = xQueueCreate(CAN_QUEUE_LENGTH, sizeof(CAN_frame_t));
+    if (xESPNOWRingBuffer == NULL) {
+        ESP_LOGE("ESP-NOW", "Failed to create ESPNOW Queue");
+        return ESP_ERR_NO_MEM;
+    }
 
     /* Register Callbacks */
     esp_now_register_send_cb(ESPNOW_tx_callback);
@@ -192,14 +196,6 @@ static void ESPNOW_tx_callback(const wifi_tx_info_t *tx_info, esp_now_send_statu
     *===========================================================================
     */
 
-    byte abyMACAddress[6];
-    memcpy(abyMACAddress, tx_info->des_addr, sizeof(abyMACAddress));
-    
-    #ifdef DEBUG
-    ESP_LOGI("ESP-NOW","sent to : %02X:%02X:%02X:%02X:%02X:%02X status: %d", 
-        abyMACAddress[0], abyMACAddress[1], abyMACAddress[2],
-        abyMACAddress[3], abyMACAddress[4], abyMACAddress[5], NStatus);
-    #endif
 }
 
 static void ESPNOW_rx_callback(const esp_now_recv_info_t *recv_info, const uint8_t *byData, int byNLength)
@@ -225,9 +221,6 @@ static void ESPNOW_rx_callback(const esp_now_recv_info_t *recv_info, const uint8
     */
 
     ESPNOW_fill_buffer(byData, byNLength);
-    #ifdef DEBUG
-    ESP_LOGI("ESP-NOW", "%d Bytes Recieved.", byNLength); 
-    #endif
 
 }
 
@@ -251,41 +244,41 @@ esp_err_t ESPNOW_empty_buffer(void)
     *=========================================================================== 
     *   Revision History:
     *   08/10/25 CP Initial Version
+    *   23/11/25 CP Changed to use FreeRTOS queue instead of ring buffer, refactored
     *
     *===========================================================================
     */
 
     byte byBytesToSend[MAX_ESPNOW_PAYLOAD];
-    if (!stCANRingBuffer) 
+    dword dwOffset = 0;
+    CAN_frame_t stCANFrame;
+
+    for (byte NLoopCounter = 0; NLoopCounter < MAX_ESPNOW_PAYLOAD; NLoopCounter++) 
+    {
+        byBytesToSend[NLoopCounter] = 0;
+    }
+
+    if (!xCANRingBuffer) 
     {
         return ESP_ERR_INVALID_STATE;
-    }
-    
-    /* Load ring buffer head and tail */
-    dword dwLocalHead = __atomic_load_n(&wCANRingBufHead, __ATOMIC_ACQUIRE);
-    dword dwLocalTail = __atomic_load_n(&wCANRingBufTail, __ATOMIC_RELAXED);
-    dword dwOffset = 0;
+    } 
 
     /* Until the ring buffer is empty or the ESP-NOW message is full, pack the message */ 
-    while (dwOffset + PACKED_FRAME_SIZE <= MAX_ESPNOW_PAYLOAD && dwLocalTail != dwLocalHead) 
+    while (dwOffset + PACKED_FRAME_SIZE <= MAX_ESPNOW_PAYLOAD && xQueueReceive(xCANRingBuffer, &stCANFrame, 0) == pdTRUE)
     {
-        CAN_frame_t stCANFrame = stCANRingBuffer[dwLocalTail];
-
-        byBytesToSend[dwOffset + 0] = (byte)(stCANFrame.dwID & 0xFF);
-        byBytesToSend[dwOffset + 1] = (byte)((stCANFrame.dwID >> 8) & 0xFF);
-        byBytesToSend[dwOffset + 2] = (byte)stCANFrame.byDLC;
-        memcpy(&byBytesToSend[dwOffset + 3], stCANFrame.abData, 8);
-        dwOffset += PACKED_FRAME_SIZE;
-
-        /* Advance tail */ 
-        dwLocalTail++;
-        if (dwLocalTail >= CAN_QUEUE_LENGTH) 
+        uint8_t byDLC = stCANFrame.byDLC;
+        if (byDLC > 8 || byDLC < 1) 
         {
-            dwLocalTail = 0;
+            ESP_LOGE("ESP-NOW", "Invalid CAN frame DLC: %u", byDLC);
+            break;
         }
+
+        byBytesToSend[dwOffset + 0] = (byte)((stCANFrame.dwID >> 8) & 0xFF);
+        byBytesToSend[dwOffset + 1] = (byte)(stCANFrame.dwID & 0xFF);
+        byBytesToSend[dwOffset + 2] = (byte)byDLC;
+        memcpy(&byBytesToSend[dwOffset + 3], stCANFrame.abData, byDLC);
+        dwOffset += 3 + byDLC; // 2 bytes ID + 1 byte DLC + 1-8 bytes data
     }
-    /* Publish new tail */
-    __atomic_store_n(&wCANRingBufTail, dwLocalTail, __ATOMIC_RELEASE);
 
     /* If data is present send it otherwise return ESP_OK */
     if (dwOffset > 0) 
@@ -314,51 +307,56 @@ esp_err_t ESPNOW_fill_buffer(const byte *abyData, byte byNDataLength)
     *   Revision History:
     *   15/10/25 CP Initial Version
     *   03/11/25 CP Fixed the way this was writing to the ring buffer, god what a nightmare
+    *   23/11/25 CP Changed to use FreeRTOS queue instead of ring buffer, refactored
     *
     *===========================================================================
     */
+
+    volatile uint16_t wOffset = 0;
+    CAN_frame_t stFrame;
+
     if (byNDataLength <= 0) 
     {
         return ESP_OK;
     }
 
-    /* Check out Ring buffer Vars */
-    if (!stESPNOWRingBuffer) 
+    if (!xESPNOWRingBuffer) 
     {
         return ESP_ERR_INVALID_STATE;
     }
-    word wLocalHead = __atomic_load_n(&wESPNOWRingBufHead, __ATOMIC_RELAXED);
-    word wLocalTail = __atomic_load_n(&wESPNOWRingBufTail, __ATOMIC_ACQUIRE);
-    
-    byte offset = 0;
-    while (offset + PACKED_FRAME_SIZE <= byNDataLength) {
-        CAN_frame_t stFrame;
-        dword dwID = ((dword)abyData[offset + 1] << 8)  |
-                        ((dword)abyData[offset + 0]);
-        stFrame.dwID = dwID;
-        stFrame.byDLC = abyData[offset + 2];
-        memcpy(stFrame.abData, &abyData[offset + 3], 8);
 
-        /* Check if buffer is full */
-        if ((wLocalHead + 1) % CAN_QUEUE_LENGTH == wLocalTail) 
+    while (wOffset < byNDataLength) {
+        /* Ensure at least ID(2) + DLC(1) remain */
+        if (byNDataLength - wOffset < 3) break;
+ 
+        memset(&stFrame, 0, sizeof(CAN_frame_t));
+        stFrame.dwID = ((uint32_t)abyData[wOffset] << 8)  |
+                        ((uint32_t)abyData[wOffset + 1]);
+        wOffset += 2;
+        stFrame.byDLC = abyData[wOffset];
+        wOffset += 1;
+        
+        if (stFrame.byDLC > 8) 
+        {
+            //Invalid DLC, drop frame
+            break;
+        }
+        if (byNDataLength - wOffset < stFrame.byDLC) {
+            /* Truncated frame, drop frame */
+            break;
+        }
+
+        if (stFrame.byDLC > 0)
+        {
+            memcpy(stFrame.abData, &abyData[wOffset], stFrame.byDLC);
+            wOffset += stFrame.byDLC;
+        }
+
+        if (xQueueSend(xESPNOWRingBuffer, &stFrame, 0) != pdTRUE) 
         {
             /* Buffer full, drop frames */
-            ESP_LOGE("ESP-NOW", "CAN Ring Buffer Full, Dropping Frames");
-            __atomic_store_n(&wESPNOWRingBufHead, wLocalHead, __ATOMIC_RELEASE);
-            return ESP_ERR_NO_MEM;
+            break;
         }
-
-        /* Add Frame to Ring Buffer */
-        if (wLocalHead >= CAN_QUEUE_LENGTH) 
-        {
-            wLocalHead = 0;
-        }
-        stESPNOWRingBuffer[wLocalHead] = stFrame;
-        wLocalHead++;
-        offset += PACKED_FRAME_SIZE;
     }
-
-    /* Publish new head */
-    __atomic_store_n(&wESPNOWRingBufHead, wLocalHead, __ATOMIC_RELEASE);
     return ESP_OK;
 }

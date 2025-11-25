@@ -27,11 +27,14 @@ typedef signed long sdword;
 typedef unsigned long long qword;
 typedef signed long long sqword;
 
-typedef struct {
-    dword dwID;      // CAN ID (11- bit packed in 16-bit)
-    byte  byDLC;      // 0-8 (Data Length Code)
-    byte  abData[8];  // up to 8 bytes
+typedef struct __attribute__((aligned(4))) {
+    uint32_t dwID;       // 4 bytes
+    uint8_t  byDLC;      // 0-8 (Data Length Code)
+    uint8_t  abData[8];  // 8 bytes
+    uint8_t  padding[3]; // 3 bytes explicit padding to reach 16 bytes total
 } CAN_frame_t;
+
+_Static_assert(sizeof(CAN_frame_t) == 16, "CAN_frame_t size mismatch!");
 
 typedef struct {
     adc_cali_handle_t stCalibration;
@@ -56,6 +59,14 @@ typedef enum {
     eTASK_ACTIVE = 0,
     eTASK_INACTIVE,
 } eTaskState_t;
+
+#define LOG_CAN_FRAME(frame) do { \
+    char _buf[128]; \
+    int _off = snprintf(_buf, sizeof(_buf), "ID=%u DLC=%u", (unsigned)(frame).dwID, (unsigned)(frame).byDLC); \
+    for (int _i = 0; _i < (frame).byDLC && _i < 8; _i++) \
+        _off += snprintf(_buf + _off, sizeof(_buf) - _off, " %02X", (unsigned)(frame).abData[_i]); \
+    ESP_LOGI("CAN", "%s", _buf); \
+} while(0)
 
 #define SFRTypes
 #endif

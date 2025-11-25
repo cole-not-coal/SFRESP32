@@ -16,27 +16,9 @@ twai_node_handle_t stCANBus0;
 #ifdef GPIO_CAN1_TX
 twai_node_handle_t stCANBus1;
 #endif
-CAN_frame_t *stCANRingBuffer = NULL;
-_Atomic word wCANRingBufHead = 0; // next write index
-_Atomic word wCANRingBufTail = 0; // next read index
 
-CAN_frame_t *stESPNOWRingBuffer = NULL;
-_Atomic word wESPNOWRingBufHead = 0; // next write index
-_Atomic word wESPNOWRingBufTail = 0; // next read index
-
-/* --------------------------- Local Variables ------------------------------ */
-extern dword adwMaxTaskTime[eTASK_TOTAL];
-
-
-/* --------------------------- Function prototypes -------------------------- */
-esp_err_t CAN_init(boolean bEnableRx);
-esp_err_t CAN_transmit(twai_node_handle_t stCANBus, CAN_frame_t stFrame);
-bool CAN_receive_callback(twai_node_handle_t stCANBus, const twai_rx_done_event_data_t *edata, void *stRxCallback);
-bool CAN_receive_callback_no_queue(twai_node_handle_t stCANBus, const twai_rx_done_event_data_t *edata, void *stRxCallback);
-esp_err_t CAN_receive_debug();
-void CAN_bus_diagnosics();
-const char* CAN_error_state_to_string(twai_error_state_t stState);
-esp_err_t CAN_empty_ESPNOW_buffer(twai_node_handle_t stCANBus);
+QueueHandle_t xCANRingBuffer = NULL;
+extern QueueHandle_t xESPNOWRingBuffer;
 
 /* --------------------------- Definitions ---------------------------------- */
 #define CAN0_BITRATE 1000000  // 1000kbps
@@ -45,16 +27,25 @@ esp_err_t CAN_empty_ESPNOW_buffer(twai_node_handle_t stCANBus);
 #define CAN1_BITRATE 1000000  // 1 Mbps
 #define CAN1_TX_QUEUE_LENGTH 10
 
-#define MAX_CAN_TXS_PER_CALL 1
+#define MAX_CAN_TXS_PER_CALL 10
 
 #define CAN_CMD_ID 0x010
 #define CAN_CMD_RESET           0x1
 #define CAN_CMD_CLEAR_MINMAX    0x2
 #define CAN_CMD_CLEAR_ERRORS    0x3
 
+/* --------------------------- Local Types         -------------------------- */
+typedef struct {
+    twai_frame_t stFrame;
+    uint32_t     dwData[2]; // Embedded 8-byte buffer (32-bit aligned)
+} can_tx_buffer_t;
+
+/* --------------------------- Local Variables ------------------------------ */
+extern dword adwMaxTaskTime[eTASK_TOTAL];
+static can_tx_buffer_t astCANTxPool[MAX_CAN_TXS_PER_CALL];
+static uint8_t byCANTxPoolIndex = 0;
 
 /* --------------------------- Functions ------------------------------------ */
-
 esp_err_t CAN_init(boolean bEnableRx)
 {
     /*
@@ -70,6 +61,8 @@ esp_err_t CAN_init(boolean bEnableRx)
     *   Revision History:
     *   20/04/25 CP Initial Version
     *   29/10/25 CP Updated to use onchip driver, old driver depriecated
+    *   18/11/25 CP Moved Enable RX to parameter
+    *   24/11/25 CP Swapped ring buffer for freeRTOS queue
     *
     *===========================================================================
     */
@@ -150,20 +143,16 @@ esp_err_t CAN_init(boolean bEnableRx)
     #endif
 
     /* Allocate Ring Buffer */
-    CAN_frame_t *stCANRingBufferInitial = (CAN_frame_t *)malloc(sizeof(CAN_frame_t) 
-                                        * CAN_QUEUE_LENGTH);                      
-    if (!stCANRingBufferInitial) {
-        ESP_LOGE("ESP-NOW", "Failed to allocate ring buffer (len=%u)", CAN_QUEUE_LENGTH);
+    xCANRingBuffer = xQueueCreate(CAN_QUEUE_LENGTH, sizeof(CAN_frame_t));
+    if (xCANRingBuffer == NULL) {
+        ESP_LOGE("CAN", "Failed to create CAN Queue");
         return ESP_ERR_NO_MEM;
-    }
-    stCANRingBuffer = stCANRingBufferInitial;   
-    __atomic_store_n(&wCANRingBufHead, 0, __ATOMIC_RELAXED);
-    __atomic_store_n(&wCANRingBufTail, 0, __ATOMIC_RELAXED);  
+    } 
 
     return stState;
 }
 
-esp_err_t CAN_transmit(twai_node_handle_t stCANBus, CAN_frame_t stFrame)
+esp_err_t CAN_transmit(twai_node_handle_t stCANBus, const CAN_frame_t *stFrame)
 {
     /*
     *===========================================================================
@@ -173,8 +162,10 @@ esp_err_t CAN_transmit(twai_node_handle_t stCANBus, CAN_frame_t stFrame)
     * 
     *   Returns: ESP_OK if successful, error code if not.
     * 
-    *   Transmits a CAN message on the given CAN bus. in debug mode it prints the
-    *   status of the bus for every call.
+    *   Transmits a CAN message on the given CAN bus. Uses a persistant memory pool to 
+    *   store the message for some time to allow the CAN driver to copy out the data 
+    *   before it is overwritten. 
+    * 
     *=========================================================================== 
     *   Revision History:
     *   20/04/25 CP Initial Version
@@ -183,23 +174,57 @@ esp_err_t CAN_transmit(twai_node_handle_t stCANBus, CAN_frame_t stFrame)
     *
     *===========================================================================
     */
-    esp_err_t stState;
 
-    /* Construct message */
-    uint8_t abyData[(int)stFrame.byDLC];
-    memcpy(abyData, stFrame.abData, stFrame.byDLC);
-    twai_frame_t stMessage = 
+    esp_err_t stState;
+    can_tx_buffer_t *stCANTxBuffer = &astCANTxPool[byCANTxPoolIndex];
+    boolean BExtendedID = FALSE;
+
+    if (!stCANBus) 
     {
-        .header.id  = (uint32_t)stFrame.dwID,
-        .header.dlc = (uint16_t)stFrame.byDLC,
-        .header.ide = 0,
-        .buffer     = abyData,
-        .buffer_len = sizeof(abyData)
-    };
+        ESP_LOGE("CAN", "CAN bus handle is NULL");
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    uint8_t byDLC = (uint8_t)stFrame->byDLC;
+    if (byDLC > 8) 
+    {
+        ESP_LOGE("CAN", "Invalid CAN frame DLC: %u", byDLC);
+        return ESP_ERR_INVALID_ARG;
+    }
+
+    /* Allocate memory location for this message in the pool. Wraps after MAX_CAN_TXS_PER_CALL. */
+    can_tx_buffer_t *stTxBuf = &astCANTxPool[byCANTxPoolIndex];
+    byCANTxPoolIndex++;
+    if (byCANTxPoolIndex >= MAX_CAN_TXS_PER_CALL) 
+    {
+        byCANTxPoolIndex = 0;
+    }
+    stCANTxBuffer->dwData[0] = 0;
+    stCANTxBuffer->dwData[1] = 0;
     
-    /* Transmit message */
-    stState = twai_node_transmit(stCANBus, &stMessage, FALSE);
-    
+    if (byDLC > 0)
+    {
+        memcpy(stCANTxBuffer->dwData, stFrame->abData, byDLC);
+    }
+
+    if (stFrame->dwID > 0x7FF) 
+    {
+        BExtendedID = TRUE;
+    }
+
+    stCANTxBuffer->stFrame = (twai_frame_t)
+    {
+        .header.id  = (uint32_t)stFrame->dwID,
+        .header.dlc = byDLC,
+        .header.ide = BExtendedID,
+        .header.rtr = FALSE,
+        .header.fdf = FALSE,
+        .header.brs = FALSE,
+        .buffer     = (uint8_t *)stCANTxBuffer->dwData,
+        .buffer_len = byDLC,
+    };   
+
+    stState = twai_node_transmit(stCANBus, &stCANTxBuffer->stFrame, FALSE);
     return stState;
 }
 
@@ -208,49 +233,32 @@ esp_err_t CAN_receive_debug()
     /*
     *===========================================================================
     *   CAN_receive_debug
-    *   Takes:   stCANBus: Pointer to the CAN bus handle
-    *            edata: No idea read https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/twai.html
-    *            stRxCallback: see above
+    *   Takes:   None
     * 
-    *   Returns: ESP_OK if successful, error code if not. debug func, fuck about
+    *   Returns: ESP_OK if successful, error code if not.
+    * 
+    *   Empties the CAN ring buffer by logging all received messages to the console.
     * 
     *=========================================================================== 
     *   Revision History:
     *   29/10/25 CP Initial Version
     *   02/11/25 CP Improved terminal readability
+    *   23/11/25 CP Changed to use FreeRTOS queue, refactored
     *
     *===========================================================================
     */
 
-    if (!stCANRingBuffer) 
+    CAN_frame_t stCANFrame;
+
+    if (!xCANRingBuffer) 
     {
         return ESP_ERR_INVALID_STATE;
     }
-
-    /* Load ring buffer head and tail */
-    dword dwLocalHead = __atomic_load_n(&wCANRingBufHead, __ATOMIC_ACQUIRE);
-    dword dwLocalTail = __atomic_load_n(&wCANRingBufTail, __ATOMIC_RELAXED);
-    word wCounter = 0;
-        
-    /* Until the ring buffer is empty or the max number of messages is reached send CAN messages */ 
-    while (dwLocalTail != dwLocalHead) 
-    {
-        CAN_frame_t stCANFrame = stCANRingBuffer[dwLocalTail];   
-
-        /* Print CAN Msg */
+     
+    while (xQueueReceive(xCANRingBuffer, &stCANFrame, 0) == pdTRUE) 
+    {  
         LOG_CAN_FRAME(stCANFrame);
-
-        /* Advance tail */ 
-        dwLocalTail++;
-        wCounter++;
-        if (dwLocalTail >= CAN_QUEUE_LENGTH) 
-        {
-            dwLocalTail = 0;
-        }
     }
-    
-    /* Publish new tail */
-    __atomic_store_n(&wCANRingBufTail, dwLocalTail, __ATOMIC_RELEASE);
     return ESP_OK;
 }
 
@@ -341,13 +349,13 @@ bool CAN_receive_callback(twai_node_handle_t stCANBus, const twai_rx_done_event_
     *   08/10/25 CP Updated to implement ring buffer
     *   30/10/25 CP Updated to use onchip driver, old driver depriecated
     *   16/11/25 CP Respond to Command message
+    *   23/11/25 CP Changed to use FreeRTOS queue instead of ring buffer, refactored
     *
     *===========================================================================
     */
 
     esp_err_t stState;
     CAN_frame_t stRxedFrame;
-    /* Initialise Rx Buffer */
     uint8_t abyRxBuffer[8];
     twai_frame_t stRxFrame = {
         .buffer = abyRxBuffer,
@@ -355,6 +363,10 @@ bool CAN_receive_callback(twai_node_handle_t stCANBus, const twai_rx_done_event_
     };
     
     stState = twai_node_receive_from_isr(stCANBus, &stRxFrame);
+    if (stState != ESP_OK) 
+    {
+        return FALSE;
+    }
     
     /* Respond to command message */
     if (stRxFrame.header.id == CAN_CMD_ID)
@@ -372,44 +384,30 @@ bool CAN_receive_callback(twai_node_handle_t stCANBus, const twai_rx_done_event_
         }
         if (stRxFrame.buffer[0] == CAN_CMD_CLEAR_ERRORS)
         {
-            /* Nothing Here Yet */
+            /* To be implemented */
         }
     }
 
-    if ( stState == ESP_OK )
+    if (!xCANRingBuffer) 
     {
-        /* Put CAN Frame into Ring Buffer */
-        if (!stCANRingBuffer) 
-        {
-            return ESP_ERR_INVALID_STATE;
-        }
-
-        /* Get local copy of queue head and tail */
-        word wLocalHead = __atomic_load_n(&wCANRingBufHead, __ATOMIC_RELAXED);
-        word wNext = wLocalHead + 1;
-        if (wNext >= CAN_QUEUE_LENGTH) 
-        {
-            wNext = 0;
-        }
-        word wLocalTail = __atomic_load_n(&wCANRingBufTail, __ATOMIC_ACQUIRE);
-
-        if (wNext == wLocalTail) {
-            /* Buffer full, drop frame */
-            return ESP_ERR_NO_MEM;
-        }
-
-        /* Copy frame into buffer */
-        stRxedFrame.dwID = (dword)stRxFrame.header.id;
-        stRxedFrame.byDLC = (byte)stRxFrame.header.dlc;
-        memcpy(stRxedFrame.abData, stRxFrame.buffer, stRxFrame.header.dlc);
-        stCANRingBuffer[wLocalHead] = stRxedFrame;
-
-        /* Publish new head */
-        __atomic_store_n(&wCANRingBufHead, wNext, __ATOMIC_RELEASE);
-        return TRUE;
+        return FALSE;
     }
 
-    return FALSE;
+    /* Copy frame into buffer */
+    stRxedFrame.dwID = (dword)stRxFrame.header.id;
+    stRxedFrame.byDLC = (byte)stRxFrame.header.dlc;
+    if (stRxedFrame.byDLC > 0)
+    {
+        memcpy(stRxedFrame.abData, stRxFrame.buffer, stRxFrame.header.dlc);
+    }
+
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+    if (xQueueSendFromISR(xCANRingBuffer, &stRxedFrame, &xHigherPriorityTaskWoken) != pdTRUE) {
+        /* Queue Full */
+        return FALSE;
+    }
+    return TRUE;
+
 }
 
 bool CAN_receive_callback_no_queue(twai_node_handle_t stCANBus, const twai_rx_done_event_data_t *edata, void *stRxCallback)
@@ -429,13 +427,12 @@ bool CAN_receive_callback_no_queue(twai_node_handle_t stCANBus, const twai_rx_do
     *=========================================================================== 
     *   Revision History:
     *   16/11/25 CP Initial Version
+    *   23/11/25 CP Changed to use FreeRTOS queue instead of ring buffer, refactored
     *
     *===========================================================================
     */
 
     esp_err_t stState;
-    CAN_frame_t stRxedFrame;
-    /* Initialise Rx Buffer */
     uint8_t abyRxBuffer[8];
     twai_frame_t stRxFrame = {
         .buffer = abyRxBuffer,
@@ -443,7 +440,11 @@ bool CAN_receive_callback_no_queue(twai_node_handle_t stCANBus, const twai_rx_do
     };
     
     stState = twai_node_receive_from_isr(stCANBus, &stRxFrame);
-    
+    if (stState != ESP_OK)
+    {
+        return FALSE;
+    }
+
     /* Respond to command message */
     if (stRxFrame.header.id == CAN_CMD_ID)
     {
@@ -462,13 +463,8 @@ bool CAN_receive_callback_no_queue(twai_node_handle_t stCANBus, const twai_rx_do
         {
             /* Nothing Here Yet */
         }
-    }
-
-    if (stState == ESP_OK)
-    {
-        return TRUE;
-    }
-    return FALSE;
+    } 
+    return TRUE;
 }
 
 esp_err_t CAN_empty_ESPNOW_buffer(twai_node_handle_t stCANBus)
@@ -485,42 +481,33 @@ esp_err_t CAN_empty_ESPNOW_buffer(twai_node_handle_t stCANBus)
     *=========================================================================== 
     *   Revision History:
     *   15/10/25 CP Initial Version
+    *   23/11/25 CP Changed to use FreeRTOS queue, refactored
     *
     *===========================================================================
     */
+
     esp_err_t NStatus = ESP_OK;
-    if (!stESPNOWRingBuffer) 
+    word wCounter = 0;
+    CAN_frame_t stCANFrame;   
+
+    if (!xESPNOWRingBuffer) 
     {
+        ESP_LOGE("CAN", "ESPNOW ring buffer not initialized");
         return ESP_ERR_INVALID_STATE;
     }
 
-    /* Load ring buffer head and tail */
-    dword dwLocalHead = __atomic_load_n(&wESPNOWRingBufHead, __ATOMIC_ACQUIRE);
-    dword dwLocalTail = __atomic_load_n(&wESPNOWRingBufTail, __ATOMIC_RELAXED);
-    word wCounter = 0;
-        
-    /* Until the ring buffer is empty or the max number of messages is reached send CAN messages */ 
-    while (wCounter < MAX_CAN_TXS_PER_CALL && dwLocalTail != dwLocalHead) 
-    {
-        CAN_frame_t stCANFrame = stESPNOWRingBuffer[dwLocalTail];   
-        NStatus = CAN_transmit(stCANBus, stCANFrame);  
+    /* Until the queue is empty or the max number of messages is reached, send CAN messages */ 
+    while (wCounter < MAX_CAN_TXS_PER_CALL && 
+            xQueueReceive(xESPNOWRingBuffer, &stCANFrame, 0) == pdTRUE) 
+    {    
+        NStatus = CAN_transmit(stCANBus, &stCANFrame);  
         if (NStatus != ESP_OK) 
         {
-            /* Publish new tail */
-            __atomic_store_n(&wESPNOWRingBufTail, dwLocalTail, __ATOMIC_RELEASE);
+            ESP_LOGI("CAN", "Failed to transmit CAN frame : %s", esp_err_to_name(NStatus));
             return NStatus;
         }
-
-        /* Advance tail */ 
-        dwLocalTail++;
         wCounter++;
-        if (dwLocalTail >= CAN_QUEUE_LENGTH) 
-        {
-            dwLocalTail = 0;
-        }
     }
     
-    /* Publish new tail */
-    __atomic_store_n(&wESPNOWRingBufTail, dwLocalTail, __ATOMIC_RELEASE);
     return NStatus;
 }
