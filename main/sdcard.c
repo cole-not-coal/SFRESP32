@@ -13,9 +13,7 @@ static char abyFilePath[64] = "/sdcard/log000.txt";
 
 /* --------------------------- Local Variables ------------------------------ */
 extern dword dwTimeSincePowerUpms;
-extern CAN_frame_t *stCANRingBuffer;
-extern _Atomic word wCANRingBufHead;
-extern _Atomic word wCANRingBufTail;
+extern QueueHandle_t xCANRingBuffer;
 
 /* --------------------------- Function prototypes -------------------------- */
 esp_err_t SD_card_init(void);
@@ -198,18 +196,18 @@ esp_err_t sdcard_empty_buffer(void)
     *=========================================================================== 
     *   Revision History:
     *   24/10/25 CP Initial Version
+    *   25/11/25 CP Changed to use FreeRTOS queue
     *
     *===========================================================================
     */
 
+    CAN_frame_t stCANFrame; 
     /* Load ring buffer head and tail */
-    if (!stCANRingBuffer) 
+    if (!xCANRingBuffer) 
     {
         return ESP_ERR_INVALID_STATE;
     }
-    dword dwLocalHead = __atomic_load_n(&wCANRingBufHead, __ATOMIC_ACQUIRE);
-    dword dwLocalTail = __atomic_load_n(&wCANRingBufTail, __ATOMIC_RELAXED);
-
+   
     /* Load file */
     FILE *stFile = fopen(abyFilePath, "a");
     if (stFile == NULL)
@@ -218,12 +216,12 @@ esp_err_t sdcard_empty_buffer(void)
     }
 
     /* Until the ring buffer is empty, write lines to file */ 
-    while (dwLocalTail != dwLocalHead) 
+    while (xQueueReceive(xCANRingBuffer, &stCANFrame, 0) == pdTRUE) 
     {
         #ifdef DEBUG
         ESP_LOGI("SDCARD", "Writing CAN Frame to SD Card");
         #endif
-        CAN_frame_t stCANFrame = stCANRingBuffer[dwLocalTail];
+
         fprintf(stFile, "%d: %d %X ", (int)dwTimeSincePowerUpms/1000, (int)stCANFrame.dwID, (int)stCANFrame.byDLC);
         for (byte i = 0; i < stCANFrame.byDLC; i++)
         {
@@ -231,16 +229,7 @@ esp_err_t sdcard_empty_buffer(void)
         }
         fprintf(stFile, "\n");
 
-        /* Advance tail */ 
-        dwLocalTail++;
-        if (dwLocalTail >= CAN_QUEUE_LENGTH) 
-        {
-            dwLocalTail = 0;
-        }
     }
-    /* Publish new tail */
-    __atomic_store_n(&wCANRingBufTail, dwLocalTail, __ATOMIC_RELEASE);
     fclose(stFile);
-    
     return ESP_OK;
 }
