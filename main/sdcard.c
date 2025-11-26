@@ -39,6 +39,7 @@ esp_err_t SD_card_init(void)
     *===========================================================================
     *   Revision History:
     *   20/10/25 CP Initial Version
+    *   25/11/25 CP Switch to asc format
     *
     *===========================================================================
     */
@@ -113,7 +114,15 @@ esp_err_t SD_card_init(void)
         stDirInfo = readdir(stDirectory);
     }
     closedir(stDirectory);
-    snprintf(abyFilePath, sizeof(abyFilePath), "%s/log%03d.txt", SD_MOUNT_POINT, (int)wNLastFile);
+    snprintf(abyFilePath, sizeof(abyFilePath), "%s/log%03d.asc", SD_MOUNT_POINT, (int)wNLastFile);
+    FILE *stFile = fopen(abyFilePath, "a");
+    fprintf(stFile, "date Mon Jan 1 24:59:59.000 2025\n");
+    fprintf(stFile, "base hex  timestamps absolute\n");
+    fprintf(stFile, "internal events logged\n");
+    fprintf(stFile, "// version 1.0\n");
+    fprintf(stFile, "Begin TriggerBlock Mon Jan 1 24:59:59.000 2025\n");
+    fprintf(stFile, "   0.000000 Start of measurement\n");
+    fclose(stFile);
 
    return NStatus;
 }
@@ -197,6 +206,7 @@ esp_err_t sdcard_empty_buffer(void)
     *   Revision History:
     *   24/10/25 CP Initial Version
     *   25/11/25 CP Changed to use FreeRTOS queue
+    *   26/11/25 CP Switch to asc format
     *
     *===========================================================================
     */
@@ -222,11 +232,12 @@ esp_err_t sdcard_empty_buffer(void)
         ESP_LOGI("SDCARD", "Writing CAN Frame to SD Card");
         #endif
 
-        fprintf(stFile, "%d: %d %X ", (int)dwTimeSincePowerUpms/1000, (int)stCANFrame.dwID, (int)stCANFrame.byDLC);
+        fprintf(stFile, "   %9.6f 1  %X              Rx   d %d", (float)dwTimeSincePowerUpms/1000, (int)stCANFrame.dwID, (int)stCANFrame.byDLC);
         for (byte i = 0; i < stCANFrame.byDLC; i++)
         {
             fprintf(stFile, " %02X", (int)stCANFrame.abData[i]);
         }
+        fprintf(stFile, "  ID = %d", (int)stCANFrame.dwID);
         fprintf(stFile, "\n");
 
     }
