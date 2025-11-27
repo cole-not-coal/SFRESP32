@@ -96,7 +96,7 @@ void task_1ms(void)
         dwNMsgCounter++;
     
         /* CAN Tx */
-        stStatus = CAN_transmit(stCANBus0, stTxFrame);
+        stStatus = CAN_transmit(stCANBus0, &stTxFrame);
         if (stStatus != ESP_OK) 
         {
             ESP_LOGE(SFR_TAG, "CAN Transmit Error: %s", esp_err_to_name(stStatus));
@@ -110,6 +110,8 @@ void task_1ms(void)
         ESP_LOGE(SFR_TAG, "CAN Receive Error: %s", esp_err_to_name(stStatus));
     }
     dwNTaskCounter++;
+
+    CAN_receive_debug();
 
     /* Update time since power up */
     dwTimeSincePowerUpms++;
