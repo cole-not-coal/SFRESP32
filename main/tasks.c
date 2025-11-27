@@ -82,6 +82,9 @@ void task_1ms(void)
     /* Update time since power up */
     dwTimeSincePowerUpms++;
 
+    CAN_empty_ESPNOW_buffer(stCANBus0);
+    ESPNOW_empty_buffer();
+
     /* Update max task time */
     qwtTaskTimer = esp_timer_get_time() - qwtTaskTimer;
     adwLastTaskTime[eTASK_1MS] = (dword)qwtTaskTimer;
@@ -109,7 +112,7 @@ void task_100ms(void)
         /* Send Status Message */
         CAN_transmit(stCANBus0, &(CAN_frame_t)
         {
-            .dwID = 0xFF, // UPDATE THIS FOR EACH DEVICE
+            .dwID = 0x30, // UPDATE THIS FOR EACH DEVICE
             .byDLC = 8,
             .abData = {
                 (byte)(adwLastTaskTime[eTASK_1MS] / 50 & 0xFF),          
