@@ -9,11 +9,12 @@ Written by Cole Perera for Sheffield Formula Racing 2025
 
 /* --------------------------- Global Variables ----------------------------- */
 static const char *SD_MOUNT_POINT = "/sdcard";
-static char abyFilePath[64] = "/sdcard/log000.txt";
+static char abyFilePath[64] = "/sdcard/log000.bin";
 
 /* --------------------------- Local Variables ------------------------------ */
 extern dword dwTimeSincePowerUpms;
 extern QueueHandle_t xCANRingBuffer;
+FILE *stFile;
 
 /* --------------------------- Function prototypes -------------------------- */
 esp_err_t SD_card_init(void);
@@ -23,6 +24,24 @@ esp_err_t SD_card_init(void);
 #define ALLOCATION_UNIT_SIZE 16 * 1024
 #define SDMMC_FREQ 10000 // 10 kHz
 #define MAX_TRANSFER_SIZE 4000 // max transfer size of one spi operation (bytes)
+#define WRITE_BUFFER_SIZE 16384 // 16KB Buffer
+#define FILE_SPEC_VERSION 0x01
+#define MAX_WRITES_PER_CALL 50
+
+typedef struct __attribute__((packed)) {
+    byte     type;
+    uint32_t dwTimestamp;
+    uint16_t dwID;
+    uint8_t  byDLC;
+    uint8_t  abData[8];
+} BinLogEntry_t;
+
+typedef enum {
+    CAN = 0x01,
+    CAN_FD,
+    CAN_STATE,
+    ETERNAL_CLOCK,
+} eLogEntryType_t;
 
 /* --------------------------- Functions ------------------------------------ */
 
@@ -114,80 +133,24 @@ esp_err_t SD_card_init(void)
         stDirInfo = readdir(stDirectory);
     }
     closedir(stDirectory);
-    snprintf(abyFilePath, sizeof(abyFilePath), "%s/log%03d.asc", SD_MOUNT_POINT, (int)wNLastFile);
-    FILE *stFile = fopen(abyFilePath, "a");
-    fprintf(stFile, "date Mon Jan 1 24:59:59.000 2025\n");
-    fprintf(stFile, "base hex  timestamps absolute\n");
-    fprintf(stFile, "internal events logged\n");
-    fprintf(stFile, "// version 1.0\n");
-    fprintf(stFile, "Begin TriggerBlock Mon Jan 1 24:59:59.000 2025\n");
-    fprintf(stFile, "   0.000000 Start of measurement\n");
-    fclose(stFile);
+    snprintf(abyFilePath, sizeof(abyFilePath), "%s/log%03d.bin", SD_MOUNT_POINT, (int)wNLastFile);
+    stFile = fopen(abyFilePath, "ab");
+    
+    if (stFile != NULL)
+    {
+        static char acBuffer[WRITE_BUFFER_SIZE];
+        setvbuf(stFile, acBuffer, _IOFBF, sizeof(acBuffer));
+    }
+
+    byte byFileSpecVersion = FILE_SPEC_VERSION;
+    byte abyTimeData[6] = {0};
+    byte abReserved[9] = {0};
+    fwrite(&byFileSpecVersion, sizeof(byFileSpecVersion), 1, stFile);
+    fwrite(&abyTimeData, sizeof(abyTimeData), 1, stFile);
+    fwrite(&abReserved, sizeof(abReserved), 1, stFile);
 
    return NStatus;
 }
-
-esp_err_t SD_card_write(byte *abyData)
-{
-    /*
-    *===========================================================================
-    *   SD_card_write
-    *   Takes:   abyPath - abyFilePath to file to write to
-    *            abyData - data to write
-    * 
-    *   Returns: ESP_OK if successful, error code if not.
-    * 
-    *   Writes data to a file on the SD card.
-    *===========================================================================
-    *   Revision History:
-    *   20/10/25 CP Initial Version
-    *
-    *===========================================================================
-    */
-
-    FILE *stFile = fopen(abyFilePath, "a");
-    if (stFile == NULL)
-    {
-        return ESP_FAIL;
-    }
-    fprintf(stFile, "%s\n", abyData);
-    fclose(stFile);
-    return ESP_OK;
-}
-
-esp_err_t SD_card_write_CAN(CAN_frame_t stCANFrame, dword dwTimestamp)
-{
-    /*
-    *===========================================================================
-    *   SD_card_write_CAN
-    *   Takes:   abyPath - abyFilePath to file to write to
-    *            stCANFrame - pointer to CAN frame to write
-    *            dwTimestamp - time since power on (seconds)
-    * 
-    *   Returns: ESP_OK if successful, error code if not.
-    * 
-    *   Writes a CAN frame to a file on the SD card.
-    *===========================================================================
-    *   Revision History:
-    *   21/10/25 CP Initial Version
-    *
-    *===========================================================================
-    */
-
-    FILE *stFile = fopen(abyFilePath, "a");
-    if (stFile == NULL)
-    {
-        return ESP_FAIL;
-    }
-    fprintf(stFile, "%d: %d %X ", (int)dwTimeSincePowerUpms/1000, (int)stCANFrame.dwID, (int)stCANFrame.byDLC);
-    for (byte i = 0; i < stCANFrame.byDLC; i++)
-    {
-        fprintf(stFile, " %02X", (int)stCANFrame.abData[i]);
-    }
-    fprintf(stFile, "\n");
-    fclose(stFile);
-    return ESP_OK;
-};
 
 esp_err_t sdcard_empty_buffer(void)
 {
@@ -207,40 +170,41 @@ esp_err_t sdcard_empty_buffer(void)
     *   24/10/25 CP Initial Version
     *   25/11/25 CP Changed to use FreeRTOS queue
     *   26/11/25 CP Switch to asc format
+    *   27/11/25 CP Switch to binary format
     *
     *===========================================================================
     */
 
     CAN_frame_t stCANFrame; 
-    /* Load ring buffer head and tail */
+    BinLogEntry_t stLogEntry;
+    word wNWrites = 0;
+
     if (!xCANRingBuffer) 
     {
         return ESP_ERR_INVALID_STATE;
     }
    
-    /* Load file */
-    FILE *stFile = fopen(abyFilePath, "a");
+    if (uxQueueMessagesWaiting(xCANRingBuffer) == 0)
+    {
+        return ESP_OK;
+    }
+
     if (stFile == NULL)
     {
         return ESP_FAIL;
     }
 
     /* Until the ring buffer is empty, write lines to file */ 
-    while (xQueueReceive(xCANRingBuffer, &stCANFrame, 0) == pdTRUE) 
+    while (xQueueReceive(xCANRingBuffer, &stCANFrame, 0) == pdTRUE
+           && wNWrites < MAX_WRITES_PER_CALL)
     {
-        #ifdef DEBUG
-        ESP_LOGI("SDCARD", "Writing CAN Frame to SD Card");
-        #endif
-
-        fprintf(stFile, "   %9.6f 1  %X              Rx   d %d", (float)dwTimeSincePowerUpms/1000, (int)stCANFrame.dwID, (int)stCANFrame.byDLC);
-        for (byte i = 0; i < stCANFrame.byDLC; i++)
-        {
-            fprintf(stFile, " %02X", (int)stCANFrame.abData[i]);
-        }
-        fprintf(stFile, "  ID = %d", (int)stCANFrame.dwID);
-        fprintf(stFile, "\n");
-
+        wNWrites++;
+        stLogEntry.type = CAN;
+        stLogEntry.dwTimestamp = dwTimeSincePowerUpms;
+        stLogEntry.dwID = stCANFrame.dwID;
+        stLogEntry.byDLC = stCANFrame.byDLC;
+        memcpy(stLogEntry.abData, stCANFrame.abData, 8);
+        fwrite(&stLogEntry, sizeof(BinLogEntry_t), 1, stFile);
     }
-    fclose(stFile);
     return ESP_OK;
 }

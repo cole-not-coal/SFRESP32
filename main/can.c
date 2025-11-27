@@ -19,6 +19,7 @@ twai_node_handle_t stCANBus1;
 
 QueueHandle_t xCANRingBuffer = NULL;
 extern QueueHandle_t xESPNOWRingBuffer;
+dword dwNDroppedCANFrames = 0;
 
 /* --------------------------- Definitions ---------------------------------- */
 #define CAN0_BITRATE 1000000  // 1000kbps
@@ -404,6 +405,7 @@ bool CAN_receive_callback(twai_node_handle_t stCANBus, const twai_rx_done_event_
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
     if (xQueueSendFromISR(xCANRingBuffer, &stRxedFrame, &xHigherPriorityTaskWoken) != pdTRUE) {
         /* Queue Full */
+        dwNDroppedCANFrames++;
         return FALSE;
     }
     return TRUE;
