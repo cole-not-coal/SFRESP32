@@ -107,7 +107,7 @@ void task_100ms(void)
         pin_toggle(GPIO_ONBOARD_LED); 
 
         /* Send Status Message */
-        CAN_transmit(stCANBus0, (CAN_frame_t)
+        CAN_transmit(stCANBus0, &(CAN_frame_t)
         {
             .dwID = 0xFF, // UPDATE THIS FOR EACH DEVICE
             .byDLC = 8,

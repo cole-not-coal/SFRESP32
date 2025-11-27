@@ -93,18 +93,20 @@ static void main_init(void)
     // {
     //     ESP_LOGE(SFR_TAG, "Failed to initialise ESP-NOW: %s", esp_err_to_name(NStatus));
     // }
-    /* CAN BUS */
-    NStatus = CAN_init(TRUE);
-    if (NStatus != ESP_OK)
-    {
-        ESP_LOGE(SFR_TAG, "Failed to initialise CAN: %s", esp_err_to_name(NStatus));
-    }
+
     /* SD Card */
     // NStatus = SD_card_init();
     // if (NStatus != ESP_OK)
     // {
     //     ESP_LOGE(SFR_TAG, "Failed to initialise SD Card: %s", esp_err_to_name(NStatus));
     // }
+    
+    /* CAN BUS */
+    NStatus = CAN_init(TRUE);
+    if (NStatus != ESP_OK)
+    {
+        ESP_LOGE(SFR_TAG, "Failed to initialise CAN: %s", esp_err_to_name(NStatus));
+    }
 
     /* External Clock */
     // NStatus = I2C_init();
