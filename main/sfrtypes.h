@@ -10,6 +10,8 @@ Written by Cole Perera for Sheffield Formula Racing 2025
 #include "esp_adc/adc_cali.h"
 #include "esp_adc/adc_cali_scheme.h"
 
+#define DEVICE_ID 0xFF // UPDATE THIS FOR EACH DEVICE
+
 #define TRUE 1
 #define FALSE 0
 
@@ -59,6 +61,11 @@ typedef enum {
     eTASK_ACTIVE = 0,
     eTASK_INACTIVE,
 } eTaskState_t;
+
+typedef enum {
+    eREFLASH =  0,
+    eNORMAL
+} eChipMode_t;
 
 #define LOG_CAN_FRAME(frame) do { \
     char _buf[128]; \

@@ -2,15 +2,13 @@
 
 #include <unistd.h>
 #include <stdio.h>
-#include "esp_err.h"
 #include "pin.h"
-#include "esp_log.h"
 #include "esp_vfs_fat.h"
 #include "sdmmc_cmd.h"
 #include "driver/sdspi_host.h"
 #include "driver/spi_master.h"
 #include "espnow.h"
-#include "sfrtypes.h"
+#include "main.h"
 #include "dirent.h"
 
 esp_err_t SD_card_init(void);

@@ -4,11 +4,9 @@
 #include "esp_adc/adc_oneshot.h"
 #include "esp_adc/adc_cali.h"
 #include "esp_adc/adc_cali_scheme.h"
-#include "esp_log.h"
-#include "esp_err.h"
 
 #include "pin.h"
-#include "sfrtypes.h"
+#include "main.h"
 
 /* --------------------------- Function prototypes --------------------- */
 esp_err_t adc_register(adc_atten_t eNAtten, adc_unit_t eNUnit, stADCHandles_t *stADCHandle);

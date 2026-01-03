@@ -1,9 +1,7 @@
 #ifndef SFRTIMER
 
-#include "sfrtypes.h"
+#include "main.h"
 
-#include "esp_log.h"
-#include "esp_err.h"
 #include "driver/i2c_master.h"
 
 #include "pin.h"
