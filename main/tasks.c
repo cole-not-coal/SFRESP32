@@ -14,10 +14,11 @@ Written by Cole Perera for Sheffield Formula Racing 2025
 /* --------------------------- Local Types ----------------------------- */
 
 
-/* --------------------------- Local Variables ----------------------------- */
-extern twai_node_handle_t stCANBus0;
+/* --------------------------- Local Variables ----------------------------- */ 
 extern uint8_t byMACAddress[6];
 extern esp_reset_reason_t eResetReason;
+extern eChipMode_t eDeviceMode;
+static esp_partition_t *stOTAPartition = NULL;
 
 /* --------------------------- Global Variables ----------------------------- */
 dword adwMaxTaskTime[eTASK_TOTAL];
@@ -28,13 +29,17 @@ dword dwTimeSincePowerUpms = 0;
 /* --------------------------- Function prototypes ----------------------------- */
 
 /* --------------------------- Definitions ----------------------------- */
-#define TIME_BETWEEN_CAN_MSGS 100  // ms
+#define PERIOD_TASK_100MS 100   // ms
+#define PERIOD_10S 10000        // ms
+#define PERIOD_1S 1000          // ms
+#define MAX_eREFLASH_TIME_US 300000000 // us
 
 /* --------------------------- Function prototypes ----------------------------- */
 void pin_toggle(gpio_num_t pin);
 void task_BG(void);
 void task_1ms(void);
 void task_100ms(void);
+void reflash_task_100ms(void);
 
 /* --------------------------- Functions ----------------------------- */
 void task_BG(void)
@@ -101,7 +106,7 @@ void task_100ms(void)
     astTaskState[eTASK_100MS] = eTASK_ACTIVE;
 
     /* Every Second */
-    if ( wNCounter % 10 == 0 ) 
+    if ( wNCounter % (PERIOD_1S / PERIOD_TASK_100MS) == 0 ) 
     {
         /* Toggle LED */
         pin_toggle(GPIO_ONBOARD_LED); 
@@ -109,7 +114,7 @@ void task_100ms(void)
         /* Send Status Message */
         CAN_transmit(stCANBus0, &(CAN_frame_t)
         {
-            .dwID = 0xFF, // UPDATE THIS FOR EACH DEVICE
+            .dwID = DEVICE_ID, // UPDATE THIS FOR EACH DEVICE
             .byDLC = 8,
             .abData = {
                 (byte)(adwLastTaskTime[eTASK_1MS] / 50 & 0xFF),          
@@ -126,7 +131,7 @@ void task_100ms(void)
     };
 
     /* Every 10 Seconds */
-    if (wNCounter >= 100)
+    if (wNCounter >= PERIOD_10S / PERIOD_TASK_100MS)
     {
         /* Print the task times */
         #ifdef DEBUG
@@ -155,10 +160,73 @@ void task_100ms(void)
     }
 }
 
-void pin_toggle(gpio_num_t pin)
+void reflash_task_1ms(void)
+{
+
+}
+
+void reflash_task_100ms(void)
+{
+    pin_toggle(GPIO_ONBOARD_LED);
+}
+
+void reflash_task_BG()
+{
+    static qword qwtReflashEntryTime = 0;
+    esp_err_t eState;
+
+    (void)esp_task_wdt_reset();
+
+    /* Initialise Reflash Mode */
+    if (qwtReflashEntryTime == 0)
+    {
+        dwFirmwareSize = 0; //Reset firmware size
+        CAN_flash_get_size();
+        CAN_clear_rx_buffer();
+        qwtReflashEntryTime = (qword)esp_timer_get_time();
+    }
+
+    if (stOTAPartition == NULL)
+    {
+        stOTAPartition = esp_ota_get_next_update_partition(NULL);
+        if (stOTAPartition == NULL)
+        {
+            ESP_LOGE("CANFLASH", "Failed to find OTA partition");
+        } else 
+        {
+            ESP_LOGI("CANFLASH", "OTA partition found at address 0x%08X, size %d bytes",
+                stOTAPartition->address, stOTAPartition->size);
+            eState = esp_partition_erase_range(stOTAPartition, 0, stOTAPartition->size);
+            if (eState != ESP_OK) {
+                ESP_LOGE("CANFLASH", "Failed to erase OTA partition: %s", esp_err_to_name(eState));
+                stOTAPartition = NULL;
+            }
+        }
+    }
+
+    /* Write new binary as its recieved */
+    eState = CAN_flash_empty_queue(stOTAPartition);
+    if (eState != ESP_OK)
+    {
+        ESP_LOGE("CANFLASH", "Failed to write reflash data to flash: %s", esp_err_to_name(eState));
+    }
+
+    /* If binary fully received then restart */
+    if (dwBytesWrittenReflash >= dwFirmwareSize && dwFirmwareSize > 0)
+    {
+        uint32_t dwFlashTime = (uint32_t)((esp_timer_get_time() - qwtReflashEntryTime)/1000000);
+        ESP_LOGI("CANFLASH", "Reflash complete, written %d bytes in %d s", (int)dwBytesWrittenReflash, dwFlashTime);
+        eState = esp_ota_set_boot_partition(stOTAPartition);
+        if (eState == ESP_OK) {
+            esp_restart();
+        }
+        ESP_LOGE("CANFLASH", "Failed to set boot partition: %s", esp_err_to_name(eState));
+    }
+}
+
+void pin_toggle(gpio_num_t ePin)
 {
     static boolean BLEDState = false;
     BLEDState = !BLEDState;
-    gpio_set_level(pin, BLEDState);
+    gpio_set_level(ePin, BLEDState);
 }
-

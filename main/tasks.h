@@ -14,7 +14,7 @@
 #include "adc.h"
 #include "I2C.h"
 #include "NVHDisplay.h"
-#include "CANflash.h"
+#include "canflash.h"
 #include "main.h"
 
 /* Function Definitions*/
@@ -23,6 +23,7 @@ void task_1ms(void);
 void task_100ms(void);
 void reflash_task_100ms(void);
 void pin_toggle(gpio_num_t pin);
+void reflash_task_BG();
 
 #define SFRTasks
 #endif

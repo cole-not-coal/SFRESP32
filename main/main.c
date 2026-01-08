@@ -10,8 +10,6 @@ Written by Cole Perera for Sheffield Formula Racing 2025
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "freertos/FreeRTOS.h"
-#include "esp_err.h"
 
 #include "esp_task_wdt.h"
 #include "esp_timer.h"
@@ -24,6 +22,7 @@ Written by Cole Perera for Sheffield Formula Racing 2025
 #include "sdcard.h"
 #include "adc.h"
 #include "I2C.h"
+#include "canflash.h"
 
 /* --------------------------- Definitions ----------------------------- */
 #define TIMER_INTERVAL_WD       100     // in microseconds
@@ -37,6 +36,7 @@ Written by Cole Perera for Sheffield Formula Racing 2025
 esp_timer_handle_t stTaskInterrupt1ms;
 esp_timer_handle_t stTaskInterrupt100ms;
 esp_reset_reason_t eResetReason;
+eChipMode_t eDeviceMode = eNORMAL;
 
 /* --------------------------- Function prototypes ----------------------------- */
 static void timers_init(void);
@@ -68,19 +68,33 @@ void app_main(void)
     /* Run background task all other tasks are called by interrupts */
     while(1)
     {
-        task_BG();
+        if (eDeviceMode == eNORMAL)
+        {
+            task_BG();
+        } else
+        {
+            reflash_task_BG();
+        }
     }
-
 }
 
 void IRAM_ATTR call_back_1ms(void *arg)
 {
-    task_1ms();
+    if (eDeviceMode == eNORMAL)
+    {
+        task_1ms();
+    } 
 }
 
 void IRAM_ATTR call_back_100ms(void *arg)
 {
-    task_100ms();
+    if (eDeviceMode == eNORMAL)
+    {
+        task_100ms();
+    } else
+    {
+        reflash_task_100ms();
+    }
 }
 
 static void main_init(void)
@@ -106,6 +120,11 @@ static void main_init(void)
     if (NStatus != ESP_OK)
     {
         ESP_LOGE(SFR_TAG, "Failed to initialise CAN: %s", esp_err_to_name(NStatus));
+    }
+    NStatus = CAN_flash_init();
+    if (NStatus != ESP_OK)
+    {
+        ESP_LOGE(SFR_TAG, "Failed to initialise CAN Reflash: %s", esp_err_to_name(NStatus));
     }
 
     /* External Clock */
@@ -152,5 +171,10 @@ static void GPIO_init(void)
         .intr_type = GPIO_INTR_DISABLE
     };
     gpio_config(&onboardLEDConfig);
+}
+
+void set_device_mode(eChipMode_t mode)
+{
+    eDeviceMode = mode;
 }
 

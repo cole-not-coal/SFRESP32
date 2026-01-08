@@ -30,10 +30,6 @@ dword dwNDroppedCANFrames = 0;
 
 #define MAX_CAN_TXS_PER_CALL 10
 
-#define CAN_CMD_ID 0x010
-#define CAN_CMD_RESET           0x1
-#define CAN_CMD_CLEAR_MINMAX    0x2
-#define CAN_CMD_CLEAR_ERRORS    0x3
 
 /* --------------------------- Local Types         -------------------------- */
 typedef struct {
@@ -351,6 +347,7 @@ bool CAN_receive_callback(twai_node_handle_t stCANBus, const twai_rx_done_event_
     *   30/10/25 CP Updated to use onchip driver, old driver depriecated
     *   16/11/25 CP Respond to Command message
     *   23/11/25 CP Changed to use FreeRTOS queue instead of ring buffer, refactored
+    *   03/01/26 CP Added reflash over CAN functionality.
     *
     *===========================================================================
     */
@@ -368,26 +365,8 @@ bool CAN_receive_callback(twai_node_handle_t stCANBus, const twai_rx_done_event_
     {
         return FALSE;
     }
-    
-    /* Respond to command message */
-    if (stRxFrame.header.id == CAN_CMD_ID)
-    {
-        if (stRxFrame.buffer[0] == CAN_CMD_RESET)
-        {
-            esp_restart();
-        }
-        if (stRxFrame.buffer[0] == CAN_CMD_CLEAR_MINMAX)
-        {
-            for (word wNCounter = 0; wNCounter < eTASK_TOTAL; wNCounter++)
-            {
-                adwMaxTaskTime[wNCounter] = 0;
-            }
-        }
-        if (stRxFrame.buffer[0] == CAN_CMD_CLEAR_ERRORS)
-        {
-            /* To be implemented */
-        }
-    }
+
+    CAN_CMD_response(stRxFrame);
 
     if (!xCANRingBuffer) 
     {
@@ -447,25 +426,8 @@ bool CAN_receive_callback_no_queue(twai_node_handle_t stCANBus, const twai_rx_do
         return FALSE;
     }
 
-    /* Respond to command message */
-    if (stRxFrame.header.id == CAN_CMD_ID)
-    {
-        if (stRxFrame.buffer[0] == CAN_CMD_RESET)
-        {
-            esp_restart();
-        }
-        if (stRxFrame.buffer[0] == CAN_CMD_CLEAR_MINMAX)
-        {
-            for (word wNCounter = 0; wNCounter < eTASK_TOTAL; wNCounter++)
-            {
-                adwMaxTaskTime[wNCounter] = 0;
-            }
-        }
-        if (stRxFrame.buffer[0] == CAN_CMD_CLEAR_ERRORS)
-        {
-            /* Nothing Here Yet */
-        }
-    } 
+    CAN_CMD_response(stRxFrame);
+
     return TRUE;
 }
 
@@ -512,4 +474,73 @@ esp_err_t CAN_empty_ESPNOW_buffer(twai_node_handle_t stCANBus)
     }
     
     return NStatus;
+}
+
+void CAN_CMD_response(twai_frame_t stRxFrame)
+{
+    /*
+    *===========================================================================
+    *   CAN_CMD_response
+    *   Takes:   stRxFrame: The received CAN frame
+    * 
+    *   Returns: Nothing.
+    * 
+    *   Responds to a CAN command message.
+    * 
+    *=========================================================================== 
+    *   Revision History:
+    *   03/01/26 CP Initial Version
+    *
+    *===========================================================================
+    */
+
+    if (stRxFrame.header.id == CAN_CMD_ID)
+    {
+        if (stRxFrame.buffer[0] == eCMD_RESET)
+        {
+            esp_restart();
+        }
+        if (stRxFrame.buffer[0] == eCMD_CLEAR_MINMAX)
+        {
+            for (word wNCounter = 0; wNCounter < eTASK_TOTAL; wNCounter++)
+            {
+                adwMaxTaskTime[wNCounter] = 0;
+            }
+        }
+        if (stRxFrame.buffer[0] == eCMD_CLEAR_ERRORS)
+        {
+            /* To be implemented */
+        }
+        if (stRxFrame.buffer[0] == eCMD_REFLASH_MODE &&
+            stRxFrame.buffer[1] == DEVICE_ID)
+        {
+            set_device_mode(eREFLASH);
+        }
+        if (stRxFrame.buffer[0] == eCMD_NORMAL_MODE &&
+            stRxFrame.buffer[1] == DEVICE_ID)
+        {
+            set_device_mode(eNORMAL);
+        }
+    }
+}
+
+void CAN_clear_rx_buffer(void)
+{
+    /*
+    *===========================================================================
+    *   CAN_clear_rx_buffer
+    *   Takes:   None
+    * 
+    *   Returns: None
+    * 
+    *   Clears the CAN receive ring buffer.
+    *=========================================================================== 
+    *   Revision History:
+    *   03/01/26 CP Initial Version
+    *
+    *===========================================================================
+    */
+    if (xCANRingBuffer != NULL) {
+        xQueueReset(xCANRingBuffer);
+    }
 }
