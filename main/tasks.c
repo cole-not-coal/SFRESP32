@@ -7,7 +7,7 @@ Tasks are:
     task_10ms: Task that runs every 10ms.
     task_100ms: Task that runs every 100ms.
 
-Written by Cole Perera for Sheffield Formula Racing 2025
+Written by Cole Perera and Aditya Parnandi for Sheffield Formula Racing 2025
 */
 #include "tasks.h"
 
@@ -19,6 +19,19 @@ extern uint8_t byMACAddress[6];
 extern esp_reset_reason_t eResetReason;
 extern eChipMode_t eDeviceMode;
 static esp_partition_t *stOTAPartition = NULL;
+extern stADCHandles_t stADCHandle1;
+extern stADCHandles_t stADCHandle2;
+/* --------------------------- Definitions ----------------------------- */
+#define TIME_BETWEEN_CAN_MSGS 100  // ms
+
+/* Contactor IDs */
+#define PRECHARGE_CONTACTOR_ID 1          // Precharge contactor (positive terminal only)
+#define MAIN_CONTACTOR_POSITIVE_ID 2      // Main contactor on positive terminal
+#define MAIN_CONTACTOR_NEGATIVE_ID 3      // Main contactor on negative terminal
+
+/* voltage thresholds for contactor state verification */
+#define VOLTAGE_THRESHOLD_PRECHARGE 5.0   // voltage difference threshold for precharge complete (V)
+#define VOLTAGE_THRESHOLD_MAIN 2.0        // voltage difference threshold for main contactor closed (V)
 
 /* --------------------------- Global Variables ----------------------------- */
 dword adwMaxTaskTime[eTASK_TOTAL];
@@ -26,7 +39,11 @@ dword adwLastTaskTime[eTASK_TOTAL];
 eTaskState_t astTaskState[eTASK_TOTAL];
 dword dwTimeSincePowerUpms = 0;
 
-/* --------------------------- Function prototypes ----------------------------- */
+/* --------------------------- Local Variables ----------------------------- */
+static boolean bBMSOK = FALSE;                      // BMS health status (set by external function)
+static boolean bStartupRequested = FALSE;           // Startup sequence requested
+static boolean bPrechargeComplete = FALSE;          // Precharge complete flag
+static boolean bMainContactorsClosed = FALSE;       // Main contactors closed flag (startup complete)
 
 /* --------------------------- Definitions ----------------------------- */
 #define PERIOD_TASK_100MS 100   // ms
@@ -40,6 +57,9 @@ void task_BG(void);
 void task_1ms(void);
 void task_100ms(void);
 void reflash_task_100ms(void);
+void check_main_contactors_closed(void);
+void handle_contactor_sequence(void);
+void monitor_BMS_state(void);
 
 /* --------------------------- Functions ----------------------------- */
 void task_BG(void)
@@ -83,6 +103,42 @@ void task_1ms(void)
     qword qwtTaskTimer;
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_1MS] = eTASK_ACTIVE;
+
+    /* check BMS ON */
+    //BMS ok then 
+        //if contactor closed then precharge
+        //if precharged close main contactor
+        // contactor closed then do nothing
+    //BMS not ok then open main contactor
+
+    /* Update contactor status flags by checking voltages */
+    /*
+    * Check if precharge is complete by comparing voltages across precharge contactors
+    * Sets bPrechargeComplete flag to TRUE when voltage difference is within threshold
+    */
+    
+    float fVPrechargeAccuSide = 0.0;   // voltage on accumulator side (battery side)
+    float fVPrechargeCarSide = 0.0;    // voltage on car side (load side)
+    
+    // Read ADC values
+    fVPrechargeAccuSide = adc_read_voltage(&stADCHandle1);
+    fVPrechargeCarSide = adc_read_voltage(&stADCHandle2);
+
+    float fVDifference = fabsf(fVPrechargeCarSide - fVPrechargeAccuSide);
+    if (fVDifference < VOLTAGE_THRESHOLD_PRECHARGE) {
+        bPrechargeComplete = TRUE;
+        ESP_LOGI(SFR_TAG, "Precharge complete: voltage diff = %.2fV", fVDifference);
+    } else {
+        bPrechargeComplete = FALSE;
+    }
+
+    check_main_contactors_closed(); //reads ADCs and updates bMainContactorsClosed
+    
+    /* Handle contactor sequence based on flags */
+    handle_contactor_sequence();
+    
+    /* Always monitor BMS state (background safety check) */
+    monitor_BMS_state();
 
     /* Update time since power up */
     dwTimeSincePowerUpms++;
@@ -230,3 +286,96 @@ void pin_toggle(gpio_num_t ePin)
     BLEDState = !BLEDState;
     gpio_set_level(ePin, BLEDState);
 }
+
+void check_main_contactors_closed(void)
+{
+    /*
+    * Check if main positive contactor is closed by comparing voltages
+    * Main negative is closed during precharge, so only need to check positive
+    * Sets bMainContactorsClosed flag to TRUE when voltage difference is within threshold
+    */
+    
+    float fMainPosAccuSide = 0.0;    // voltage on accumulator side (battery +)
+    float fMainPosCarSide = 0.0;     // voltage on car side (load +)
+
+    // Read ADC values for main positive contactor - reusing same ADC handles
+    fMainPosAccuSide = adc_read_voltage(&stADCHandle1);
+    fMainPosCarSide = adc_read_voltage(&stADCHandle2);
+    
+    float fVDifference = fabsf(fMainPosAccuSide - fMainPosCarSide);
+    
+    if (fVDifference < VOLTAGE_THRESHOLD_MAIN) {
+        bMainContactorsClosed = TRUE;
+        ESP_LOGI(SFR_TAG, "Main positive contactor closed: voltage diff = %.2fV", fVDifference);
+    } else {
+        bMainContactorsClosed = FALSE;
+    }
+}
+
+void handle_contactor_sequence(void)
+{
+    /*
+    * Simple sequential contactor control based on flags
+    * Commands are sent immediately, flags are updated by check functions
+    * No blocking - just send commands and continue execution
+    * 
+    * Sequence:
+    * 1. Close negative main contactor + precharge contactor (precharge phase)
+    * 2. Wait for precharge complete (voltages equalize)
+    * 3. Close positive main contactor (startup complete)
+    */
+    
+    // Step 1: If startup requested and BMS OK, close negative main + precharge
+    if (bStartupRequested && bBMSOK && !bPrechargeComplete) {
+        ESP_LOGI(SFR_TAG, "Startup requested - Closing negative main contactor and precharge contactor");
+        turn_on_contactor(MAIN_CONTACTOR_NEGATIVE_ID, GPIO_MAIN_NEG_CONTACTOR_PWM);
+        turn_on_contactor(PRECHARGE_CONTACTOR_ID, GPIO_PRECHARGE_CONTACTOR_PWM);
+        // Don't return - let code continue, flags will update in check functions
+    }
+    
+    // Step 2: If precharge complete, close main positive contactor
+    if (bPrechargeComplete && !bMainContactorsClosed) {
+        ESP_LOGI(SFR_TAG, "Precharge complete - Closing main positive contactor");
+        turn_on_contactor(MAIN_CONTACTOR_POSITIVE_ID, GPIO_MAIN_POS_CONTACTOR_PWM);
+        // Don't return - let code continue, flags will update in check functions
+    }
+    
+    // Step 3: If main positive closed, optionally open precharge contactor
+    if (bMainContactorsClosed && bPrechargeComplete) {
+        // TODO: Decide if you want to open precharge contactor after main positive closes
+        // This depends on your circuit design - some keep it closed, some open it
+        // turn_off_contactor(PRECHARGE_CONTACTOR_ID, GPIO_PRECHARGE_CONTACTOR_PWM);
+        
+        ESP_LOGI(SFR_TAG, "Startup complete - System operational");
+    }
+    
+    // Execution continues - rest of code runs normally
+}
+
+void monitor_BMS_state(void)
+{
+    /*
+    * Continuous background monitoring of BMS state
+    * If BMS goes NOT OK, immediately open all contactors for safety
+    * bBMSOK flag is assumed to be set by external function
+    */
+    
+    if (!bBMSOK) {
+        // BMS fault detected - emergency shutdown
+        if (bMainContactorsClosed || bPrechargeComplete) {
+            ESP_LOGE(SFR_TAG, "BMS FAULT - Emergency shutdown - Opening all contactors");
+            
+            // Open all contactors immediately
+            turn_off_contactor(MAIN_CONTACTOR_POSITIVE_ID, GPIO_MAIN_POS_CONTACTOR_PWM);
+            turn_off_contactor(MAIN_CONTACTOR_NEGATIVE_ID, GPIO_MAIN_NEG_CONTACTOR_PWM);
+            turn_off_contactor(PRECHARGE_CONTACTOR_ID, GPIO_PRECHARGE_CONTACTOR_PWM);
+
+            // Reset all flags
+            bStartupRequested = FALSE;
+            bPrechargeComplete = FALSE;
+            bMainContactorsClosed = FALSE;
+        }
+    }
+    // If BMS is OK and contactors are closed, do nothing - keep them closed
+}
+
