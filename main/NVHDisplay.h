@@ -4,6 +4,8 @@
 #include "main.h"
 #include "./NVHDisplay/EVE.h"
 #include "./NVHDisplay/EVE_supplemental.h"
+#include "CAN/can.h"
+#include "CAN/canDecodeAuto.h"
 
 #include <string.h>
 

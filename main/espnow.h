@@ -12,6 +12,7 @@
 #include "esp_crc.h"
 #include "string.h"
 #include "main.h"
+#include "CAN/can.h"
 
 #define CONFIG_ESPNOW_CHANNEL 1
 #define ESPNOW_WIFI_IF   ESP_IF_WIFI_AP

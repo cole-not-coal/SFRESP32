@@ -37,7 +37,6 @@ typedef struct {
 
 /* --------------------------- Local Variables ------------------------ */
 QueueHandle_t xESPNOWRingBuffer = NULL;
-extern QueueHandle_t xCANRingBuffer;
 
 /* --------------------------- Global Variables ----------------------- */
 /*

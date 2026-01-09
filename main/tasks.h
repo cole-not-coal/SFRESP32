@@ -9,14 +9,14 @@
 #include "sfrtypes.h"
 
 #include "pin.h"
-#include "can.h"
+#include "CAN/can.h"
 #include "espnow.h"
 #include "sdcard.h"
 #include "contactors.h"
 #include "adc.h"
 #include "I2C.h"
 #include "NVHDisplay.h"
-#include "canflash.h"
+#include "CAN/canflash.h"
 #include "main.h"
 
 /* Function Definitions*/
