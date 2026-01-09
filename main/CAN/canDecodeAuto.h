@@ -5,7 +5,6 @@
 #include "esp_err.h"
 #include "can.h"
 
-<<<<<<< HEAD
 #define ESPCONTROL_ID 0x10
 #define MCUSTATUSTELEMCAR_ID 0x11
 #define MCUSTATUSTELEMPITS_ID 0x12
@@ -59,9 +58,6 @@
 #define CELLVOLTAGES3_ID 0x6B5
 
 esp_err_t ESPControl(CAN_frame_t stFrame, uint8_t* BRestart, uint8_t* BClearMinMax, uint8_t* BClearErrors);
-=======
-esp_err_t ESPControl(CAN_frame_t stFrame, uint8_t* BRestart, uint8_t* BClearMinMax, uint8_t* BClearErrors, uint16_t* Spare);
->>>>>>> 9105219 (CAN message decode script)
 esp_err_t MCUStatusTelemCar(CAN_frame_t stFrame, float* tLastTaskTime1ms, float* tMaxTaskTime1ms, float* tLastTaskTime100ms, float* tMaxTaskTime100ms, float* tLastTaskTimeBG, float* tMaxTaskTimeBG, float* tSincePowerUp, uint8_t* NLastResetReason);
 esp_err_t MCUStatusTelemPits(CAN_frame_t stFrame, float* tLastTaskTime1ms, float* tMaxTaskTime1ms, float* tLastTaskTime100ms, float* tMaxTaskTime100ms, float* tLastTaskTimeBG, float* tMaxTaskTimeBG, float* tSincePowerUp, uint8_t* NLastResetReason);
 esp_err_t MCUStatusIMDMonitor(CAN_frame_t stFrame, float* tLastTaskTime1ms, float* tMaxTaskTime1ms, float* tLastTaskTime100ms, float* tMaxTaskTime100ms, float* tLastTaskTimeBG, float* tMaxTaskTimeBG, float* tSincePowerUp, uint8_t* NLastResetReason);
@@ -71,7 +67,6 @@ esp_err_t StatusAPPS(CAN_frame_t stFrame, float* tLastTaskTime1ms, float* tMaxTa
 esp_err_t MCUStatusScreen(CAN_frame_t stFrame, float* tLastTaskTime1ms, float* tMaxTaskTime1ms, float* tLastTaskTime100ms, float* tMaxTaskTime100ms, float* tLastTaskTimeBG, float* tMaxTaskTimeBG, float* tSincePowerUp, uint8_t* NLastResetReason);
 esp_err_t MCUStatusDash(CAN_frame_t stFrame, float* tLastTaskTime1ms, float* tMaxTaskTime1ms, float* tLastTaskTime100ms, float* tMaxTaskTime100ms, float* tLastTaskTimeBG, float* tMaxTaskTimeBG, float* tSincePowerUp, uint8_t* NLastResetReason);
 esp_err_t SetCurrent(CAN_frame_t stFrame, float* ACCurrentSET);
-<<<<<<< HEAD
 esp_err_t IMDData(CAN_frame_t stFrame, uint8_t* BIMDOff, uint8_t* BIMDUndervoltage, uint8_t* BIMDStarting, uint8_t* BIMDSSTGood, uint8_t* BIMDDeviceError, uint8_t* BIMDGroundConnectionFault, uint8_t* BIMDInvalidState, float* RIsolation);
 esp_err_t SetBreakCurrent(CAN_frame_t stFrame, float* TargetbrakecurrentSET);
 esp_err_t SetERPM(CAN_frame_t stFrame, int32_t* TargetERPMSET);
@@ -85,21 +80,6 @@ esp_err_t SetBreakCurrentMax(CAN_frame_t stFrame, float* MaxbrakeACcurrentSET);
 esp_err_t SetCurrentMaxDC(CAN_frame_t stFrame, float* MaxDCcurrentSET);
 esp_err_t SetBreakCurrentMaxDC(CAN_frame_t stFrame, float* MaximumbrakeDCcurrentSET);
 esp_err_t DriveEnable(CAN_frame_t stFrame, uint8_t* Driveenable);
-=======
-esp_err_t IMDData(CAN_frame_t stFrame, uint8_t* BIMDOff, uint8_t* BIMDUndervoltage, uint8_t* BIMDStarting, uint8_t* BIMDSSTGood, uint8_t* BIMDDeviceError, uint8_t* BIMDGroundConnectionFault, uint8_t* BIMDInvalidState, uint8_t* Spare, float* RIsolation);
-esp_err_t SetBreakCurrent(CAN_frame_t stFrame, float* TargetbrakecurrentSET);
-esp_err_t SetERPM(CAN_frame_t stFrame, int32_t* TargetERPMSET);
-esp_err_t StatusAPPSSensor(CAN_frame_t stFrame, int8_t* rAPPs1, int8_t* rAPPs2, int8_t* rAPPsFinal, uint8_t* BThrottleOK, uint8_t* BAPPS1Fail, uint8_t* BAPPS2Fail, uint8_t* BAPPSDrift);
-esp_err_t SetPostion(CAN_frame_t stFrame, float* TargetPositionSET);
-esp_err_t SetRelativeCurrent(CAN_frame_t stFrame, float* TargetrelativeACcurrentSET);
-esp_err_t SetRelativeBreak(CAN_frame_t stFrame, float* RelativeBrakeACCurrent);
-esp_err_t SetDigOut(CAN_frame_t stFrame, uint8_t* DigitalOutput1, uint8_t* DigitalOutput2, uint8_t* DigitalOutput3, uint8_t* DigitalOutput4);
-esp_err_t SetCurrentMaxAC(CAN_frame_t stFrame, float* MaxACCurrentSET);
-esp_err_t SetBreakCurrentMax(CAN_frame_t stFrame, float* MaxbrakeACcurrentSET);
-esp_err_t SetCurrentMaxDC(CAN_frame_t stFrame, float* MaxDCcurrentSET);
-esp_err_t SetBreakCurrentMaxDC(CAN_frame_t stFrame, float* MaximumbrakeDCcurrentSET);
-esp_err_t DriveEnable(CAN_frame_t stFrame, uint8_t* Driveenable, uint8_t* RESERVED);
->>>>>>> 9105219 (CAN message decode script)
 esp_err_t FRTireTemp1(CAN_frame_t stFrame, float* TFRTireChannel01, float* TFRTireChannel02, float* TFRTireChannel03, float* TFRTireChannel04);
 esp_err_t FRTireTemp2(CAN_frame_t stFrame, float* TFRTireChannel05, float* TFRTireChannel06, float* TFRTireChannel07, float* TFRTireChannel08);
 esp_err_t FRTireTemp3(CAN_frame_t stFrame, float* TFRTireChannel09, float* TFRTireChannel10, float* TFRTireChannel11, float* TFRTireChannel12);
@@ -117,21 +97,12 @@ esp_err_t RLTireTemp2(CAN_frame_t stFrame, float* TRLTireChannel05, float* TRLTi
 esp_err_t RLTireTemp3(CAN_frame_t stFrame, float* TRLTireChannel09, float* TRLTireChannel10, float* TRLTireChannel11, float* TRLTireChannel12);
 esp_err_t RLTireTemp4(CAN_frame_t stFrame, float* TRLTireChannel13, float* TRLTireChannel14, float* TRLTireChannel15, float* TRLTireChannel16);
 esp_err_t InverterData1(CAN_frame_t stFrame, int32_t* ERPM, float* DutyCycle, int16_t* InputVoltage);
-<<<<<<< HEAD
 esp_err_t InverterData2(CAN_frame_t stFrame, float* ACCurrent, float* DCCurrent);
 esp_err_t InverterData3(CAN_frame_t stFrame, float* ControllerTemperature, float* MotorTemperature, uint8_t* FaultCode);
 esp_err_t InverterData4(CAN_frame_t stFrame, float* Id, float* Iq);
 esp_err_t InverterData5(CAN_frame_t stFrame, int8_t* ThrottleSignal, int8_t* BrakeSignal, uint8_t* DigitalIn1, uint8_t* DigitalIn2, uint8_t* DigitalIn3, uint8_t* DigitalIn4, uint8_t* DigitalOut1, uint8_t* DigitalOut2, uint8_t* DigitalOut3, uint8_t* DigitalOut4, uint8_t* DriveEnable, uint8_t* CapacitorTempLimit, uint8_t* DCCurrentLimit, uint8_t* DriveEnableLimit, uint8_t* IGBTAccelerationLimit, uint8_t* IGBTTemperatureLimit, uint8_t* InputVoltageLimit, uint8_t* TempAccelThrottle, uint8_t* MotorTemperatureLimit, uint8_t* RPMminlimit, uint8_t* RPMMaxlimit, uint8_t* Powerlimit, uint8_t* CANmapversion);
 esp_err_t CellVoltages1(CAN_frame_t stFrame, uint8_t* NCellID, float* VCell, float* RCellInternal, float* VCellOC, uint8_t* Checksum);
 esp_err_t BMSData1(CAN_frame_t stFrame, float* IPack, float* VPack, uint8_t* rPackSOC, uint16_t* NRelayState, float* Checksum);
-=======
-esp_err_t InverterData2(CAN_frame_t stFrame, float* ACCurrent, float* DCCurrent, uint32_t* RESERVED);
-esp_err_t InverterData3(CAN_frame_t stFrame, float* ControllerTemperature, float* MotorTemperature, uint8_t* FaultCode, uint32_t* RESERVED);
-esp_err_t InverterData4(CAN_frame_t stFrame, float* Id, float* Iq);
-esp_err_t InverterData5(CAN_frame_t stFrame, int8_t* ThrottleSignal, int8_t* BrakeSignal, uint8_t* DigitalIn1, uint8_t* DigitalIn2, uint8_t* DigitalIn3, uint8_t* DigitalIn4, uint8_t* DigitalOut1, uint8_t* DigitalOut2, uint8_t* DigitalOut3, uint8_t* DigitalOut4, uint8_t* DriveEnable, uint8_t* CapacitorTempLimit, uint8_t* DCCurrentLimit, uint8_t* DriveEnableLimit, uint8_t* IGBTAccelerationLimit, uint8_t* IGBTTemperatureLimit, uint8_t* InputVoltageLimit, uint8_t* TempAccelThrottle, uint8_t* MotorTemperatureLimit, uint8_t* RPMminlimit, uint8_t* RPMMaxlimit, uint8_t* Powerlimit, uint8_t* CANmapversion);
-esp_err_t CellVoltages1(CAN_frame_t stFrame, uint8_t* NCellID, float* VCell, float* RCellInternal, float* VCellOC, uint8_t* Checksum);
-esp_err_t BMSData1(CAN_frame_t stFrame, float* IPack, float* PackInstVoltage, uint8_t* PackSOC, uint16_t* RelayState, float* Checksum, float* IPack, float* VPack, uint8_t* rPackSOC, uint16_t* NRelayState, float* Checksum);
->>>>>>> 9105219 (CAN message decode script)
 esp_err_t BMSData2(CAN_frame_t stFrame, uint16_t* IPackDischargeLimit, uint8_t* THigh, uint8_t* LowTemperature, float* Checksum);
 esp_err_t PackVoltage(CAN_frame_t stFrame, float* VPackOpenCircuit, float* VPackMax, float* VPackMin, float* VBMSSupply12V);
 esp_err_t PackTemperature(CAN_frame_t stFrame, float* TPackHigh, float* TPackLow, float* TPackAvg, float* TBMSInternal);
