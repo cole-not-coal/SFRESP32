@@ -100,7 +100,6 @@ void IRAM_ATTR call_back_100ms(void *arg)
 
 static void main_init(void)
 {
-    esp_err_t NStatus;
     /* Initialises Features/ Peripherals, Comment out as needed*/
 
     /* ESP-NOW */

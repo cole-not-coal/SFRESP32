@@ -167,11 +167,14 @@ def main():
                 continue
             
             sname = str(sname).strip()
+<<<<<<< HEAD
             
             # Filter reserved/spare signals
             if any(x in sname.lower() for x in ['reserved', 'spare', 'padding', 'unused']):
                 continue
 
+=======
+>>>>>>> 9105219 (CAN message decode script)
             # Clean variable names (remove illegal chars)
             sname = re.sub(r'[^a-zA-Z0-9_]', '', sname)
             
@@ -247,6 +250,43 @@ def generate_c_code(messages, msg_map):
 
     h_content += "\n"
 
+    # Generate Defines
+    for pid in sorted(messages.keys()):
+        if pid not in msg_map:
+            continue
+            
+        msg_info = msg_map[pid]
+        msg_name = msg_info['name']
+        
+        # Sanitize for C function name
+        msg_name_clean = re.sub(r'[^a-zA-Z0-9_]', '', msg_name)
+        func_name = msg_name_clean
+        if not func_name: func_name = f"Msg_{pid:X}"
+        
+        h_content += f"#define {func_name.upper()}_ID 0x{pid:X}\n"
+
+    h_content += "\n"
+
+<<<<<<< HEAD
+    # Generate Defines
+    for pid in sorted(messages.keys()):
+        if pid not in msg_map:
+            continue
+            
+        msg_info = msg_map[pid]
+        msg_name = msg_info['name']
+        
+        # Sanitize for C function name
+        msg_name_clean = re.sub(r'[^a-zA-Z0-9_]', '', msg_name)
+        func_name = msg_name_clean
+        if not func_name: func_name = f"Msg_{pid:X}"
+        
+        h_content += f"#define {func_name.upper()}_ID 0x{pid:X}\n"
+
+    h_content += "\n"
+
+=======
+>>>>>>> 9105219 (CAN message decode script)
     count = 0
     for pid in sorted(messages.keys()):
         if pid not in msg_map:
