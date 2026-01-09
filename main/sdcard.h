@@ -10,6 +10,7 @@
 #include "espnow.h"
 #include "main.h"
 #include "dirent.h"
+#include "CAN/can.h"
 
 esp_err_t SD_card_init(void);
 esp_err_t sdcard_empty_buffer(void);

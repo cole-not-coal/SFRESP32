@@ -13,7 +13,6 @@ static char abyFilePath[64] = "/sdcard/log000.bin";
 
 /* --------------------------- Local Variables ------------------------------ */
 extern dword dwTimeSincePowerUpms;
-extern QueueHandle_t xCANRingBuffer;
 FILE *stFile;
 
 /* --------------------------- Function prototypes -------------------------- */
