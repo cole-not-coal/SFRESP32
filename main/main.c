@@ -38,12 +38,7 @@ esp_timer_handle_t stTaskInterrupt1ms;
 esp_timer_handle_t stTaskInterrupt100ms;
 esp_reset_reason_t eResetReason;
 eChipMode_t eDeviceMode = eNORMAL;
-extern stADCHandles_t stADCHandle0;
-extern stADCHandles_t stADCHandle1;
-extern stADCHandles_t stADCHandle2;
-extern stADCHandles_t stADCHandle3;
-extern stADCHandles_t stADCHandle4;
-extern stADCHandles_t stADCHandle5;
+
 /* --------------------------- Function prototypes ----------------------------- */
 static void timers_init(void);
 static void main_init(void);
@@ -142,11 +137,6 @@ static void main_init(void)
     // }
 
     /* ADC */
-    adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle1);
-    adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle2);
-    adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle3);
-    adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle4);
-    adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle5);
     
     /* Timers and GPIO cause a hard fault on fail so no error warning */
     GPIO_init();
@@ -183,10 +173,10 @@ static void GPIO_init(void)
         .intr_type = GPIO_INTR_DISABLE
     };
     gpio_config(&onboardLEDConfig);
-
 }
 
 void set_device_mode(eChipMode_t mode)
 {
     eDeviceMode = mode;
 }
+

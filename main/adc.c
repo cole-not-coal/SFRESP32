@@ -12,34 +12,14 @@ Written by Cole Perera for Sheffield Formula Racing 2025
 /* --------------------------- Global Variables ------------------------ */
 stADCHandles_t stADCHandle0 =
 {
-    .eNChannel = ADC_PRECHARGE_CAR_SIDE, 
+    .eNChannel = APPS1_IN, 
     .stCalibration = NULL,
 };
 stADCHandles_t stADCHandle1 =
 {
-    .eNChannel = ADC_PRECHARGE_ACCU_SIDE, 
+    .eNChannel = APPS2_IN, 
     .stCalibration = NULL,
 }; 
-stADCHandles_t stADCHandle2 =
-{
-    .eNChannel = ADC_MAIN_POS_CAR_SIDE, 
-    .stCalibration = NULL,
-};
-stADCHandles_t stADCHandle3 =
-{
-    .eNChannel = ADC_MAIN_NEG_CAR_SIDE, 
-    .stCalibration = NULL,
-}; 
-stADCHandles_t stADCHandle4 =
-{
-    .eNChannel = ADC_MAIN_POS_ACCU_SIDE, 
-    .stCalibration = NULL,
-};
-stADCHandles_t stADCHandle5 =
-{
-    .eNChannel = ADC_MAIN_NEG_ACCU_SIDE, 
-    .stCalibration = NULL,
-};
 //Add as needed for more ADC channels
 
 /* --------------------------- Definitions ----------------------------- */
@@ -95,7 +75,7 @@ esp_err_t adc_register(adc_atten_t eNAtten, adc_unit_t eNUnit, stADCHandles_t *s
 
     adc_cali_curve_fitting_config_t stCalibrationConfig = {
         .unit_id = eNUnit,
-      //  .chan = stADCHandle->eNChannel,
+        .chan = stADCHandle->eNChannel,
         .atten = eNAtten,
         .bitwidth = ADC_BITWIDTH_DEFAULT,
     };
