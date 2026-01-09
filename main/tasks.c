@@ -107,6 +107,8 @@ void task_100ms(void)
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_100MS] = eTASK_ACTIVE;
 
+    display_empty_buffer(void);
+    
     /* Every Second */
     if ( wNCounter % (PERIOD_1S / PERIOD_TASK_100MS) == 0 ) 
     {
