@@ -114,7 +114,7 @@ void task_100ms(void)
         /* Send Status Message */
         CAN_transmit(stCANBus0, &(CAN_frame_t)
         {
-            .dwID = DEVICE_ID, // UPDATE THIS FOR EACH DEVICE
+            .dwID = DEVICE_ID,
             .byDLC = 8,
             .abData = {
                 (byte)(adwLastTaskTime[eTASK_1MS] / 50 & 0xFF),          
