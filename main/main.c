@@ -43,8 +43,8 @@ eChipMode_t eDeviceMode = eNORMAL;
 static void timers_init(void);
 static void main_init(void);
 static void GPIO_init(void);
-void IRAM_ATTR call_back_1ms(void *arg);
-void IRAM_ATTR call_back_100ms(void *arg);
+void call_back_1ms(void *arg);
+void call_back_100ms(void *arg);
 
 /* --------------------------- Functions ----------------------------- */
 
