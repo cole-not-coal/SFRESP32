@@ -118,7 +118,7 @@ def calculate_crc_byte(seven_bytes):
 # Main Execution
 # -----------------------------------------------------------------------------
 def main():
-    print(f"\n=== ESP32 CAN Flasher (Vector) ===")
+    print(f"\n=== SFR ESP32 CAN Flasher (Vector) ===")
     print(f"Target Binary: {BIN_PATH}")
 
     # 1. Validate Binary File
@@ -150,7 +150,7 @@ def main():
 
     try:
         # 3. Enter Reflash Mode & Send Size
-        print("\n[1/2] Sending 'Enter Reflash Mode' command with Size...")
+        print("\nSending 'Enter Reflash Mode' command with Size...")
         # Protocol: ID=0x010, Data=[CMD_REFLASH_MODE, DEVICE_ID, Size3, Size2, Size1, Size0, 0, 0]
         size_bytes = struct.pack('>I', firmware_size)
         data_packet = [CMD_REFLASH_MODE, DEVICE_ID] + list(size_bytes) + [0, 0]
@@ -160,7 +160,7 @@ def main():
         time.sleep(ESP32_REFLASH_DELAY)
 
         # 4. Stream Firmware Data
-        print("[2/2] Flashing Firmware...")
+        print("Flashing Firmware...")
         start_time = time.time()
         
         # Chunk data into 7-byte blocks (leaving 1 byte for CRC)

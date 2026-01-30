@@ -5,6 +5,7 @@
 #include "esp_ota_ops.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
+#include "esp_timer.h"
 #include "./../main.h"
 #include "can.h"
 
