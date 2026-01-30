@@ -1,6 +1,5 @@
 /build/
 ./sdkconfig
-/.vscode/           
-sdkconfig            
+/.vscode/             
 sdkconfig.old   
 .clangd
