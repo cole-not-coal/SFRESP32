@@ -104,11 +104,11 @@ static void main_init(void)
     /* Initialises Features/ Peripherals, Comment out as needed*/
 
     /* ESP-NOW */
-    // NStatus = ESPNOW_init();
-    // if (NStatus != ESP_OK)
-    // {
-    //     ESP_LOGE(SFR_TAG, "Failed to initialise ESP-NOW: %s", esp_err_to_name(NStatus));
-    // }
+    NStatus = ESPNOW_init();
+    if (NStatus != ESP_OK)
+    {
+        ESP_LOGE(SFR_TAG, "Failed to initialise ESP-NOW: %s", esp_err_to_name(NStatus));
+    }
 
     /* SD Card (SDCard and LCD share the SPI bus, take care) */
     // NStatus = SD_card_init();
