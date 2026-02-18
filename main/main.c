@@ -108,11 +108,11 @@ static void main_init(void)
     // }
 
     /* SD Card (SDCard and LCD share the SPI bus, take care) */
-    // NStatus = SD_card_init();
-    // if (NStatus != ESP_OK)
-    // {
-    //     ESP_LOGE(SFR_TAG, "Failed to initialise SD Card: %s", esp_err_to_name(NStatus));
-    // }
+    NStatus = SD_card_init();
+    if (NStatus != ESP_OK)
+    {
+        ESP_LOGE(SFR_TAG, "Failed to initialise SD Card: %s", esp_err_to_name(NStatus));
+    }
     
     /* CAN BUS */
     NStatus = CAN_init(TRUE);
@@ -127,11 +127,11 @@ static void main_init(void)
     }
 
     /* External Clock */
-    // NStatus = I2C_init();
-    // if (NStatus != ESP_OK)
-    // {
-    //     ESP_LOGE(SFR_TAG, "Failed to initialise I2C: %s", esp_err_to_name(NStatus));
-    // }
+    NStatus = I2C_init();
+    if (NStatus != ESP_OK)
+    {
+        ESP_LOGE(SFR_TAG, "Failed to initialise I2C: %s", esp_err_to_name(NStatus));
+    }
 
     /* ADC */
     
