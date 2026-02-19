@@ -18,6 +18,7 @@
 #include "NVHDisplay.h"
 #include "CAN/canflash.h"
 #include "main.h"
+#include "CAN/canDecodeAuto.h"
 
 /* Function Definitions*/
 void task_BG(void);

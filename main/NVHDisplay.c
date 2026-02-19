@@ -379,42 +379,4 @@ void TFT_display(void)
     }
 }
 
-esp_err_t display_empty_buffer(void)
-{
-    esp_err_t NStatus = ESP_OK;
-    CAN_frame_t stCANFrame; 
-    
-    if (!xCANRingBuffer) 
-    {
-        return ESP_ERR_INVALID_STATE;
-    }
-
-    if (uxQueueMessagesWaiting(xCANRingBuffer) == 0)
-    {
-        /* Buffer empty */
-        return ESP_OK;
-    }
-
-    while (xQueueReceive(xCANRingBuffer, &stCANFrame, 0) == pdTRUE)
-    {
-        /* Look for relevent CAN frames */
-        switch (stCANFrame.dwID)
-        {
-            case BMSDATA1_ID:
-                /* Process BMS Cell Voltages */
-                {
-                    float fDiscard;
-                    uint16_t wDiscard;
-                    BMSData1(stCANFrame, &fDiscard, &fDiscard, &rBatterySOC, &wDiscard, &fDiscard);
-                }
-                break;
-            default:
-                /* Ignore other CAN frames */
-                break;
-        }
-    }
-
-    return NStatus;
-}
-
 

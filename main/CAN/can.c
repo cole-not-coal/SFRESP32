@@ -572,3 +572,54 @@ esp_err_t CAN_Tx_killlevel(KillLevel_t eKillLevel, KillSource_t eKillSource)
     NStatus = CAN_transmit(stCANBus0, &stCANFrame);
     return NStatus;
 }
+
+esp_err_t CAN_read_from_buffer(void)
+{
+    /*
+    *===========================================================================
+    *   CAN_read_from_buffer
+    *   Takes:   None
+    * 
+    *   Returns: ESP_OK if successful, error code if not.
+    * 
+    *   Empties the CAN buffer and reads selected messages into internal variables.
+    * ===========================================================================
+    *   Revision History:
+    *   19/03/26 CP Initial Version
+    * 
+    * ==========================================================================
+    */
+    esp_err_t NStatus = ESP_OK;
+    CAN_frame_t stCANFrame; 
+    
+    if (!xCANRingBuffer) 
+    {
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    if (uxQueueMessagesWaiting(xCANRingBuffer) == 0)
+    {
+        /* Buffer empty */
+        return ESP_OK;
+    }
+
+    while (xQueueReceive(xCANRingBuffer, &stCANFrame, 0) == pdTRUE)
+    {
+        /* Look for relevent CAN frames */
+        switch (stCANFrame.dwID)
+        {
+            /* Populate this with the CAN IDs for messages required for this device. Example below in comment */
+            case STATUSAPPS_ID:
+                /* Process BMS Cell Voltages */
+                {
+                    StatusAPPS(stCANFrame);
+                }
+                break;
+            default:
+                /* Ignore other CAN frames */
+                break;
+        }
+    }
+
+    return NStatus;
+}

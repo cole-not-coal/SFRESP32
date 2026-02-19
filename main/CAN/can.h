@@ -4,6 +4,7 @@
 #include "./../main.h"
 #include "./../pin.h"
 #include "./../espnow.h"
+#include "canDecodeAuto.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
