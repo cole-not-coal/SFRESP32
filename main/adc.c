@@ -7,7 +7,8 @@ Written by Cole Perera for Sheffield Formula Racing 2025
 #include "adc.h"
 
 /* --------------------------- Local Variables ------------------------- */
-
+static adc_oneshot_unit_handle_t sADCUnit1 = NULL;
+static adc_oneshot_unit_handle_t sADCUnit2 = NULL;
 
 /* --------------------------- Global Variables ------------------------ */
 stADCHandles_t stADCHandle0 =
