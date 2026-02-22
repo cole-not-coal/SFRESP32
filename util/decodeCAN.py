@@ -257,7 +257,7 @@ def main():
         df_msgs['ID'] = df_msgs['ID'].ffill()
         
         messages = {}
-        seen_signal_names = set()
+        seen_signal_names = {} # Map name -> signal dict (for validation)
         
         print("Parsing signals...")
         for _, row in df_msgs.iterrows():
@@ -275,18 +275,28 @@ def main():
             if any(x in sname.lower() for x in ['reserved', 'spare', 'padding', 'unused']):
                 continue
 
-            sname = re.sub(r'[^a-zA-Z0-9_]', '', sname)
-            
-            # Check for duplicate signal names
-            if sname in seen_signal_names:
-                raise Exception(f"Duplicate signal name found: '{sname}' (In Message ID: {row['ID']})")
-            
-            # Check if signal name collides with a message name
-            if sname in seen_msg_names:
-                raise Exception(f"Signal name '{sname}' collides with a Message Name! (In Message ID: {row['ID']})")
-                
-            seen_signal_names.add(sname)
+            # Check for constant signal (Hex name like 0xF5)
+            is_constant = False
+            constant_val = 0
+            if sname.lower().startswith('0x'):
+                try:
+                    constant_val = int(sname, 16)
+                    is_constant = True
+                    # Use a unique internal name for constants to avoid clashes if multiple messages use same constant? 
+                    # Use original hex string as name, but clean it?
+                    # Actually, we don't need a variable name for it. 
+                    # But we need it to NOT clash with "0x..." string logic below.
+                    # Let's keep sname as is for now, clean it later if needed.
+                except:
+                    pass
 
+            if not is_constant:
+                sname = re.sub(r'[^a-zA-Z0-9_]', '', sname)
+            
+                # Check if signal name collides with a message name
+                if sname in seen_msg_names:
+                    raise Exception(f"Signal name '{sname}' collides with a Message Name! (In Message ID: {row['ID']})")
+                
             sdesc = str(row['Description']).strip() if pd.notna(row['Description']) else ""
             
             try:
@@ -336,16 +346,75 @@ def main():
                             # For now, treat as standard if not recognized
                             pass
 
-            c_type = "float" 
-            if gain == 1.0 and offset == 0.0:
-                # If pure integer
-                if length <= 8:
-                    c_type = "int8_t" if is_signed else "uint8_t"
-                elif length <= 16:
-                    c_type = "int16_t" if is_signed else "uint16_t"
-                elif length <= 32:
-                    c_type = "int32_t" if is_signed else "uint32_t"
             
+            # --- Data Type Handling ---
+            c_type = "float" # Default
+            
+            # Check if "Data Type" column exists and has value
+            has_explicit_type = False
+            if 'Data Type' in row and pd.notna(row['Data Type']):
+                dtype_str = str(row['Data Type']).strip()
+                # Map Excel types to C types
+                if dtype_str.lower() in ['uint8', 'unsigned char']:
+                    c_type = "uint8_t"
+                    has_explicit_type = True
+                elif dtype_str.lower() in ['int8', 'char', 'signed char']:
+                    c_type = "int8_t"
+                    has_explicit_type = True
+                elif dtype_str.lower() in ['uint16', 'unsigned short']:
+                    c_type = "uint16_t"
+                    has_explicit_type = True
+                elif dtype_str.lower() in ['int16', 'short', 'signed short']:
+                    c_type = "int16_t"
+                    has_explicit_type = True
+                elif dtype_str.lower() in ['uint32', 'unsigned int', 'unsigned long']:
+                    c_type = "uint32_t"
+                    has_explicit_type = True
+                elif dtype_str.lower() in ['int32', 'int', 'signed int', 'long', 'signed long']:
+                    c_type = "int32_t"
+                    has_explicit_type = True
+                elif dtype_str.lower() in ['float']:
+                    c_type = "float"
+                    has_explicit_type = True
+                elif dtype_str.lower() in ['bool', 'boolean']:
+                    c_type = "bool"
+                    has_explicit_type = True
+                else:
+                    # Fallback or use as is if it looks like a valid C type?
+                    # For safety, stick to auto logic if not recognized, or warn?
+                    print(f"Warning: Unknown Data Type '{dtype_str}' for signal '{sname}'. Using auto-detection.")
+
+            if not has_explicit_type:
+                if gain == 1.0 and offset == 0.0:
+                    # If pure integer
+                    if length <= 8:
+                        c_type = "int8_t" if is_signed else "uint8_t"
+                    elif length <= 16:
+                        c_type = "int16_t" if is_signed else "uint16_t"
+                    elif length <= 32:
+                        c_type = "int32_t" if is_signed else "uint32_t"
+            
+            # Validate Shared Signals (Non-Constant)
+            if not is_constant:
+                 if sname in seen_signal_names:
+                     existing_sig = seen_signal_names[sname]
+                     # Check validation rules
+                     # Rule: Same Length, Same Type
+                     if length != existing_sig['length']:
+                         raise Exception(f"Signal '{sname}' reused with different length! New: {length}, Old: {existing_sig['length']} (ID: 0x{pid:X})")
+                     if c_type != existing_sig['type']:
+                         raise Exception(f"Signal '{sname}' reused with different type! New: {c_type}, Old: {existing_sig['type']} (ID: 0x{pid:X})")
+                     # Also maybe check is_signed?
+                     if is_signed != existing_sig['signed']:
+                         print(f"Warning: Signal '{sname}' reused with different signedness! New: {is_signed}, Old: {existing_sig['signed']} (ID: 0x{pid:X})")
+                 else:
+                     # Add to seen
+                     seen_signal_names[sname] = {
+                         'length': length,
+                         'type': c_type,
+                         'signed': is_signed
+                     }
+
             signal = {
                 'name': sname,
                 'desc': sdesc,
@@ -357,7 +426,9 @@ def main():
                 'type': c_type,
                 'big_endian': is_big_endian,
                 'is_mux_switch': is_mux_switch,
-                'mux_val': mux_val
+                'mux_val': mux_val,
+                'is_constant': is_constant,
+                'constant_val': constant_val
             }
             
             if pid not in messages:
@@ -377,8 +448,16 @@ def generate_c_code(messages, msg_map):
     c_content = "/* This file is autogenerated from the script decodeCAN.py */\n#include \"canDecodeAuto.h\"\n\n"
 
     # 1. Generate Global Variables (Externs in H, Definitions in C)
+    generated_globals = set()
     for pid in sorted(messages.keys()):
         for sig in messages[pid]:
+            if sig['is_constant']:
+                continue # Do not generate global for constants
+            
+            if sig['name'] in generated_globals:
+                continue # Already generated
+                
+            generated_globals.add(sig['name'])
             h_content += f"extern {sig['type']} {sig['name']};\n"
             c_content += f"{sig['type']} {sig['name']} = 0;\n"
     
@@ -407,17 +486,18 @@ def generate_c_code(messages, msg_map):
         msg_name = msg_info['name']
         msg_desc = msg_info['desc']
         msg_name_clean = re.sub(r'[^a-zA-Z0-9_]', '', msg_name)
-        func_name = msg_name_clean
-        if not func_name: func_name = f"Msg_{pid:X}"
+        base_name = msg_name_clean
+        if not base_name: base_name = f"Msg_{pid:X}"
         
         # --- Decode Function ---
+        func_rx_name = f"{base_name}Rx"
         args_str = "CAN_frame_t stFrame"
-        h_content += f"esp_err_t {func_name}({args_str});\n"
+        h_content += f"esp_err_t {func_rx_name}({args_str});\n"
         
-        c_content += f"esp_err_t {func_name}({args_str})\n{{\n"
+        c_content += f"esp_err_t {func_rx_name}({args_str})\n{{\n"
         c_content += "    /*\n"
         c_content += f"    *===========================================================================\n"
-        c_content += f"    *   {func_name}\n"
+        c_content += f"    *   {func_rx_name}\n"
         c_content += f"    *   Message: {msg_name} (0x{pid:X})\n"
         if msg_desc:
             c_content += f"    *   Description: {msg_desc}\n"
@@ -468,7 +548,7 @@ def generate_c_code(messages, msg_map):
         c_content += "    return ESP_OK;\n}\n\n"
 
         # --- Transmit Function ---
-        func_tx_name = f"{func_name}Tx"
+        func_tx_name = f"{base_name}Tx"
         # We need stCANBus argument
         h_content += f"esp_err_t {func_tx_name}(twai_node_handle_t stCANBus);\n"
         
@@ -554,6 +634,9 @@ def generate_c_code(messages, msg_map):
     print(f"Generated code for {count} messages in {OUTPUT_C_PATH}")
 
 def generate_signal_decode(sig, indent="    "):
+    if sig['is_constant']:
+        return f"{indent}/* Constant {sig['name']} ignored on receive */\n"
+
     unpack = generate_unpack_expr(sig['start_bit'], sig['length'], sig['big_endian'])
     raw_expr = f"({unpack})"
     
@@ -573,22 +656,29 @@ def generate_signal_encode(sig, indent="    "):
     # Inverse of generate_unpack_expr
 
     # Value preparation (Local variable for calculation readability)
-    # Uses cast to handle float conversion first
-    if sig['type'] == 'float':
-        # Apply offset/gain inverse: raw = (phys - offset) / gain
-        val_term = sig['name']
-        if sig['offset'] != 0.0:
-            val_term = f"({val_term} - {sig['offset']}f)"
-        if sig['gain'] != 1.0:
-            val_term = f"({val_term} / {sig['gain']}f)"
-        
-        # Cast to integer type large enough (uint32_t covers most signals)
+    
+    if sig['is_constant']:
+        # Constant value provided in signal name (e.g. 0xF5)
+        # We usage the raw value.
         width_mask = (1 << sig['length']) - 1
-        val_expr = f"((uint32_t){val_term} & 0x{width_mask:X})"
+        val_expr = f"(0x{sig['constant_val']:X} & 0x{width_mask:X})"
     else:
-        # Integer types
-        width_mask = (1 << sig['length']) - 1
-        val_expr = f"((uint32_t){sig['name']} & 0x{width_mask:X})"
+        # Uses cast to handle float conversion first
+        if sig['type'] == 'float':
+            # Apply offset/gain inverse: raw = (phys - offset) / gain
+            val_term = sig['name']
+            if sig['offset'] != 0.0:
+                val_term = f"({val_term} - {sig['offset']}f)"
+            if sig['gain'] != 1.0:
+                val_term = f"({val_term} / {sig['gain']}f)"
+            
+            # Cast to integer type large enough (uint32_t covers most signals)
+            width_mask = (1 << sig['length']) - 1
+            val_expr = f"((uint32_t){val_term} & 0x{width_mask:X})"
+        else:
+            # Integer types
+            width_mask = (1 << sig['length']) - 1
+            val_expr = f"((uint32_t){sig['name']} & 0x{width_mask:X})"
 
     lines = ""
     
