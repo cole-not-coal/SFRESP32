@@ -46,20 +46,50 @@ esp_err_t adc_register(adc_atten_t eNAtten, adc_unit_t eNUnit, stADCHandles_t *s
     *   31/10/25 CP Initial Version
     *   14/11/25 CP Make work
     *   15/11/25 CP Remove pin parameter, use channel from handle
+    *   22/02/26 CP Update to only use one oneshot unit per ADC unit.
     *
     *===========================================================================
     */
 
     esp_err_t NStatus = ESP_OK;
+    adc_oneshot_unit_handle_t stUnitHandle = NULL;
 
     adc_oneshot_unit_init_cfg_t stADCConfig = {
         .unit_id = eNUnit,
     };
 
-    NStatus = adc_oneshot_new_unit(&stADCConfig, &stADCHandle->stADCUnit);
-    if (NStatus != ESP_OK) {
-        ESP_LOGE("ADC", "Failed to create ADC unit handle: %s", esp_err_to_name(NStatus));
-        return NStatus;
+    /* Only create one oneshot unit per ADC unit; reuse it for all channels */
+    switch (eNUnit)
+    {
+        case ADC_UNIT_1:
+            if (sADCUnit1 == NULL)
+            {
+                NStatus = adc_oneshot_new_unit(&stADCConfig, &sADCUnit1);
+                if (NStatus != ESP_OK)
+                {
+                    ESP_LOGE("ADC", "Failed to create ADC1 unit handle: %s", esp_err_to_name(NStatus));
+                    return NStatus;
+                }
+            }
+            stUnitHandle = sADCUnit1;
+            break;
+
+        case ADC_UNIT_2:
+            if (sADCUnit2 == NULL)
+            {
+                NStatus = adc_oneshot_new_unit(&stADCConfig, &sADCUnit2);
+                if (NStatus != ESP_OK)
+                {
+                    ESP_LOGE("ADC", "Failed to create ADC2 unit handle: %s", esp_err_to_name(NStatus));
+                    return NStatus;
+                }
+            }
+            stUnitHandle = sADCUnit2;
+            break;
+
+        default:
+            ESP_LOGE("ADC", "Unsupported ADC unit: %d", (int)eNUnit);
+            return ESP_ERR_INVALID_ARG;
     }
 
     adc_oneshot_chan_cfg_t stChannelConfig = {
@@ -67,11 +97,14 @@ esp_err_t adc_register(adc_atten_t eNAtten, adc_unit_t eNUnit, stADCHandles_t *s
         .bitwidth = ADC_BITWIDTH_DEFAULT,
     };
 
-    NStatus = adc_oneshot_config_channel(stADCHandle->stADCUnit, stADCHandle->eNChannel, &stChannelConfig);
+    NStatus = adc_oneshot_config_channel(stUnitHandle, stADCHandle->eNChannel, &stChannelConfig);
     if (NStatus != ESP_OK) {
         ESP_LOGE("ADC", "Failed to configure ADC channel: %s", esp_err_to_name(NStatus));
         return NStatus;
     }
+
+    /* Store the unit handle in the channel handle for later reads */
+    stADCHandle->stADCUnit = stUnitHandle;
 
     adc_cali_curve_fitting_config_t stCalibrationConfig = {
         .unit_id = eNUnit,
