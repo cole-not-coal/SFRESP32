@@ -640,14 +640,17 @@ def generate_signal_decode(sig, indent="    "):
     unpack = generate_unpack_expr(sig['start_bit'], sig['length'], sig['big_endian'])
     raw_expr = f"({unpack})"
     
-    if sig['type'] == 'float':
-        val_expr = f"(float){raw_expr}"
-        if sig['gain'] != 1.0:
-            val_expr += f" * {sig['gain']}f"
-        if sig['offset'] != 0.0:
-            val_expr += f" + {sig['offset']}f"
-    else:
-        val_expr = f"({sig['type']}){raw_expr}"
+    # Always apply gain/offset logic, but cast to target type at the end
+    # We cast raw value to float/double first to ensure precision during calculation
+    val_expr = f"(float){raw_expr}"
+    
+    if sig['gain'] != 1.0:
+        val_expr += f" * {sig['gain']}f"
+    if sig['offset'] != 0.0:
+        val_expr += f" + {sig['offset']}f"
+        
+    # Cast back to target type
+    val_expr = f"({sig['type']})({val_expr})"
         
     return f"{indent}{sig['name']} = {val_expr};\n"
 
@@ -663,22 +666,19 @@ def generate_signal_encode(sig, indent="    "):
         width_mask = (1 << sig['length']) - 1
         val_expr = f"(0x{sig['constant_val']:X} & 0x{width_mask:X})"
     else:
-        # Uses cast to handle float conversion first
-        if sig['type'] == 'float':
-            # Apply offset/gain inverse: raw = (phys - offset) / gain
-            val_term = sig['name']
-            if sig['offset'] != 0.0:
-                val_term = f"({val_term} - {sig['offset']}f)"
-            if sig['gain'] != 1.0:
-                val_term = f"({val_term} / {sig['gain']}f)"
-            
-            # Cast to integer type large enough (uint32_t covers most signals)
-            width_mask = (1 << sig['length']) - 1
-            val_expr = f"((uint32_t){val_term} & 0x{width_mask:X})"
-        else:
-            # Integer types
-            width_mask = (1 << sig['length']) - 1
-            val_expr = f"((uint32_t){sig['name']} & 0x{width_mask:X})"
+        # All signals (float or int) undergo physical -> raw conversion
+        # raw = (phys - offset) / gain
+        val_term = f"((float){sig['name']})" 
+        
+        if sig['offset'] != 0.0:
+            val_term = f"({val_term} - {sig['offset']}f)"
+        if sig['gain'] != 1.0:
+            val_term = f"({val_term} / {sig['gain']}f)"
+        
+        # Cast to integer type large enough (uint32_t covers most signals)
+        # and mask to length
+        width_mask = (1 << sig['length']) - 1
+        val_expr = f"((uint32_t){val_term} & 0x{width_mask:X})"
 
     lines = ""
     

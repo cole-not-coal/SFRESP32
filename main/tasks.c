@@ -123,8 +123,8 @@ void task_100ms(void)
                 (byte)(adwMaxTaskTime[eTASK_100MS] / 500 & 0xFF),
                 (byte)(adwLastTaskTime[eTASK_BG] / 500 & 0xFF),        
                 (byte)(adwMaxTaskTime[eTASK_BG] / 500 & 0xFF),
-                (byte)((dwTimeSincePowerUpms/4000) & 0xFF),
-                (byte)(((dwTimeSincePowerUpms/4000) >> 8 & 0xF) | (eResetReason & 0x0F << 4)),
+                (byte)((dwTimeSincePowerUpms/4000) >> 4 & 0xFF),
+                (byte)(((dwTimeSincePowerUpms/4000) & 0xF) << 4 | (eResetReason & 0x0F)),
             }
         });
 

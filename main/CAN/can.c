@@ -609,12 +609,12 @@ esp_err_t CAN_read_from_buffer(void)
         switch (stCANFrame.dwID)
         {
             /* Populate this with the CAN IDs for messages required for this device. Example below in comment */
-            case STATUSAPPS_ID:
-                /* Process BMS Cell Voltages */
-                {
-                    StatusAPPS(stCANFrame);
-                }
-                break;
+            // case STATUSAPPS_ID:
+            //     /* Process BMS Cell Voltages */
+            //     {
+            //         StatusAPPSRx(stCANFrame);
+            //     }
+            //     break;
             default:
                 /* Ignore other CAN frames */
                 break;
