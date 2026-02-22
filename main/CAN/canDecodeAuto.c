@@ -3542,9 +3542,9 @@ esp_err_t DynoPressuresRx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x92) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    pDynoPressure1 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.0005f + -2000.0f);
-    pDynoPressure2 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.0005f + -2000.0f);
-    pDynoPressure3 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.0005f + -2000.0f);
+    pDynoPressure1 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.0005f + -6.0f);
+    pDynoPressure2 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.0005f + -6.0f);
+    pDynoPressure3 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.0005f + -6.0f);
     VDynoCoolantFlow = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 1e-05f);
     return ESP_OK;
 }
@@ -3564,12 +3564,12 @@ esp_err_t DynoPressuresTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure1) - -2000.0f) / 0.0005f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure1) - -2000.0f) / 0.0005f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure2) - -2000.0f) / 0.0005f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure2) - -2000.0f) / 0.0005f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure3) - -2000.0f) / 0.0005f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure3) - -2000.0f) / 0.0005f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure1) - -6.0f) / 0.0005f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure1) - -6.0f) / 0.0005f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure2) - -6.0f) / 0.0005f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure2) - -6.0f) / 0.0005f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure3) - -6.0f) / 0.0005f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure3) - -6.0f) / 0.0005f) & 0xFFFF) >> 0) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VDynoCoolantFlow) / 1e-05f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)(((((uint32_t)(((float)VDynoCoolantFlow) / 1e-05f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
@@ -3591,9 +3591,9 @@ esp_err_t DynoTempsRx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x93) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TDynoTemp1 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.005f + -10000.0f);
-    TDynoTemp2 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.005f + -10000.0f);
-    TDynoTemp3 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.005f + -10000.0f);
+    TDynoTemp1 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.005f + -30.0f);
+    TDynoTemp2 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.005f + -30.0f);
+    TDynoTemp3 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.005f + -30.0f);
     return ESP_OK;
 }
 
@@ -3612,12 +3612,12 @@ esp_err_t DynoTempsTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp1) - -10000.0f) / 0.005f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp1) - -10000.0f) / 0.005f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp2) - -10000.0f) / 0.005f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp2) - -10000.0f) / 0.005f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp3) - -10000.0f) / 0.005f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp3) - -10000.0f) / 0.005f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp1) - -30.0f) / 0.005f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp1) - -30.0f) / 0.005f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp2) - -30.0f) / 0.005f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp2) - -30.0f) / 0.005f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp3) - -30.0f) / 0.005f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp3) - -30.0f) / 0.005f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -5161,7 +5161,7 @@ esp_err_t CellStats1Rx(CAN_frame_t stFrame)
     Pack_Inst_Voltage = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
     Pack_SOC = (float)((float)(((stFrame.abData[4] >> 0) & 0xFF)) * 0.5f);
     Pack_Resistance = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.001f);
-    CheckSum_CellStats1 = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xFF)) + 1720.0f);
+    CheckSum_CellStats1 = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xFF)));
     return ESP_OK;
 }
 
@@ -5187,7 +5187,7 @@ esp_err_t CellStats1Tx(twai_node_handle_t stCANBus)
     stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)Pack_SOC) / 0.5f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)Pack_Resistance) / 0.001f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)Pack_Resistance) / 0.001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)(((float)CheckSum_CellStats1) - 1720.0f) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)CheckSum_CellStats1) & 0xFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
