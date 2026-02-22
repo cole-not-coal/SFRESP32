@@ -146,11 +146,11 @@ static void main_init(void)
     // }
 
     /* ADC */
-    adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle0);
-    adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle1);
-    adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle2);
+    // adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle0);
+    // adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle1);
+    // adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle2);
     adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle3);
-    adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle4);
+    // adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle4);
     adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle5);
     adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle6);
     
