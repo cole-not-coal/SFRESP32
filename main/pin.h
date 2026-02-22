@@ -1,6 +1,8 @@
 #ifndef SFR_PIN
 #define SFR_PIN
 
+#define SFR_TAG  "SFR_ESP32"
+
 /* All Devices */
 #define GPIO_ONBOARD_LED 15
 
@@ -33,8 +35,6 @@
 #define APPS1_IN ADC_CHANNEL_0 // GPIO0
 #define APPS2_IN ADC_CHANNEL_1 // GPIO1
 
-#define SFR_TAG  "SFR_ESP32"
-
 /* Contactor Drive Only */
 #define GPIO_PRECHARGE_CONTACTOR_PWM 0 
 #define GPIO_MAIN_POS_CONTACTOR_PWM 0
@@ -45,5 +45,14 @@
 #define ADC_MAIN_NEG_CAR_SIDE ADC_CHANNEL_3 // GPIO3
 #define ADC_MAIN_POS_ACCU_SIDE ADC_CHANNEL_4 // GPIO4
 #define ADC_MAIN_NEG_ACCU_SIDE ADC_CHANNEL_6 // GPIO6
+
+/* Dyno Only */
+#define BOSH_0 ADC_CHANNEL_0 // GPIO0
+#define BOSH_1 ADC_CHANNEL_1 // GPIO1
+#define BOSH_2 ADC_CHANNEL_2 // GPIO2
+#define BOSH_3 ADC_CHANNEL_3 // GPIO3
+#define BOSH_4 ADC_CHANNEL_4 // GPIO4
+#define BOSH_5 ADC_CHANNEL_5 // GPIO5
+#define DYNO_FLOW ADC_CHANNEL_6 // GPIO6
 
 #endif // SFR_PIN
