@@ -49,6 +49,7 @@ void reflash_task_100ms(void);
 /* --------------------------- Functions ----------------------------- */
 void task_BG(void)
 {
+    esp_err_t eState;
     /* Background task that runs as often as processor time is available. */
     static qword qwtTaskTimer;
     qwtTaskTimer = esp_timer_get_time();
@@ -74,8 +75,12 @@ void task_BG(void)
         }
     }
 
-    sdcard_empty_buffer();
-    if (bFlushSDCard) {
+    eState = sdcard_empty_buffer();
+    if (eState != ESP_OK && eState != ESP_ERR_INVALID_STATE) 
+    {
+        ESP_LOGE(SFR_TAG, "Failed to empty SD card buffer: %s", esp_err_to_name(eState));
+    }
+    if (bFlushSDCard && stFile != NULL) {
         fsync(fileno(stFile));
         bFlushSDCard = FALSE;
     }
