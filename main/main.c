@@ -24,6 +24,7 @@ Written by Cole Perera for Sheffield Formula Racing 2025
 #include "I2C.h"
 #include "CAN/canflash.h"
 #include "NVHDisplay.h"
+#include "mcp320X.h"
 
 /* --------------------------- Definitions ----------------------------- */
 #define TIMER_INTERVAL_WD       100     // in microseconds
@@ -38,6 +39,7 @@ esp_timer_handle_t stTaskInterrupt1ms;
 esp_timer_handle_t stTaskInterrupt100ms;
 esp_reset_reason_t eResetReason;
 eChipMode_t eDeviceMode = eNORMAL;
+spi_device_handle_t MCP320XDevs[2];
 
 /* --------------------------- Function prototypes ----------------------------- */
 static void timers_init(void);
@@ -100,40 +102,60 @@ void IRAM_ATTR call_back_100ms(void *arg)
 
 static void main_init(void)
 {
-    esp_err_t NStatus;
+    esp_err_t eStatus;
     /* Initialises Features/ Peripherals, Comment out as needed*/
 
     /* ESP-NOW */
-    // NStatus = ESPNOW_init();
-    // if (NStatus != ESP_OK)
+    // eStatus = ESPNOW_init();
+    // if (eStatus != ESP_OK)
     // {
-    //     ESP_LOGE(SFR_TAG, "Failed to initialise ESP-NOW: %s", esp_err_to_name(NStatus));
+    //     ESP_LOGE(SFR_TAG, "Failed to initialise ESP-NOW: %s", esp_err_to_name(eStatus));
     // }
 
     /* SD Card (SDCard and LCD share the SPI bus, take care) */
-    // NStatus = SD_card_init();
-    // if (NStatus != ESP_OK)
+    /* SPI Devices */
+    spi_bus_config_t stBusConfig = 
+    {
+        .mosi_io_num = SPI_MOSI,
+        .miso_io_num = SPI_MISO,
+        .sclk_io_num = SPI_SCK,
+        .quadwp_io_num = -1,
+        .quadhd_io_num = -1,
+    };
+    eStatus = spi_bus_initialize(SPI2_HOST, &stBusConfig, SPI_DMA_CH_AUTO);
+    /* SD Card */
+    // eStatus = SD_card_init();
+    // if (eStatus != ESP_OK)
     // {
-    //     ESP_LOGE(SFR_TAG, "Failed to initialise SD Card: %s", esp_err_to_name(NStatus));
+    //     ESP_LOGE(SFR_TAG, "Failed to initialise SD Card: %s", esp_err_to_name(eStatus));
     // }
+
+    /* ADC MCP3204/8 */
+    uint8_t aNCSPins[2] = {SPI_MCP3204_1_CS, SPI_MCP3204_2_CS};
+    eStatus = MCP320X_init(aNCSPins, MCP320XDevs);
+    if (eStatus != ESP_OK)
+    {
+        ESP_LOGE(SFR_TAG, "Failed to initialise MCP320X: %s", esp_err_to_name(eStatus));
+    }
+    /* END of SPI Devices*/
     
     /* CAN BUS */
-    NStatus = CAN_init(TRUE);
-    if (NStatus != ESP_OK)
+    eStatus = CAN_init(TRUE);
+    if (eStatus != ESP_OK)
     {
-        ESP_LOGE(SFR_TAG, "Failed to initialise CAN: %s", esp_err_to_name(NStatus));
+        ESP_LOGE(SFR_TAG, "Failed to initialise CAN: %s", esp_err_to_name(eStatus));
     }
-    NStatus = CAN_flash_init();
-    if (NStatus != ESP_OK)
+    eStatus = CAN_flash_init();
+    if (eStatus != ESP_OK)
     {
-        ESP_LOGE(SFR_TAG, "Failed to initialise CAN Reflash: %s", esp_err_to_name(NStatus));
+        ESP_LOGE(SFR_TAG, "Failed to initialise CAN Reflash: %s", esp_err_to_name(eStatus));
     }
 
     /* External Clock */
-    // NStatus = I2C_init();
-    // if (NStatus != ESP_OK)
+    // eStatus = I2C_init();
+    // if (eStatus != ESP_OK)
     // {
-    //     ESP_LOGE(SFR_TAG, "Failed to initialise I2C: %s", esp_err_to_name(NStatus));
+    //     ESP_LOGE(SFR_TAG, "Failed to initialise I2C: %s", esp_err_to_name(eStatus));
     // }
 
     /* ADC */

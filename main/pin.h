@@ -44,6 +44,10 @@
 #define ADC_MAIN_NEG_ACCU_SIDE ADC_CHANNEL_6 // GPIO6
 
 /* TempMonitor Only */
-#define SPI_MCP3204_CS 17
+#define SPI_MCP3208_CS 17
+
+/* Dyno Only */
+#define SPI_MCP3204_1_CS 17
+#define SPI_MCP3204_2_CS 16
 
 #endif // SFR_PIN

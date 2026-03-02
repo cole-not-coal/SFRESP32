@@ -18,6 +18,7 @@ Written by Cole Perera and Aditya Parnandi for Sheffield Formula Racing 2025
 extern uint8_t byMACAddress[6];
 extern esp_reset_reason_t eResetReason;
 extern eChipMode_t eDeviceMode;
+extern spi_device_handle_t MCP320XDevs[2];
 static esp_partition_t *stOTAPartition = NULL;
 
 /* --------------------------- Global Variables ----------------------------- */
@@ -127,6 +128,9 @@ void task_100ms(void)
                 (byte)(((dwTimeSincePowerUpms/4000) & 0xF) << 4 | (eResetReason & 0x0F)),
             }
         });
+
+        MCP320X_read(MCP320XDevs[0], 0);
+        
 
     };
 

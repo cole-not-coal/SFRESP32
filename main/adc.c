@@ -52,7 +52,7 @@ esp_err_t adc_register(adc_atten_t eNAtten, adc_unit_t eNUnit, stADCHandles_t *s
     *===========================================================================
     */
 
-    esp_err_t NStatus = ESP_OK;
+    esp_err_t eStatus = ESP_OK;
     adc_oneshot_unit_handle_t stUnitHandle = NULL;
 
     adc_oneshot_unit_init_cfg_t stADCConfig = {
@@ -65,11 +65,11 @@ esp_err_t adc_register(adc_atten_t eNAtten, adc_unit_t eNUnit, stADCHandles_t *s
         case ADC_UNIT_1:
             if (sADCUnit1 == NULL)
             {
-                NStatus = adc_oneshot_new_unit(&stADCConfig, &sADCUnit1);
-                if (NStatus != ESP_OK)
+                eStatus = adc_oneshot_new_unit(&stADCConfig, &sADCUnit1);
+                if (eStatus != ESP_OK)
                 {
-                    ESP_LOGE("ADC", "Failed to create ADC1 unit handle: %s", esp_err_to_name(NStatus));
-                    return NStatus;
+                    ESP_LOGE("ADC", "Failed to create ADC1 unit handle: %s", esp_err_to_name(eStatus));
+                    return eStatus;
                 }
             }
             stUnitHandle = sADCUnit1;
@@ -78,11 +78,11 @@ esp_err_t adc_register(adc_atten_t eNAtten, adc_unit_t eNUnit, stADCHandles_t *s
         case ADC_UNIT_2:
             if (sADCUnit2 == NULL)
             {
-                NStatus = adc_oneshot_new_unit(&stADCConfig, &sADCUnit2);
-                if (NStatus != ESP_OK)
+                eStatus = adc_oneshot_new_unit(&stADCConfig, &sADCUnit2);
+                if (eStatus != ESP_OK)
                 {
-                    ESP_LOGE("ADC", "Failed to create ADC2 unit handle: %s", esp_err_to_name(NStatus));
-                    return NStatus;
+                    ESP_LOGE("ADC", "Failed to create ADC2 unit handle: %s", esp_err_to_name(eStatus));
+                    return eStatus;
                 }
             }
             stUnitHandle = sADCUnit2;
@@ -98,10 +98,10 @@ esp_err_t adc_register(adc_atten_t eNAtten, adc_unit_t eNUnit, stADCHandles_t *s
         .bitwidth = ADC_BITWIDTH_DEFAULT,
     };
 
-    NStatus = adc_oneshot_config_channel(stUnitHandle, stADCHandle->eNChannel, &stChannelConfig);
-    if (NStatus != ESP_OK) {
-        ESP_LOGE("ADC", "Failed to configure ADC channel: %s", esp_err_to_name(NStatus));
-        return NStatus;
+    eStatus = adc_oneshot_config_channel(stUnitHandle, stADCHandle->eNChannel, &stChannelConfig);
+    if (eStatus != ESP_OK) {
+        ESP_LOGE("ADC", "Failed to configure ADC channel: %s", esp_err_to_name(eStatus));
+        return eStatus;
     }
 
     /* Store the unit handle in the channel handle for later reads */
@@ -114,12 +114,12 @@ esp_err_t adc_register(adc_atten_t eNAtten, adc_unit_t eNUnit, stADCHandles_t *s
         .bitwidth = ADC_BITWIDTH_DEFAULT,
     };
     
-    NStatus = adc_cali_create_scheme_curve_fitting(&stCalibrationConfig, &stADCHandle->stCalibration);
-    if (NStatus != ESP_OK) {
-        ESP_LOGE("ADC", "Failed to create calibration handle: %s", esp_err_to_name(NStatus));
+    eStatus = adc_cali_create_scheme_curve_fitting(&stCalibrationConfig, &stADCHandle->stCalibration);
+    if (eStatus != ESP_OK) {
+        ESP_LOGE("ADC", "Failed to create calibration handle: %s", esp_err_to_name(eStatus));
     }
 
-    return NStatus;
+    return eStatus;
 }
 
 float adc_read_voltage(stADCHandles_t *stADCHandle)
@@ -140,11 +140,11 @@ float adc_read_voltage(stADCHandles_t *stADCHandle)
 *===========================================================================
 */
 {
-    int adc_raw = 0;
-    int voltage = 0;
-    adc_oneshot_read(stADCHandle->stADCUnit, stADCHandle->eNChannel, &adc_raw);
-    adc_cali_raw_to_voltage(stADCHandle->stCalibration, adc_raw, &voltage);
-    return (float)voltage / 1000.0f; // Convert mV to V
+    int NVADCRaw = 0;
+    int NVADC = 0;
+    adc_oneshot_read(stADCHandle->stADCUnit, stADCHandle->eNChannel, &NVADCRaw);
+    adc_cali_raw_to_voltage(stADCHandle->stCalibration, NVADCRaw, &NVADC);
+    return (float)NVADC / 1000.0f; // Convert mV to V
 }
 
 float read_sensor(stADCHandles_t *stADCHandle, stSensorMap_t *stSensorMap)

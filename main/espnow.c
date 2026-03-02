@@ -58,7 +58,7 @@ esp_err_t ESPNOW_init(void);
 esp_err_t NVS_init(void);
 esp_err_t ESPNOW_fill_buffer(const byte *abyData, byte byNDataLength);
 esp_err_t ESPNOW_empty_buffer(void);
-static void ESPNOW_tx_callback(const wifi_tx_info_t *tx_info, esp_now_send_status_t NStatus);
+static void ESPNOW_tx_callback(const wifi_tx_info_t *tx_info, esp_now_send_status_t eStatus);
 static void ESPNOW_rx_callback(const esp_now_recv_info_t *recv_info, const uint8_t *byData, int byNLength);
 
 
@@ -81,14 +81,14 @@ esp_err_t ESPNOW_init(void)
     *===========================================================================
     */
     wifi_init_config_t stWifiConfig = WIFI_INIT_CONFIG_DEFAULT();
-    esp_err_t NStatus;
+    esp_err_t eStatus;
 
     /* Initialise NVS */
-    NStatus = NVS_init();
-    if (NStatus != ESP_OK)
+    eStatus = NVS_init();
+    if (eStatus != ESP_OK)
     {
-        ESP_LOGE("NVS", "Failed to start: %s", esp_err_to_name(NStatus));
-        return NStatus;
+        ESP_LOGE("NVS", "Failed to start: %s", esp_err_to_name(eStatus));
+        return eStatus;
     }
     
     /* Initialise Wifi */
@@ -98,16 +98,16 @@ esp_err_t ESPNOW_init(void)
     esp_wifi_set_mode(WIFI_MODE_STA);
     esp_wifi_set_storage(WIFI_STORAGE_RAM);
     esp_wifi_set_ps(WIFI_PS_NONE);
-    NStatus = esp_wifi_start();
-    if (NStatus != ESP_OK) {
-        ESP_LOGE("WiFi", "Failed to start: %s", esp_err_to_name(NStatus));
-        return NStatus;
+    eStatus = esp_wifi_start();
+    if (eStatus != ESP_OK) {
+        ESP_LOGE("WiFi", "Failed to start: %s", esp_err_to_name(eStatus));
+        return eStatus;
     }
     esp_wifi_set_channel(CONFIG_ESPNOW_CHANNEL, WIFI_SECOND_CHAN_NONE);
-    NStatus = esp_now_init();
-    if (NStatus != ESP_OK) {
-        ESP_LOGE("ESP-NOW", "Failed to start: %s", esp_err_to_name(NStatus));
-        return NStatus;
+    eStatus = esp_now_init();
+    if (eStatus != ESP_OK) {
+        ESP_LOGE("ESP-NOW", "Failed to start: %s", esp_err_to_name(eStatus));
+        return eStatus;
     }
     
     /* Print this ESP's MAC Address */
@@ -123,10 +123,10 @@ esp_err_t ESPNOW_init(void)
     memcpy(stPeerInfo.peer_addr, byMACAddress, ESP_NOW_ETH_ALEN);
     stPeerInfo.channel = CONFIG_ESPNOW_CHANNEL;
     stPeerInfo.encrypt = false;
-    NStatus = esp_now_add_peer(&stPeerInfo);
-    if (NStatus != ESP_OK) {
-        ESP_LOGE("ESP-NOW", "Failed to add peer: %s", esp_err_to_name(NStatus));
-        return NStatus;
+    eStatus = esp_now_add_peer(&stPeerInfo);
+    if (eStatus != ESP_OK) {
+        ESP_LOGE("ESP-NOW", "Failed to add peer: %s", esp_err_to_name(eStatus));
+        return eStatus;
     }
     #endif
 
@@ -141,7 +141,7 @@ esp_err_t ESPNOW_init(void)
     esp_now_register_send_cb(ESPNOW_tx_callback);
     esp_now_register_recv_cb(ESPNOW_rx_callback);
 
-    return NStatus;
+    return eStatus;
 }
 
 esp_err_t NVS_init(void)
@@ -161,27 +161,27 @@ esp_err_t NVS_init(void)
     *
     *===========================================================================
     */
-    esp_err_t NStatus;
-    NStatus = nvs_flash_init();
+    esp_err_t eStatus;
+    eStatus = nvs_flash_init();
     /* If flash is full wipe it and retry */
-    if (NStatus == ESP_ERR_NVS_NO_FREE_PAGES || NStatus == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-        NStatus = nvs_flash_erase();
-        if (NStatus != ESP_OK)
+    if (eStatus == ESP_ERR_NVS_NO_FREE_PAGES || eStatus == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+        eStatus = nvs_flash_erase();
+        if (eStatus != ESP_OK)
         {
-            ESP_LOGE("NVS", "Failed to erase flash: %s", esp_err_to_name(NStatus));
-            return NStatus;
+            ESP_LOGE("NVS", "Failed to erase flash: %s", esp_err_to_name(eStatus));
+            return eStatus;
         }
-        NStatus = nvs_flash_init();
+        eStatus = nvs_flash_init();
     }
-    return NStatus;
+    return eStatus;
 }
 
-static void ESPNOW_tx_callback(const wifi_tx_info_t *tx_info, esp_now_send_status_t NStatus)
+static void ESPNOW_tx_callback(const wifi_tx_info_t *tx_info, esp_now_send_status_t eStatus)
 {
     /*
     *===========================================================================
     *   ESPNOW_tx_callback
-    *   Takes:   NStatus - status of send
+    *   Takes:   eStatus - status of send
     *            tx_info - information about the transmission
     * 
     *   Returns: None
@@ -230,7 +230,7 @@ esp_err_t ESPNOW_empty_buffer(void)
     *   ESPNOW_empty_buffer
     *   Takes:   None
     * 
-    *   Returns: NStatus - ESP_OK if successful, error code if not.
+    *   Returns: eStatus - ESP_OK if successful, error code if not.
     * 
     *   Empties the CAN ring buffer by packing as many CAN frames as possible
     *   into a single ESP-NOW packet (250 bytes) and sending it. If there are no

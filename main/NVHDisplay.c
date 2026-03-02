@@ -176,7 +176,7 @@ void NVHDisplay_init(void)
     *
     *===========================================================================
     */
-    esp_err_t NStatus = ESP_OK;
+    esp_err_t eStatus = ESP_OK;
 
     /* Initialize EVE SPI interface */
     EVE_init_spi();
