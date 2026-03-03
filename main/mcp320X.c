@@ -20,6 +20,7 @@ spi_device_handle_t stMCP3208;
 
 /* --------------------------- Definitions ---------------------------- */
 #define MCP3208_SPI_FREQ 1000000 // 1 MHz
+#define VADC_REFERNCE 5.0
 
 /* --------------------------- Function prototypes -------------------- */
 esp_err_t MCP320X_init(uint8_t abyNCSPins[],spi_device_handle_t astDeviceHandles[]);
@@ -50,7 +51,7 @@ esp_err_t MCP320X_init(uint8_t abyNCSPins[],spi_device_handle_t astDeviceHandles
     {
         .clock_speed_hz = MCP3208_SPI_FREQ,
         .mode = 0,
-        .command_bits = 2,
+        .command_bits = 0,
         .address_bits = 0, 
         .queue_size = 5,
     };
@@ -73,13 +74,11 @@ float MCP320X_read(spi_device_handle_t stDeviceHandle, uint8_t NDevADC)
     *===========================================================================
     *   MCP320X_read
     *   Takes:   stDeviceHandle: Handle to the SPI device
-    *            byCommand: Command to send to the MCP3208
-    *            byAddress: Address of the channel to read from
-    *            pwData: Pointer to where the data will be stored
+    *            NDevADC: ADC identifier on the device (0-3 for MCP3204, 0-7 for MCP3208)
     * 
-    *   Returns: ESP_OK if successful, error code if not.
+    *   Returns: ADC voltage after convertsion from counts.
     * 
-    *   Sends a command and address to the MCP3208 and reads back the data.
+    *   Sends a command to the MCP3208 and reads back the ADC data.
     *===========================================================================
     *   Revision History:
     *   02/03/26 CP Initial Version
@@ -89,23 +88,34 @@ float MCP320X_read(spi_device_handle_t stDeviceHandle, uint8_t NDevADC)
     esp_err_t eStatus = ESP_OK;
     spi_transaction_t stSPICall;
     word wNData;
-    float fVADCRaw;
-    uint8_t NCmd = 0xF & (8 + (NDevADC & 0x7));
+    uint8_t NDataTx[3];
+    uint8_t NDataRx[3];
+    float fVADCRaw; 
     if (NDevADC > 7)
     {
         return 999.9;
     }
+
+    // Alignment Logic for 24 clocks (3 bytes):
+    // Byte 0: 0 0 0 0 0 S M D2
+    // Byte 1: D1 D0 N N B11 B10 B9 B8
+    // Byte 2: B7 B6 B5 B4 B3 B2 B1 B0
+    // Where S is start bit (1), M is mode (0 for single-ended, 1 for differential), D2-D0 are the channel selection bits, 
+    // N is null bit, and B11-B0 are the 12-bit ADC result.
+
     memset(&stSPICall, 0, sizeof(stSPICall));
-    stSPICall.length = 4 + 13;
-    stSPICall.tx_buffer = &NCmd;
-    stSPICall.rx_buffer = &wNData;
+    NDataTx[0] = 0x6 | ((NDevADC & 0x4) >> 2);
+    NDataTx[1] = (NDevADC & 0x3) << 6;
+    NDataTx[2] = 0x00;
+    stSPICall.length = 24;
+    stSPICall.tx_buffer = NDataTx;
+    stSPICall.rx_buffer = NDataRx;
     eStatus = spi_device_transmit(stDeviceHandle, &stSPICall);
     if (eStatus != ESP_OK)    {
         return 999.9;
     }
-    wNData = 0xFFF & wNData;
-    fVADCRaw = (float)wNData / 4096.0 * 5.0;
-    ESP_LOGI(SFR_TAG, "ADC Reading: %f   | %d", fVADCRaw, wNData);
+    wNData = ((NDataRx[1] & 0xF) << 8) | NDataRx[2];
+    fVADCRaw = (float)wNData / 4096.0 * (float)VADC_REFERNCE;
     return fVADCRaw;
 
 }
