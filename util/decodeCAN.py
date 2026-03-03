@@ -430,7 +430,11 @@ def main():
                 'is_mux_switch': is_mux_switch,
                 'mux_val': mux_val,
                 'is_constant': is_constant,
-                'constant_val': constant_val
+                'constant_val': constant_val,
+                'is_array': False,
+                'array_name': None,
+                'array_index': 0,
+                'array_size': 0
             }
             
             if pid not in messages:
@@ -438,12 +442,111 @@ def main():
             messages[pid].append(signal)
 
         print(f"Found {len(messages)} messages with signals.")
+        
+        identify_arrays(messages)
+        
         generate_c_code(messages, msg_map)
 
     except Exception as e:
         print(f"Error: {e}")
         import traceback
         traceback.print_exc()
+
+def identify_arrays(messages):
+    # 1. Collect all signal dicts by name (across all messages)
+    name_to_sigs = {}
+    for pid, sigs in messages.items():
+        for sig in sigs:
+            if sig['is_constant']: continue
+            name = sig['name']
+            if name not in name_to_sigs:
+                name_to_sigs[name] = []
+            name_to_sigs[name].append(sig)
+
+    # 2. Find potential array groups
+    # Structure: (prefix, suffix) -> list of (number, original_name)
+    candidates = {}
+    
+    unique_names = list(name_to_sigs.keys())
+    
+    # Pattern: Prefix + Digits + Suffix
+    pattern = re.compile(r'^(.*?)(\d+)(.*)$')
+    
+    for name in unique_names:
+        m = pattern.match(name)
+        if m:
+            prefix, num_str, suffix = m.groups()
+            
+            # Heuristic: Avoid treating names like "tLastTaskTime100ms" as arrays 
+            # if the number is likely a unit specification.
+            # But the requirement says: "identical except for the number and said number should be contiguous".
+            # So if we have "Time1ms" and "Time2ms", that works.
+            # If we have "Time1ms" and "Time100ms", numbers are 1 and 100 -> not contiguous -> filtered out later.
+            
+            key = (prefix, suffix)
+            if key not in candidates:
+                candidates[key] = []
+            candidates[key].append( (int(num_str), name) )
+            
+    # 3. Validate groups
+    for (prefix, suffix), items in candidates.items():
+        if len(items) < 2:
+            continue
+            
+        # Sort by number to check contiguity
+        # Sort by integer value
+        items.sort(key=lambda x: x[0])
+        
+        # Remove duplicates if any (same name seen multiple times? No, unique_names handles that)
+        # But wait, shared signals might mean multiple messages use the same name. `unique_names` handles that.
+        
+        numbers = [x[0] for x in items]
+        
+        # Check contiguity
+        is_contiguous = True
+        for i in range(len(numbers) - 1):
+            if numbers[i+1] != numbers[i] + 1:
+                is_contiguous = False
+                break
+                
+        if not is_contiguous:
+            continue
+            
+        # It is an array!
+        # Base name construction
+        array_name = prefix + suffix
+        # Clean array name
+        array_name = re.sub(r'[^a-zA-Z0-9_]', '', array_name)
+        
+        # Determine array size
+        array_size = len(numbers)
+        
+        # Check for collision: does 'array_name' conflict with an existing DIFFERENT variable?
+        # Example: existing "Temp" and array "Temp" constructed from "Temp1, Temp2".
+        # If "Temp" exists, it's in `name_to_sigs`.
+        # However, "Temp" might be part of the group if prefix="Temp", suffix="", num=""? No regex requires digits.
+        # If "Temp" exists, it's separate.
+        
+        if array_name in name_to_sigs:
+             # Case: "Temp" exists, and we created array "Temp" from "Temp1", "Temp2".
+             # This is a collision. "extern float Temp;" vs "extern float Temp[2];".
+             # We should probably warn and skip array creation or rename array?
+             # User prompt doesn't specify. Assuming "User uses common variable" implies fixing clashes.
+             # But here we are creating a clash.
+             print(f"Warning: Constructed array name '{array_name}' collides with existing signal '{array_name}'. Skipping array grouping for {items}")
+             continue
+             
+        print(f"Grouping {items[0][1]}...{items[-1][1]} into array '{array_name}[{array_size}]'")
+        
+        # Update signal instances
+        for idx, (num, orig_name) in enumerate(items):
+            # Get all signal instances with this name
+            for sig in name_to_sigs[orig_name]:
+                sig['is_array'] = True
+                sig['array_name'] = array_name
+                # Map sorted index 0..N-1
+                sig['array_index'] = idx 
+                sig['array_size'] = array_size
 
 def generate_c_code(messages, msg_map):
     h_content = "#ifndef CAN_DECODE_AUTO_H\n#define CAN_DECODE_AUTO_H\n\n#include <stdint.h>\n#include \"esp_err.h\"\n#include \"can.h\"\n#include \"esp_twai.h\"\n#include \"esp_twai_onchip.h\"\n\n"
@@ -456,12 +559,26 @@ def generate_c_code(messages, msg_map):
             if sig['is_constant']:
                 continue # Do not generate global for constants
             
-            if sig['name'] in generated_globals:
-                continue # Already generated
+            # Key for globals: Array or Single
+            if sig['is_array']:
+                var_name = sig['array_name']
+                if var_name in generated_globals:
+                    continue
+                generated_globals.add(var_name)
                 
-            generated_globals.add(sig['name'])
-            h_content += f"extern {sig['type']} {sig['name']};\n"
-            c_content += f"{sig['type']} {sig['name']} = 0;\n"
+                # Assume all elements in array have same type (checked during grouping logic?)
+                # Actually grouping logic didn't check types. Assuming consistent.
+                # Array declaration
+                h_content += f"extern {sig['type']} {var_name}[{sig['array_size']}];\n"
+                c_content += f"{sig['type']} {var_name}[{sig['array_size']}] = {{0}};\n"
+                
+            else:
+                if sig['name'] in generated_globals:
+                    continue # Already generated
+                    
+                generated_globals.add(sig['name'])
+                h_content += f"extern {sig['type']} {sig['name']};\n"
+                c_content += f"{sig['type']} {sig['name']} = 0;\n"
     
     h_content += "\n"
     c_content += "\n"
@@ -530,22 +647,166 @@ def generate_c_code(messages, msg_map):
             if muxed_sigs:
                 unpack = generate_unpack_expr(mux_switch_sig['start_bit'], mux_switch_sig['length'], mux_switch_sig['big_endian'])
                 c_content += "\n    /* Muxed Signals */\n"
-                c_content += f"    switch({unpack})\n    {{\n"
                 
+                # Analyze Mux Groups (Detect Array Patterns)
                 # Group by mux value
                 mux_dict = {}
                 for sig in muxed_sigs:
                     val = sig['mux_val']
                     if val not in mux_dict: mux_dict[val] = []
                     mux_dict[val].append(sig)
+
+                # Identify Array Patterns
+                # Map Signature -> List of MuxValues
+                # Signature = Tuple of Sorted Signal Properties + (Offset from MuxVal)
+                
+                array_patterns = {} # SigHash -> [MuxVal]
+                
+                for val, sigs in mux_dict.items():
+                    # Check if ALL signals in this group are valid Array-Indexed signals mapping to (MuxVal - Diff)
+                    is_candidate = True
+                    signature = []
                     
-                for val in sorted(mux_dict.keys()):
-                    c_content += f"        case {val}:\n"
-                    for sig in mux_dict[val]:
-                        c_content += generate_signal_decode(sig, indent="            ")
-                    c_content += "            break;\n"
+                    # Sort by start_bit to ensure consistent ordering
+                    sorted_sigs = sorted(sigs, key=lambda s: s['start_bit'])
                     
-                c_content += "        default:\n            break;\n    }\n"
+                    for s in sorted_sigs:
+                        if s.get('is_constant', False):
+                            # Ignore constants in signature matching, they just shouldn't break the pattern
+                            continue
+
+                        if not s.get('is_array', False):
+                            is_candidate = False
+                            break
+                        
+                        # Calculate diff: "expected" index = muxVal => diff = muxVal - array_index
+                        diff = val - s['array_index']
+                        
+                        # Build signature element
+                        # Everything defining the "Shape" of the signal
+                        # Use rounded floats for Gain/Offset to handle precision errors
+                        sig_tuple = (
+                            s['start_bit'], s['length'], 
+                            round(s['gain'], 8), round(s['offset'], 8), 
+                            s['signed'], s['type'], s['big_endian'], 
+                            s['array_name'], diff
+                        )
+                        signature.append(sig_tuple)
+                    
+                    if is_candidate:
+                        if not signature:
+                             # If group only contained constants, we might want to group it too? 
+                             # Or just ignore. If purely constants, code gen will produce empty block or just comments.
+                             # Let's use a special "ConstantOnly" signature?
+                             # Or just let switch handle it.
+                             pass
+                        else:
+                             sig_hash = tuple(signature)
+                             if sig_hash not in array_patterns:
+                                 array_patterns[sig_hash] = []
+                             array_patterns[sig_hash].append(val)
+
+                # Generate Code
+                
+                processed_mux_vals = set()
+                
+                # Generate Block for Patterns
+                c_content += f"    int muxVal = (int)({unpack});\n"
+                
+                for sig_hash, mux_vals in array_patterns.items():
+                    if len(mux_vals) < 2: continue # Don't bother optimizing singletons
+                    
+                    # We have a set of Mux Values that share the same signal layout
+                    # And map to Array[Index] with constant Diff
+                    
+                    mux_vals.sort()
+                    ranges = []
+                    if mux_vals:
+                        curr_start = mux_vals[0]
+                        curr_end = mux_vals[0]
+                        for v in mux_vals[1:]:
+                            if v == curr_end + 1:
+                                curr_end = v
+                            else:
+                                ranges.append((curr_start, curr_end))
+                                curr_start = v
+                                curr_end = v
+                        ranges.append((curr_start, curr_end))
+
+                    # Condition string
+                    cond_parts = []
+                    for s, e in ranges:
+                        if s == e:
+                            cond_parts.append(f"(muxVal == {s})")
+                        else:
+                            cond_parts.append(f"(muxVal >= {s} && muxVal <= {e})")
+                            
+                    condition = " || ".join(cond_parts)
+                    
+                    c_content += f"    if ({condition}) {{\n"
+                    
+                    # Reconstruct the representative signals from the signature?
+                    # No, just take the first group associated with this pattern.
+                    rep_mux_val = mux_vals[0]
+                    rep_sigs = sorted(mux_dict[rep_mux_val], key=lambda s: s['start_bit'])
+                    
+                    # We need to extract the diff from the signature or recalculate it
+                    # The signature is a list of tuples, the Last element of each tuple is Diff.
+                    # We iterate rep_sigs and assume consistent order (sorted by start_bit)
+                    # BUT wait. rep_sigs INCLUDES constants. Signature EXCLUDED constants.
+                    # We need to match them up or skip constants during generation?
+                    
+                    # Better approach: Iterate signature items, generate code for them.
+                    # Constants are generally "ignored on receive".
+                    # If we only generate code for the actual array signals, we are good.
+                    # What if constants are important? (e.g. check constant value?)
+                    # Current `generate_signal_decode` just prints comment for constants.
+                    # We can probably skip generating that comment inside the optimized loop to avoid spam.
+                    
+                    # Using the signature directly to generate code is safer as it contains the array info.
+                    # However, we need `start_bit`, `length` etc... which ARE in signature.
+                    
+                    for sig_tuple in sig_hash:
+                         # Unpack signature
+                         (start_bit, length, gain, offset, signed, type_name, big_endian, array_name, diff) = sig_tuple
+                         
+                         # Construct dummy sig dict
+                         dummy_sig = {
+                             'name': f"{array_name}[...]", # proper name handled by array logic
+                             'start_bit': start_bit,
+                             'length': length,
+                             'gain': gain,
+                             'offset': offset,
+                             'signed': signed,
+                             'type': type_name,
+                             'big_endian': big_endian,
+                             'is_array': True,
+                             'array_name': array_name,
+                             'is_constant': False # It's a real signal
+                         }
+                         
+                         if diff == 0:
+                             idx_str = "muxVal"
+                         else:
+                             idx_str = f"(muxVal - {diff})"
+                             
+                         dummy_sig['array_index'] = idx_str
+                         c_content += generate_signal_decode(dummy_sig, indent="        ")
+                    
+                    c_content += "    }\n"
+                    
+                    processed_mux_vals.update(mux_vals)
+
+                # Generate Switch for remaining
+                remaining_vals = sorted([v for v in mux_dict.keys() if v not in processed_mux_vals])
+                if remaining_vals:
+                    c_content += f"    switch(muxVal)\n    {{\n"
+                    for val in remaining_vals:
+                        c_content += f"        case {val}:\n"
+                        for sig in mux_dict[val]:
+                            c_content += generate_signal_decode(sig, indent="            ")
+                        c_content += "            break;\n"
+                    c_content += "        default:\n            break;\n    }\n"
         
         c_content += "    return ESP_OK;\n}\n\n"
 
@@ -605,23 +866,111 @@ def generate_c_code(messages, msg_map):
             if muxed_sigs:
                 c_content += "\n    /* Muxed Signals */\n"
                 # Switch on the Global Mux Variable to decide which signals to pack
-                # But wait, signal type might be float. float switch? unexpected.
-                # Cast global variable to int for switch
-                c_content += f"    switch((int){mux_switch_sig['name']})\n    {{\n"
                 
                 mux_dict = {}
                 for sig in muxed_sigs:
                     val = sig['mux_val']
                     if val not in mux_dict: mux_dict[val] = []
                     mux_dict[val].append(sig)
+
+                # Identify Array Patterns for Tx
+                # Map Signature -> List of MuxValues
+                
+                array_patterns = {} # SigHash -> [MuxVal]
+                
+                for val, sigs in mux_dict.items():
+                    is_candidate = True
+                    signature = []
+                    sorted_sigs = sorted(sigs, key=lambda s: s['start_bit'])
                     
-                for val in sorted(mux_dict.keys()):
-                    c_content += f"        case {val}:\n"
-                    for sig in mux_dict[val]:
-                        c_content += generate_signal_encode(sig, indent="            ")
-                    c_content += "            break;\n"
+                    for s in sorted_sigs:
+                        if s.get('is_constant', False):
+                            # Ignore constants in signature logic
+                            continue
+
+                        if not s.get('is_array', False):
+                            is_candidate = False; break
+                        
+                        # Calculate diff: "expected" index = muxVal => diff = muxVal - array_index
+                        diff = val - s['array_index']
+
+                        sig_tuple = (
+                            s['start_bit'], s['length'], 
+                            round(s['gain'], 8), round(s['offset'], 8), 
+                            s['signed'], s['type'], s['big_endian'], 
+                            s['array_name'], diff
+                        )
+                        signature.append(sig_tuple)
                     
-                c_content += "        default:\n            break;\n    }\n"
+                    if is_candidate:
+                        if not signature: pass
+                        else:
+                             sig_hash = tuple(signature)
+                             if sig_hash not in array_patterns: array_patterns[sig_hash] = []
+                             array_patterns[sig_hash].append(val)
+                
+                processed_mux_vals = set()
+                c_content += f"    int muxVal = (int)({mux_switch_sig['name']});\n"
+                
+                for sig_hash, mux_vals in array_patterns.items():
+                    if len(mux_vals) < 2: continue
+                    
+                    # Generate Range Checks
+                    mux_vals.sort()
+                    ranges = []
+                    if mux_vals:
+                        curr_start = mux_vals[0]; curr_end = mux_vals[0]
+                        for v in mux_vals[1:]:
+                            if v == curr_end + 1: curr_end = v
+                            else: ranges.append((curr_start, curr_end)); curr_start = v; curr_end = v
+                        ranges.append((curr_start, curr_end))
+                    
+                    cond_parts = []
+                    for s, e in ranges:
+                        cond_parts.append(f"(muxVal == {s})" if s == e else f"(muxVal >= {s} && muxVal <= {e})")
+                    condition = " || ".join(cond_parts)
+                    
+                    c_content += f"    if ({condition}) {{\n"
+                    
+                    # Generate Encode using signature
+                    for sig_tuple in sig_hash:
+                         # Unpack signature
+                         (start_bit, length, gain, offset, signed, type_name, big_endian, array_name, diff) = sig_tuple
+                         
+                         dummy_sig = {
+                             'name': f"{array_name}[...]",
+                             'start_bit': start_bit,
+                             'length': length,
+                             'gain': gain,
+                             'offset': offset,
+                             'signed': signed,
+                             'type': type_name,
+                             'big_endian': big_endian,
+                             'is_array': True,
+                             'array_name': array_name,
+                             'is_constant': False
+                         }
+                         
+                         if diff == 0:
+                             idx_str = "muxVal"
+                         else:
+                             idx_str = f"(muxVal - {diff})"
+                             
+                         dummy_sig['array_index'] = idx_str
+                         c_content += generate_signal_encode(dummy_sig, indent="        ")
+                    
+                    c_content += "    }\n"
+                    processed_mux_vals.update(mux_vals)
+
+                remaining_vals = sorted([v for v in mux_dict.keys() if v not in processed_mux_vals])
+                if remaining_vals:
+                    c_content += f"    switch(muxVal)\n    {{\n"
+                    for val in remaining_vals:
+                        c_content += f"        case {val}:\n"
+                        for sig in mux_dict[val]:
+                            c_content += generate_signal_encode(sig, indent="            ")
+                        c_content += "            break;\n"
+                    c_content += "        default:\n            break;\n    }\n"
                 
         c_content += "\n    return CAN_transmit(stCANBus, &stFrame);\n}\n\n"
         
@@ -654,8 +1003,11 @@ def generate_signal_decode(sig, indent="    "):
         
     # Cast back to target type
     val_expr = f"({sig['type']})({val_expr})"
-        
-    return f"{indent}{sig['name']} = {val_expr};\n"
+    
+    if sig.get('is_array'):
+        return f"{indent}{sig['array_name']}[{sig['array_index']}] = {val_expr};\n"
+    else:
+        return f"{indent}{sig['name']} = {val_expr};\n"
 
 def generate_signal_encode(sig, indent="    "):
     # Generate code to pack global variable 'sig['name']' into stFrame.abData
@@ -669,9 +1021,15 @@ def generate_signal_encode(sig, indent="    "):
         width_mask = (1 << sig['length']) - 1
         val_expr = f"(0x{sig['constant_val']:X} & 0x{width_mask:X})"
     else:
+        # Resolve variable source (Array or Single)
+        if sig.get('is_array'):
+            var_source = f"{sig['array_name']}[{sig['array_index']}]"
+        else:
+            var_source = sig['name']
+            
         # All signals (float or int) undergo physical -> raw conversion
         # raw = (phys - offset) / gain
-        val_term = f"((float){sig['name']})" 
+        val_term = f"((float){var_source})" 
         
         if sig['offset'] != 0.0:
             val_term = f"({val_term} - {sig['offset']}f)"
@@ -771,3 +1129,87 @@ def generate_signal_encode(sig, indent="    "):
 
 if __name__ == "__main__":
     main()
+
+def identify_arrays(messages):
+    # 1. Collect all signal dicts by name (across all messages)
+    name_to_sigs = {}
+    for pid, sigs in messages.items():
+        for sig in sigs:
+            if sig['is_constant']: continue
+            name = sig['name']
+            if name not in name_to_sigs:
+                name_to_sigs[name] = []
+            name_to_sigs[name].append(sig)
+
+    # 2. Find potential array groups
+    # Structure: (prefix, suffix) -> list of (number, original_name)
+    candidates = {}
+    
+    unique_names = list(name_to_sigs.keys())
+    
+    # Pattern: Prefix + Digits + Suffix
+    pattern = re.compile(r'^(.*?)(\d+)(.*?)$')
+    
+    for name in unique_names:
+        m = pattern.match(name)
+        if m:
+            prefix, num_str, suffix = m.groups()
+            
+            # Key for potential group
+            key = (prefix, suffix)
+            if key not in candidates:
+                candidates[key] = []
+            
+            # Store integer representation and original name
+            candidates[key].append( (int(num_str), name) )
+            
+    # 3. Validate and Group
+    for (prefix, suffix), items in candidates.items():
+        if len(items) < 2:
+            continue
+            
+        # Sort by number to check contiguity
+        items.sort(key=lambda x: x[0])
+        
+        # Check contiguity
+        is_contiguous = True
+        numbers = [x[0] for x in items]
+        
+        # Check if numbers are contiguous (step=1)
+        for i in range(len(numbers) - 1):
+            if numbers[i+1] != numbers[i] + 1:
+                is_contiguous = False
+                break
+                
+        if not is_contiguous:
+            # Not contiguous indices, likely distinct scalars (e.g. 1ms, 100ms)
+            continue
+            
+        # Base name construction (Remove the number part)
+        array_name = prefix + suffix
+        # Clean array name
+        array_name = re.sub(r'[^a-zA-Z0-9_]', '', array_name)
+        
+        # Check for collision with existing scalar signal
+        if array_name in name_to_sigs:
+            # If array_name == one of the signal names (rare), or a different scalar.
+            # Example: "MySig" exists, and we make array "MySig" from "MySig1, MySig2".
+            # This is a collision. We skip grouping to avoid breaking existing logic.
+            # print(f"Warning: Constructed array name '{array_name}' collides with existing signal '{array_name}'. Skipping array grouping.")
+            continue
+            
+        array_size = len(items)
+        # Note: Indexing will be 0..N-1 based on sorted order of numbers.
+        # e.g. Sig1, Sig2 -> Sig[0], Sig[1].
+        
+        print(f"Grouping signals {items[0][1]}...{items[-1][1]} into array '{array_name}[{array_size}]' (Indices {numbers[0]}..{numbers[-1]})")
+        
+        # Update signal instances
+        for idx, (num, orig_name) in enumerate(items):
+            # Update all instances (shared signals)
+            for sig in name_to_sigs[orig_name]:
+                sig['is_array'] = True
+                sig['array_name'] = array_name
+                sig['array_index'] = idx 
+                sig['array_size'] = array_size 
+

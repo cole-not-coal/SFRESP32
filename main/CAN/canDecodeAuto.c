@@ -86,454 +86,10 @@ uint16_t tSincePowerUpTempMon = 0;
 uint8_t NLastResetReasonTempMon = 0;
 float CMD_TargetAcCurrent = 0;
 uint8_t CellID = 0;
-float VCell001 = 0;
-float VCell002 = 0;
-float VCell003 = 0;
-float VCell004 = 0;
-float VCell005 = 0;
-float VCell006 = 0;
-float VCell007 = 0;
-float VCell008 = 0;
-float VCell009 = 0;
-float VCell010 = 0;
-float VCell011 = 0;
-float VCell012 = 0;
-float VCell013 = 0;
-float VCell014 = 0;
-float VCell015 = 0;
-float VCell016 = 0;
-float VCell017 = 0;
-float VCell018 = 0;
-float VCell019 = 0;
-float VCell020 = 0;
-float VCell021 = 0;
-float VCell022 = 0;
-float VCell023 = 0;
-float VCell024 = 0;
-float VCell025 = 0;
-float VCell026 = 0;
-float VCell027 = 0;
-float VCell028 = 0;
-float VCell029 = 0;
-float VCell030 = 0;
-float VCell031 = 0;
-float VCell032 = 0;
-float VCell033 = 0;
-float VCell034 = 0;
-float VCell035 = 0;
-float VCell036 = 0;
-float VCell037 = 0;
-float VCell038 = 0;
-float VCell039 = 0;
-float VCell040 = 0;
-float VCell041 = 0;
-float VCell042 = 0;
-float VCell043 = 0;
-float VCell044 = 0;
-float VCell045 = 0;
-float VCell046 = 0;
-float VCell047 = 0;
-float VCell048 = 0;
-float VCell049 = 0;
-float VCell050 = 0;
-float VCell051 = 0;
-float VCell052 = 0;
-float VCell053 = 0;
-float VCell054 = 0;
-float VCell055 = 0;
-float VCell056 = 0;
-float VCell057 = 0;
-float VCell058 = 0;
-float VCell059 = 0;
-float VCell060 = 0;
-float VCell061 = 0;
-float VCell062 = 0;
-float VCell063 = 0;
-float VCell064 = 0;
-float VCell065 = 0;
-float VCell066 = 0;
-float VCell067 = 0;
-float VCell068 = 0;
-float VCell069 = 0;
-float VCell070 = 0;
-float VCell071 = 0;
-float VCell072 = 0;
-float VCell073 = 0;
-float VCell074 = 0;
-float VCell075 = 0;
-float VCell076 = 0;
-float VCell077 = 0;
-float VCell078 = 0;
-float VCell079 = 0;
-float VCell080 = 0;
-float VCell081 = 0;
-float VCell082 = 0;
-float VCell083 = 0;
-float VCell084 = 0;
-float VCell085 = 0;
-float VCell086 = 0;
-float VCell087 = 0;
-float VCell088 = 0;
-float VCell089 = 0;
-float VCell090 = 0;
-float VCell091 = 0;
-float VCell092 = 0;
-float VCell093 = 0;
-float VCell094 = 0;
-float VCell095 = 0;
-float VCell096 = 0;
-float VCell097 = 0;
-float VCell098 = 0;
-float VCell099 = 0;
-float VCell100 = 0;
-float VCell101 = 0;
-float VCell102 = 0;
-float VCell103 = 0;
-float VCell104 = 0;
-float VCell105 = 0;
-float VCell106 = 0;
-float VCell107 = 0;
-float VCell108 = 0;
-float VCell109 = 0;
-float VCell110 = 0;
-float VCell111 = 0;
-float VCell112 = 0;
-float RCell001 = 0;
-float RCell002 = 0;
-float RCell003 = 0;
-float RCell004 = 0;
-float RCell005 = 0;
-float RCell006 = 0;
-float RCell007 = 0;
-float RCell008 = 0;
-float RCell009 = 0;
-float RCell010 = 0;
-float RCell011 = 0;
-float RCell012 = 0;
-float RCell013 = 0;
-float RCell014 = 0;
-float RCell015 = 0;
-float RCell016 = 0;
-float RCell017 = 0;
-float RCell018 = 0;
-float RCell019 = 0;
-float RCell020 = 0;
-float RCell021 = 0;
-float RCell022 = 0;
-float RCell023 = 0;
-float RCell024 = 0;
-float RCell025 = 0;
-float RCell026 = 0;
-float RCell027 = 0;
-float RCell028 = 0;
-float RCell029 = 0;
-float RCell030 = 0;
-float RCell031 = 0;
-float RCell032 = 0;
-float RCell033 = 0;
-float RCell034 = 0;
-float RCell035 = 0;
-float RCell036 = 0;
-float RCell037 = 0;
-float RCell038 = 0;
-float RCell039 = 0;
-float RCell040 = 0;
-float RCell041 = 0;
-float RCell042 = 0;
-float RCell043 = 0;
-float RCell044 = 0;
-float RCell045 = 0;
-float RCell046 = 0;
-float RCell047 = 0;
-float RCell048 = 0;
-float RCell049 = 0;
-float RCell050 = 0;
-float RCell051 = 0;
-float RCell052 = 0;
-float RCell053 = 0;
-float RCell054 = 0;
-float RCell055 = 0;
-float RCell056 = 0;
-float RCell057 = 0;
-float RCell058 = 0;
-float RCell059 = 0;
-float RCell060 = 0;
-float RCell061 = 0;
-float RCell062 = 0;
-float RCell063 = 0;
-float RCell064 = 0;
-float RCell065 = 0;
-float RCell066 = 0;
-float RCell067 = 0;
-float RCell068 = 0;
-float RCell069 = 0;
-float RCell070 = 0;
-float RCell071 = 0;
-float RCell072 = 0;
-float RCell073 = 0;
-float RCell074 = 0;
-float RCell075 = 0;
-float RCell076 = 0;
-float RCell077 = 0;
-float RCell078 = 0;
-float RCell079 = 0;
-float RCell080 = 0;
-float RCell081 = 0;
-float RCell082 = 0;
-float RCell083 = 0;
-float RCell084 = 0;
-float RCell085 = 0;
-float RCell086 = 0;
-float RCell087 = 0;
-float RCell088 = 0;
-float RCell089 = 0;
-float RCell090 = 0;
-float RCell091 = 0;
-float RCell092 = 0;
-float RCell093 = 0;
-float RCell094 = 0;
-float RCell095 = 0;
-float RCell096 = 0;
-float RCell097 = 0;
-float RCell098 = 0;
-float RCell099 = 0;
-float RCell100 = 0;
-float RCell101 = 0;
-float RCell102 = 0;
-float RCell103 = 0;
-float RCell104 = 0;
-float RCell105 = 0;
-float RCell106 = 0;
-float RCell107 = 0;
-float RCell108 = 0;
-float RCell109 = 0;
-float RCell110 = 0;
-float RCell111 = 0;
-float RCell112 = 0;
-bool BBalancingCell001 = 0;
-bool BBalancingCell002 = 0;
-bool BBalancingCell003 = 0;
-bool BBalancingCell004 = 0;
-bool BBalancingCell005 = 0;
-bool BBalancingCell006 = 0;
-bool BBalancingCell007 = 0;
-bool BBalancingCell008 = 0;
-bool BBalancingCell009 = 0;
-bool BBalancingCell010 = 0;
-bool BBalancingCell011 = 0;
-bool BBalancingCell012 = 0;
-bool BBalancingCell013 = 0;
-bool BBalancingCell014 = 0;
-bool BBalancingCell015 = 0;
-bool BBalancingCell016 = 0;
-bool BBalancingCell017 = 0;
-bool BBalancingCell018 = 0;
-bool BBalancingCell019 = 0;
-bool BBalancingCell020 = 0;
-bool BBalancingCell021 = 0;
-bool BBalancingCell022 = 0;
-bool BBalancingCell023 = 0;
-bool BBalancingCell024 = 0;
-bool BBalancingCell025 = 0;
-bool BBalancingCell026 = 0;
-bool BBalancingCell027 = 0;
-bool BBalancingCell028 = 0;
-bool BBalancingCell029 = 0;
-bool BBalancingCell030 = 0;
-bool BBalancingCell031 = 0;
-bool BBalancingCell032 = 0;
-bool BBalancingCell033 = 0;
-bool BBalancingCell034 = 0;
-bool BBalancingCell035 = 0;
-bool BBalancingCell036 = 0;
-bool BBalancingCell037 = 0;
-bool BBalancingCell038 = 0;
-bool BBalancingCell039 = 0;
-bool BBalancingCell040 = 0;
-bool BBalancingCell041 = 0;
-bool BBalancingCell042 = 0;
-bool BBalancingCell043 = 0;
-bool BBalancingCell044 = 0;
-bool BBalancingCell045 = 0;
-bool BBalancingCell046 = 0;
-bool BBalancingCell047 = 0;
-bool BBalancingCell048 = 0;
-bool BBalancingCell049 = 0;
-bool BBalancingCell050 = 0;
-bool BBalancingCell051 = 0;
-bool BBalancingCell052 = 0;
-bool BBalancingCell053 = 0;
-bool BBalancingCell054 = 0;
-bool BBalancingCell055 = 0;
-bool BBalancingCell056 = 0;
-bool BBalancingCell057 = 0;
-bool BBalancingCell058 = 0;
-bool BBalancingCell059 = 0;
-bool BBalancingCell060 = 0;
-bool BBalancingCell061 = 0;
-bool BBalancingCell062 = 0;
-bool BBalancingCell063 = 0;
-bool BBalancingCell064 = 0;
-bool BBalancingCell065 = 0;
-bool BBalancingCell066 = 0;
-bool BBalancingCell067 = 0;
-bool BBalancingCell068 = 0;
-bool BBalancingCell069 = 0;
-bool BBalancingCell070 = 0;
-bool BBalancingCell071 = 0;
-bool BBalancingCell072 = 0;
-bool BBalancingCell073 = 0;
-bool BBalancingCell074 = 0;
-bool BBalancingCell075 = 0;
-bool BBalancingCell076 = 0;
-bool BBalancingCell077 = 0;
-bool BBalancingCell078 = 0;
-bool BBalancingCell079 = 0;
-bool BBalancingCell080 = 0;
-bool BBalancingCell081 = 0;
-bool BBalancingCell082 = 0;
-bool BBalancingCell083 = 0;
-bool BBalancingCell084 = 0;
-bool BBalancingCell085 = 0;
-bool BBalancingCell086 = 0;
-bool BBalancingCell087 = 0;
-bool BBalancingCell088 = 0;
-bool BBalancingCell089 = 0;
-bool BBalancingCell090 = 0;
-bool BBalancingCell091 = 0;
-bool BBalancingCell092 = 0;
-bool BBalancingCell093 = 0;
-bool BBalancingCell094 = 0;
-bool BBalancingCell095 = 0;
-bool BBalancingCell096 = 0;
-bool BBalancingCell097 = 0;
-bool BBalancingCell098 = 0;
-bool BBalancingCell099 = 0;
-bool BBalancingCell100 = 0;
-bool BBalancingCell101 = 0;
-bool BBalancingCell102 = 0;
-bool BBalancingCell103 = 0;
-bool BBalancingCell104 = 0;
-bool BBalancingCell105 = 0;
-bool BBalancingCell106 = 0;
-bool BBalancingCell107 = 0;
-bool BBalancingCell108 = 0;
-bool BBalancingCell109 = 0;
-bool BBalancingCell110 = 0;
-bool BBalancingCell111 = 0;
-bool BBalancingCell112 = 0;
-float VOpenCell001 = 0;
-float VOpenCell002 = 0;
-float VOpenCell003 = 0;
-float VOpenCell004 = 0;
-float VOpenCell005 = 0;
-float VOpenCell006 = 0;
-float VOpenCell007 = 0;
-float VOpenCell008 = 0;
-float VOpenCell009 = 0;
-float VOpenCell010 = 0;
-float VOpenCell011 = 0;
-float VOpenCell012 = 0;
-float VOpenCell013 = 0;
-float VOpenCell014 = 0;
-float VOpenCell015 = 0;
-float VOpenCell016 = 0;
-float VOpenCell017 = 0;
-float VOpenCell018 = 0;
-float VOpenCell019 = 0;
-float VOpenCell020 = 0;
-float VOpenCell021 = 0;
-float VOpenCell022 = 0;
-float VOpenCell023 = 0;
-float VOpenCell024 = 0;
-float VOpenCell025 = 0;
-float VOpenCell026 = 0;
-float VOpenCell027 = 0;
-float VOpenCell028 = 0;
-float VOpenCell029 = 0;
-float VOpenCell030 = 0;
-float VOpenCell031 = 0;
-float VOpenCell032 = 0;
-float VOpenCell033 = 0;
-float VOpenCell034 = 0;
-float VOpenCell035 = 0;
-float VOpenCell036 = 0;
-float VOpenCell037 = 0;
-float VOpenCell038 = 0;
-float VOpenCell039 = 0;
-float VOpenCell040 = 0;
-float VOpenCell041 = 0;
-float VOpenCell042 = 0;
-float VOpenCell043 = 0;
-float VOpenCell044 = 0;
-float VOpenCell045 = 0;
-float VOpenCell046 = 0;
-float VOpenCell047 = 0;
-float VOpenCell048 = 0;
-float VOpenCell049 = 0;
-float VOpenCell050 = 0;
-float VOpenCell051 = 0;
-float VOpenCell052 = 0;
-float VOpenCell053 = 0;
-float VOpenCell054 = 0;
-float VOpenCell055 = 0;
-float VOpenCell056 = 0;
-float VOpenCell057 = 0;
-float VOpenCell058 = 0;
-float VOpenCell059 = 0;
-float VOpenCell060 = 0;
-float VOpenCell061 = 0;
-float VOpenCell062 = 0;
-float VOpenCell063 = 0;
-float VOpenCell064 = 0;
-float VOpenCell065 = 0;
-float VOpenCell066 = 0;
-float VOpenCell067 = 0;
-float VOpenCell068 = 0;
-float VOpenCell069 = 0;
-float VOpenCell070 = 0;
-float VOpenCell071 = 0;
-float VOpenCell072 = 0;
-float VOpenCell073 = 0;
-float VOpenCell074 = 0;
-float VOpenCell075 = 0;
-float VOpenCell076 = 0;
-float VOpenCell077 = 0;
-float VOpenCell078 = 0;
-float VOpenCell079 = 0;
-float VOpenCell080 = 0;
-float VOpenCell081 = 0;
-float VOpenCell082 = 0;
-float VOpenCell083 = 0;
-float VOpenCell084 = 0;
-float VOpenCell085 = 0;
-float VOpenCell086 = 0;
-float VOpenCell087 = 0;
-float VOpenCell088 = 0;
-float VOpenCell089 = 0;
-float VOpenCell090 = 0;
-float VOpenCell091 = 0;
-float VOpenCell092 = 0;
-float VOpenCell093 = 0;
-float VOpenCell094 = 0;
-float VOpenCell095 = 0;
-float VOpenCell096 = 0;
-float VOpenCell097 = 0;
-float VOpenCell098 = 0;
-float VOpenCell099 = 0;
-float VOpenCell100 = 0;
-float VOpenCell101 = 0;
-float VOpenCell102 = 0;
-float VOpenCell103 = 0;
-float VOpenCell104 = 0;
-float VOpenCell105 = 0;
-float VOpenCell106 = 0;
-float VOpenCell107 = 0;
-float VOpenCell108 = 0;
-float VOpenCell109 = 0;
-float VOpenCell110 = 0;
-float VOpenCell111 = 0;
-float VOpenCell112 = 0;
+float VCell[112] = {0};
+float RCell[112] = {0};
+bool BBalancingCell[112] = {0};
+float VOpenCell[112] = {0};
 uint8_t CheckSum_CellVoltages = 0;
 bool BIMDOff = 0;
 bool BIMDUndervoltage = 0;
@@ -545,103 +101,30 @@ bool BIMDInvalidState = 0;
 float RIsolation = 0;
 float CMD_TargetBrakeCurrent = 0;
 float CMD_TargetSpeed = 0;
-float rAPPs1 = 0;
-float rAPPs2 = 0;
+float rAPPs[2] = {0};
 float rAPPsFinal = 0;
 bool BThrottleOK = 0;
-bool BAPPS1Fail = 0;
-bool BAPPS2Fail = 0;
+bool BAPPSFail[2] = {0};
 bool BAPPSDrift = 0;
 float CMD_TargetPosition = 0;
-float VDynoPressure1Raw = 0;
-float VDynoPressure2Raw = 0;
-float VDynoPressure3Raw = 0;
+float VDynoPressureRaw[3] = {0};
 float VDynoCoolantFlowRaw = 0;
-float VDynoTemp1Raw = 0;
-float VDynoTemp2Raw = 0;
-float VDynoTemp3Raw = 0;
-float pDynoPressure1 = 0;
-float pDynoPressure2 = 0;
-float pDynoPressure3 = 0;
+float VDynoTempRaw[3] = {0};
+float pDynoPressure[3] = {0};
 float VDynoCoolantFlow = 0;
-float TDynoTemp1 = 0;
-float TDynoTemp2 = 0;
-float TDynoTemp3 = 0;
+float TDynoTemp[3] = {0};
 float CMD_TargetRelativeCurrent = 0;
 float CMD_TargeRelativeBrakeCurrent = 0;
-bool CMD_SetDigOutput4 = 0;
-bool CMD_SetDigOutput3 = 0;
-bool CMD_SetDigOutput2 = 0;
-bool CMD_SetDigOutput1 = 0;
+bool CMD_SetDigOutput[4] = {0};
 float CMD_MaxAcCurrent = 0;
 float CMD_MaxAcBrakeCurrent = 0;
 float CMD_MaxDcCurrent = 0;
 float CMD_MaxDcBrakeCurrent = 0;
 uint8_t CMD_DriveEnable = 0;
-float TFRTireChannel01 = 0;
-float TFRTireChannel02 = 0;
-float TFRTireChannel03 = 0;
-float TFRTireChannel04 = 0;
-float TFRTireChannel05 = 0;
-float TFRTireChannel06 = 0;
-float TFRTireChannel07 = 0;
-float TFRTireChannel08 = 0;
-float TFRTireChannel09 = 0;
-float TFRTireChannel10 = 0;
-float TFRTireChannel11 = 0;
-float TFRTireChannel12 = 0;
-float TFRTireChannel13 = 0;
-float TFRTireChannel14 = 0;
-float TFRTireChannel15 = 0;
-float TFRTireChannel16 = 0;
-float TFLTireChannel01 = 0;
-float TFLTireChannel02 = 0;
-float TFLTireChannel03 = 0;
-float TFLTireChannel04 = 0;
-float TFLTireChannel05 = 0;
-float TFLTireChannel06 = 0;
-float TFLTireChannel07 = 0;
-float TFLTireChannel08 = 0;
-float TFLTireChannel09 = 0;
-float TFLTireChannel10 = 0;
-float TFLTireChannel11 = 0;
-float TFLTireChannel12 = 0;
-float TFLTireChannel13 = 0;
-float TFLTireChannel14 = 0;
-float TFLTireChannel15 = 0;
-float TFLTireChannel16 = 0;
-float TRRTireChannel01 = 0;
-float TRRTireChannel02 = 0;
-float TRRTireChannel03 = 0;
-float TRRTireChannel04 = 0;
-float TRRTireChannel05 = 0;
-float TRRTireChannel06 = 0;
-float TRRTireChannel07 = 0;
-float TRRTireChannel08 = 0;
-float TRRTireChannel09 = 0;
-float TRRTireChannel10 = 0;
-float TRRTireChannel11 = 0;
-float TRRTireChannel12 = 0;
-float TRRTireChannel13 = 0;
-float TRRTireChannel14 = 0;
-float TRRTireChannel15 = 0;
-float TRRTireChannel16 = 0;
-float TRLTireChannel01 = 0;
-float TRLTireChannel02 = 0;
-float TRLTireChannel03 = 0;
-float TRLTireChannel04 = 0;
-float TRLTireChannel05 = 0;
-float TRLTireChannel06 = 0;
-float TRLTireChannel07 = 0;
-float TRLTireChannel08 = 0;
-float TRLTireChannel09 = 0;
-float TRLTireChannel10 = 0;
-float TRLTireChannel11 = 0;
-float TRLTireChannel12 = 0;
-float TRLTireChannel13 = 0;
-float TRLTireChannel14 = 0;
-float TRLTireChannel15 = 0;
-float TRLTireChannel16 = 0;
+float TFRTireChannel[16] = {0};
+float TFLTireChannel[16] = {0};
+float TRRTireChannel[16] = {0};
+float TRLTireChannel[16] = {0};
 uint8_t ControlMode = 0;
 float TargetIq = 0;
 float MotorPosition = 0;
@@ -658,14 +141,8 @@ float Actual_FOC_id = 0;
 float Actual_FOC_iq = 0;
 float Actual_Throttle = 0;
 float Actual_Brake = 0;
-bool Digital_output_4 = 0;
-bool Digital_output_3 = 0;
-bool Digital_output_2 = 0;
-bool Digital_output_1 = 0;
-bool Digital_input_4 = 0;
-bool Digital_input_3 = 0;
-bool Digital_input_2 = 0;
-bool Digital_input_1 = 0;
+bool Digital_output_[4] = {0};
+bool Digital_input_[4] = {0};
 uint8_t Drive_enable = 0;
 bool Motor_temp_limit = 0;
 bool Motor_accel_limit = 0;
@@ -692,11 +169,11 @@ float Pack_Inst_Voltage = 0;
 float Pack_SOC = 0;
 float Pack_Resistance = 0;
 uint8_t CheckSum_CellStats1 = 0;
-float Pack_CCL_0 = 0;
+float Pack_CCL = 0;
 float Pack_DCL = 0;
 float Pack_DOD = 0;
 float Pack_Open_Voltage = 0;
-float Maximum_Pack_Voltage_0 = 0;
+float Maximum_Pack_Voltage = 0;
 float Minimum_Pack_Voltage = 0;
 float High_Cell_Voltage = 0;
 float Avg_Cell_Voltage = 0;
@@ -713,126 +190,10 @@ float Avg_Cell_Resistance = 0;
 float Low_Cell_Resistance = 0;
 uint8_t High_Intres_ID = 0;
 uint8_t Low_Intres_ID = 0;
-float Maximum_Cell_Voltage_0 = 0;
-float Pack_CCL_2 = 0;
-bool DTC_P0A08_Charger_Safety_Relay_Fault_1 = 0;
-float Maximum_Pack_Voltage_1 = 0;
-float Pack_CCL_1 = 0;
-bool DTC_P0A08_Charger_Safety_Relay_Fault_0 = 0;
-float Maximum_Cell_Voltage_1 = 0;
-float Pack_CCL_3 = 0;
-bool DTC_P0A08_Charger_Safety_Relay_Fault_2 = 0;
+float Maximum_Cell_Voltage = 0;
+bool DTC_P0A08_Charger_Safety_Relay_Fault = 0;
 uint16_t NTCellID = 0;
-int8_t TCell001 = 0;
-int8_t TCell002 = 0;
-int8_t TCell003 = 0;
-int8_t TCell004 = 0;
-int8_t TCell005 = 0;
-int8_t TCell006 = 0;
-int8_t TCell007 = 0;
-int8_t TCell008 = 0;
-int8_t TCell009 = 0;
-int8_t TCell010 = 0;
-int8_t TCell011 = 0;
-int8_t TCell012 = 0;
-int8_t TCell013 = 0;
-int8_t TCell014 = 0;
-int8_t TCell015 = 0;
-int8_t TCell016 = 0;
-int8_t TCell017 = 0;
-int8_t TCell018 = 0;
-int8_t TCell019 = 0;
-int8_t TCell020 = 0;
-int8_t TCell021 = 0;
-int8_t TCell022 = 0;
-int8_t TCell023 = 0;
-int8_t TCell024 = 0;
-int8_t TCell025 = 0;
-int8_t TCell026 = 0;
-int8_t TCell027 = 0;
-int8_t TCell028 = 0;
-int8_t TCell029 = 0;
-int8_t TCell030 = 0;
-int8_t TCell031 = 0;
-int8_t TCell032 = 0;
-int8_t TCell033 = 0;
-int8_t TCell034 = 0;
-int8_t TCell035 = 0;
-int8_t TCell036 = 0;
-int8_t TCell037 = 0;
-int8_t TCell038 = 0;
-int8_t TCell039 = 0;
-int8_t TCell040 = 0;
-int8_t TCell041 = 0;
-int8_t TCell042 = 0;
-int8_t TCell043 = 0;
-int8_t TCell044 = 0;
-int8_t TCell045 = 0;
-int8_t TCell046 = 0;
-int8_t TCell047 = 0;
-int8_t TCell048 = 0;
-int8_t TCell049 = 0;
-int8_t TCell050 = 0;
-int8_t TCell051 = 0;
-int8_t TCell052 = 0;
-int8_t TCell053 = 0;
-int8_t TCell054 = 0;
-int8_t TCell055 = 0;
-int8_t TCell056 = 0;
-int8_t TCell057 = 0;
-int8_t TCell058 = 0;
-int8_t TCell059 = 0;
-int8_t TCell060 = 0;
-int8_t TCell061 = 0;
-int8_t TCell062 = 0;
-int8_t TCell063 = 0;
-int8_t TCell064 = 0;
-int8_t TCell065 = 0;
-int8_t TCell066 = 0;
-int8_t TCell067 = 0;
-int8_t TCell068 = 0;
-int8_t TCell069 = 0;
-int8_t TCell070 = 0;
-int8_t TCell071 = 0;
-int8_t TCell072 = 0;
-int8_t TCell073 = 0;
-int8_t TCell074 = 0;
-int8_t TCell075 = 0;
-int8_t TCell076 = 0;
-int8_t TCell077 = 0;
-int8_t TCell078 = 0;
-int8_t TCell079 = 0;
-int8_t TCell080 = 0;
-int8_t TCell081 = 0;
-int8_t TCell082 = 0;
-int8_t TCell083 = 0;
-int8_t TCell084 = 0;
-int8_t TCell085 = 0;
-int8_t TCell086 = 0;
-int8_t TCell087 = 0;
-int8_t TCell088 = 0;
-int8_t TCell089 = 0;
-int8_t TCell090 = 0;
-int8_t TCell091 = 0;
-int8_t TCell092 = 0;
-int8_t TCell093 = 0;
-int8_t TCell094 = 0;
-int8_t TCell095 = 0;
-int8_t TCell096 = 0;
-int8_t TCell097 = 0;
-int8_t TCell098 = 0;
-int8_t TCell099 = 0;
-int8_t TCell100 = 0;
-int8_t TCell101 = 0;
-int8_t TCell102 = 0;
-int8_t TCell103 = 0;
-int8_t TCell104 = 0;
-int8_t TCell105 = 0;
-int8_t TCell106 = 0;
-int8_t TCell107 = 0;
-int8_t TCell108 = 0;
-int8_t TCell109 = 0;
-int8_t TCell110 = 0;
+int8_t TCell[110] = {0};
 int8_t TCellMin = 0;
 int8_t TCellMax = 0;
 uint8_t NTCellMaxID = 0;
@@ -1499,682 +860,12 @@ esp_err_t CellVoltagesRx(CAN_frame_t stFrame)
     CellID = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)));
 
     /* Muxed Signals */
-    switch(((stFrame.abData[0] >> 0) & 0xFF))
-    {
-        case 0:
-            VCell001 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell001 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell001 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell001 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 1:
-            VCell002 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell002 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell002 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell002 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 2:
-            VCell003 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell003 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell003 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell003 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 3:
-            VCell004 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell004 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell004 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell004 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 4:
-            VCell005 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell005 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell005 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell005 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 5:
-            VCell006 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell006 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell006 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell006 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 6:
-            VCell007 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell007 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell007 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell007 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 7:
-            VCell008 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell008 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell008 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell008 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 8:
-            VCell009 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell009 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell009 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell009 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 9:
-            VCell010 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell010 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell010 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell010 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 10:
-            VCell011 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell011 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell011 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell011 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 11:
-            VCell012 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell012 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell012 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell012 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 12:
-            VCell013 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell013 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell013 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell013 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 13:
-            VCell014 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell014 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell014 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell014 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 14:
-            VCell015 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell015 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell015 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell015 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 15:
-            VCell016 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell016 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell016 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell016 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 16:
-            VCell017 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell017 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell017 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell017 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 17:
-            VCell018 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell018 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell018 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell018 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 18:
-            VCell019 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell019 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell019 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell019 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 19:
-            VCell020 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell020 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell020 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell020 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 20:
-            VCell021 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell021 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell021 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell021 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 21:
-            VCell022 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell022 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell022 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell022 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 22:
-            VCell023 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell023 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell023 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell023 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 23:
-            VCell024 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell024 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell024 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell024 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 24:
-            VCell025 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell025 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell025 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell025 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 25:
-            VCell026 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell026 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell026 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell026 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 26:
-            VCell027 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell027 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell027 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell027 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 27:
-            VCell028 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell028 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell028 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell028 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 28:
-            VCell029 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell029 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell029 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell029 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 29:
-            VCell030 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell030 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell030 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell030 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 30:
-            VCell031 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell031 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell031 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell031 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 31:
-            VCell032 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell032 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell032 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell032 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 32:
-            VCell033 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell033 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell033 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell033 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 33:
-            VCell034 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell034 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell034 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell034 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 34:
-            VCell035 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell035 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell035 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell035 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 35:
-            VCell036 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell036 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell036 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell036 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 36:
-            VCell037 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell037 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell037 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell037 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 37:
-            VCell038 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell038 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell038 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell038 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 38:
-            VCell039 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell039 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell039 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell039 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 39:
-            VCell040 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell040 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell040 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell040 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 40:
-            VCell041 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell041 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell041 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell041 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 41:
-            VCell042 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell042 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell042 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell042 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 42:
-            VCell043 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell043 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell043 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell043 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 43:
-            VCell044 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell044 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell044 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell044 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 44:
-            VCell045 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell045 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell045 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell045 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 45:
-            VCell046 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell046 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell046 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell046 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 46:
-            VCell047 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell047 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell047 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell047 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 47:
-            VCell048 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell048 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell048 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell048 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 48:
-            VCell049 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell049 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell049 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell049 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 49:
-            VCell050 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell050 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell050 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell050 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 50:
-            VCell051 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell051 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell051 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell051 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 51:
-            VCell052 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell052 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell052 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell052 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 52:
-            VCell053 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell053 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell053 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell053 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 53:
-            VCell054 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell054 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell054 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell054 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 54:
-            VCell055 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell055 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell055 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell055 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 55:
-            VCell056 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell056 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell056 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell056 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 56:
-            VCell057 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell057 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell057 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell057 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 57:
-            VCell058 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell058 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell058 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell058 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 58:
-            VCell059 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell059 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell059 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell059 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 59:
-            VCell060 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell060 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell060 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell060 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 60:
-            VCell061 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell061 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell061 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell061 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 61:
-            VCell062 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell062 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell062 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell062 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 62:
-            VCell063 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell063 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell063 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell063 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 63:
-            VCell064 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell064 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell064 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell064 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 64:
-            VCell065 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell065 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell065 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell065 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 65:
-            VCell066 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell066 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell066 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell066 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 66:
-            VCell067 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell067 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell067 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell067 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 67:
-            VCell068 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell068 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell068 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell068 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 68:
-            VCell069 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell069 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell069 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell069 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 69:
-            VCell070 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell070 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell070 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell070 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 70:
-            VCell071 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell071 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell071 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell071 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 71:
-            VCell072 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell072 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell072 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell072 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 72:
-            VCell073 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell073 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell073 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell073 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 73:
-            VCell074 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell074 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell074 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell074 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 74:
-            VCell075 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell075 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell075 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell075 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 75:
-            VCell076 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell076 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell076 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell076 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 76:
-            VCell077 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell077 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell077 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell077 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 77:
-            VCell078 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell078 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell078 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell078 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 78:
-            VCell079 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell079 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell079 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell079 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 79:
-            VCell080 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell080 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell080 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell080 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 80:
-            VCell081 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell081 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell081 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell081 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 81:
-            VCell082 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell082 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell082 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell082 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 82:
-            VCell083 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell083 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell083 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell083 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 83:
-            VCell084 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell084 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell084 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell084 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 84:
-            VCell085 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell085 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell085 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell085 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 85:
-            VCell086 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell086 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell086 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell086 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 86:
-            VCell087 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell087 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell087 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell087 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 87:
-            VCell088 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell088 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell088 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell088 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 88:
-            VCell089 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-            RCell089 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell089 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell089 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 89:
-            VCell090 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell090 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell090 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell090 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 90:
-            VCell091 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell091 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell091 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell091 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 91:
-            VCell092 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell092 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell092 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell092 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 92:
-            VCell093 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell093 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell093 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell093 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 93:
-            VCell094 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell094 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell094 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell094 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 94:
-            VCell095 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell095 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell095 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell095 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 95:
-            VCell096 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell096 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell096 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell096 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 96:
-            VCell097 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell097 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell097 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell097 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 97:
-            VCell098 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell098 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell098 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell098 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 98:
-            VCell099 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell099 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell099 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell099 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 99:
-            VCell100 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell100 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell100 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell100 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 100:
-            VCell101 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell101 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell101 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell101 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 101:
-            VCell102 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell102 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell102 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell102 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 102:
-            VCell103 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell103 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell103 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell103 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 103:
-            VCell104 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell104 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell104 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell104 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 104:
-            VCell105 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell105 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell105 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell105 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 105:
-            VCell106 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell106 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell106 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell106 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 106:
-            VCell107 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell107 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell107 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell107 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 107:
-            VCell108 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell108 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell108 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell108 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 108:
-            VCell109 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell109 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell109 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell109 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 109:
-            VCell110 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell110 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell110 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell110 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 110:
-            VCell111 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell111 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell111 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell111 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        case 111:
-            VCell112 = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.000100000000000001f);
-            RCell112 = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
-            BBalancingCell112 = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
-            VOpenCell112 = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.000100000000000001f);
-            break;
-        default:
-            break;
+    int muxVal = (int)(((stFrame.abData[0] >> 0) & 0xFF));
+    if ((muxVal >= 0 && muxVal <= 111)) {
+        VCell[muxVal] = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
+        BBalancingCell[muxVal] = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
+        RCell[muxVal] = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
+        VOpenCell[muxVal] = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.0001f);
     }
     return ESP_OK;
 }
@@ -2201,1018 +892,15 @@ esp_err_t CellVoltagesTx(twai_node_handle_t stCANBus)
     stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)CellID) & 0xFF) >> 0) & 0xFF) << 0);
 
     /* Muxed Signals */
-    switch((int)CellID)
-    {
-        case 0:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell001) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell001) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell001) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell001) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell001) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell001) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell001) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 1:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell002) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell002) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell002) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell002) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell002) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell002) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell002) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 2:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell003) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell003) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell003) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell003) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell003) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell003) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell003) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 3:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell004) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell004) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell004) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell004) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell004) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell004) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell004) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 4:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell005) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell005) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell005) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell005) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell005) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell005) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell005) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 5:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell006) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell006) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell006) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell006) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell006) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell006) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell006) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 6:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell007) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell007) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell007) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell007) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell007) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell007) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell007) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 7:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell008) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell008) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell008) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell008) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell008) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell008) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell008) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 8:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell009) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell009) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell009) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell009) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell009) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell009) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell009) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 9:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell010) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell010) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell010) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell010) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell010) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell010) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell010) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 10:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell011) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell011) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell011) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell011) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell011) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell011) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell011) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 11:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell012) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell012) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell012) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell012) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell012) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell012) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell012) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 12:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell013) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell013) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell013) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell013) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell013) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell013) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell013) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 13:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell014) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell014) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell014) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell014) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell014) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell014) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell014) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 14:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell015) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell015) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell015) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell015) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell015) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell015) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell015) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 15:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell016) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell016) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell016) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell016) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell016) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell016) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell016) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 16:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell017) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell017) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell017) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell017) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell017) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell017) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell017) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 17:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell018) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell018) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell018) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell018) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell018) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell018) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell018) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 18:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell019) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell019) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell019) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell019) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell019) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell019) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell019) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 19:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell020) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell020) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell020) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell020) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell020) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell020) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell020) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 20:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell021) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell021) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell021) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell021) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell021) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell021) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell021) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 21:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell022) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell022) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell022) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell022) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell022) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell022) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell022) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 22:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell023) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell023) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell023) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell023) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell023) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell023) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell023) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 23:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell024) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell024) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell024) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell024) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell024) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell024) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell024) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 24:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell025) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell025) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell025) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell025) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell025) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell025) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell025) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 25:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell026) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell026) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell026) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell026) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell026) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell026) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell026) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 26:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell027) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell027) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell027) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell027) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell027) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell027) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell027) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 27:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell028) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell028) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell028) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell028) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell028) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell028) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell028) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 28:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell029) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell029) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell029) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell029) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell029) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell029) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell029) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 29:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell030) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell030) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell030) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell030) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell030) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell030) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell030) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 30:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell031) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell031) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell031) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell031) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell031) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell031) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell031) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 31:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell032) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell032) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell032) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell032) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell032) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell032) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell032) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 32:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell033) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell033) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell033) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell033) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell033) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell033) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell033) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 33:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell034) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell034) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell034) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell034) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell034) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell034) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell034) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 34:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell035) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell035) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell035) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell035) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell035) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell035) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell035) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 35:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell036) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell036) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell036) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell036) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell036) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell036) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell036) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 36:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell037) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell037) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell037) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell037) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell037) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell037) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell037) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 37:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell038) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell038) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell038) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell038) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell038) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell038) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell038) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 38:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell039) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell039) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell039) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell039) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell039) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell039) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell039) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 39:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell040) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell040) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell040) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell040) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell040) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell040) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell040) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 40:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell041) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell041) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell041) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell041) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell041) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell041) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell041) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 41:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell042) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell042) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell042) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell042) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell042) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell042) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell042) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 42:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell043) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell043) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell043) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell043) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell043) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell043) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell043) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 43:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell044) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell044) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell044) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell044) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell044) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell044) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell044) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 44:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell045) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell045) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell045) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell045) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell045) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell045) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell045) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 45:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell046) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell046) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell046) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell046) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell046) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell046) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell046) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 46:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell047) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell047) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell047) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell047) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell047) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell047) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell047) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 47:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell048) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell048) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell048) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell048) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell048) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell048) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell048) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 48:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell049) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell049) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell049) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell049) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell049) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell049) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell049) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 49:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell050) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell050) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell050) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell050) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell050) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell050) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell050) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 50:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell051) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell051) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell051) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell051) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell051) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell051) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell051) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 51:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell052) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell052) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell052) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell052) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell052) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell052) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell052) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 52:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell053) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell053) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell053) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell053) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell053) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell053) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell053) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 53:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell054) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell054) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell054) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell054) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell054) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell054) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell054) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 54:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell055) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell055) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell055) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell055) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell055) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell055) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell055) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 55:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell056) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell056) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell056) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell056) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell056) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell056) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell056) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 56:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell057) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell057) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell057) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell057) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell057) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell057) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell057) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 57:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell058) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell058) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell058) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell058) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell058) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell058) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell058) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 58:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell059) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell059) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell059) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell059) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell059) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell059) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell059) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 59:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell060) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell060) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell060) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell060) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell060) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell060) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell060) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 60:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell061) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell061) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell061) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell061) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell061) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell061) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell061) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 61:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell062) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell062) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell062) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell062) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell062) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell062) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell062) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 62:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell063) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell063) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell063) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell063) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell063) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell063) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell063) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 63:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell064) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell064) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell064) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell064) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell064) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell064) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell064) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 64:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell065) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell065) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell065) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell065) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell065) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell065) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell065) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 65:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell066) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell066) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell066) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell066) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell066) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell066) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell066) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 66:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell067) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell067) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell067) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell067) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell067) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell067) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell067) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 67:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell068) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell068) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell068) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell068) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell068) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell068) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell068) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 68:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell069) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell069) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell069) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell069) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell069) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell069) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell069) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 69:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell070) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell070) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell070) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell070) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell070) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell070) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell070) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 70:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell071) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell071) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell071) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell071) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell071) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell071) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell071) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 71:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell072) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell072) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell072) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell072) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell072) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell072) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell072) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 72:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell073) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell073) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell073) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell073) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell073) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell073) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell073) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 73:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell074) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell074) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell074) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell074) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell074) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell074) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell074) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 74:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell075) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell075) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell075) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell075) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell075) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell075) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell075) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 75:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell076) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell076) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell076) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell076) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell076) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell076) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell076) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 76:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell077) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell077) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell077) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell077) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell077) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell077) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell077) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 77:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell078) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell078) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell078) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell078) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell078) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell078) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell078) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 78:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell079) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell079) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell079) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell079) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell079) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell079) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell079) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 79:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell080) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell080) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell080) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell080) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell080) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell080) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell080) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 80:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell081) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell081) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell081) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell081) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell081) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell081) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell081) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 81:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell082) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell082) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell082) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell082) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell082) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell082) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell082) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 82:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell083) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell083) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell083) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell083) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell083) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell083) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell083) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 83:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell084) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell084) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell084) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell084) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell084) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell084) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell084) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 84:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell085) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell085) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell085) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell085) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell085) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell085) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell085) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 85:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell086) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell086) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell086) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell086) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell086) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell086) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell086) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 86:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell087) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell087) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell087) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell087) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell087) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell087) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell087) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 87:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell088) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell088) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell088) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell088) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell088) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell088) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell088) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 88:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell089) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell089) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell089) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell089) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell089) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell089) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell089) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 89:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell090) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell090) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell090) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell090) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell090) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell090) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell090) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 90:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell091) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell091) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell091) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell091) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell091) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell091) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell091) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 91:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell092) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell092) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell092) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell092) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell092) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell092) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell092) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 92:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell093) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell093) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell093) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell093) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell093) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell093) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell093) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 93:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell094) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell094) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell094) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell094) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell094) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell094) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell094) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 94:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell095) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell095) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell095) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell095) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell095) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell095) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell095) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 95:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell096) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell096) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell096) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell096) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell096) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell096) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell096) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 96:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell097) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell097) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell097) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell097) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell097) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell097) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell097) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 97:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell098) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell098) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell098) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell098) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell098) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell098) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell098) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 98:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell099) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell099) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell099) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell099) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell099) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell099) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell099) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 99:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell100) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell100) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell100) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell100) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell100) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell100) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell100) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 100:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell101) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell101) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell101) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell101) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell101) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell101) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell101) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 101:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell102) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell102) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell102) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell102) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell102) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell102) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell102) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 102:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell103) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell103) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell103) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell103) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell103) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell103) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell103) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 103:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell104) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell104) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell104) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell104) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell104) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell104) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell104) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 104:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell105) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell105) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell105) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell105) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell105) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell105) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell105) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 105:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell106) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell106) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell106) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell106) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell106) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell106) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell106) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 106:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell107) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell107) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell107) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell107) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell107) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell107) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell107) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 107:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell108) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell108) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell108) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell108) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell108) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell108) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell108) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 108:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell109) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell109) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell109) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell109) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell109) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell109) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell109) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 109:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell110) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell110) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell110) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell110) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell110) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell110) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell110) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 110:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell111) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell111) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell111) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell111) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell111) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell111) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell111) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        case 111:
-            stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell112) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell112) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell112) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
-            stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell112) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell112) & 0x1) >> 0) & 0x1) << 0);
-            stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell112) / 0.000100000000000001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-            stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell112) / 0.000100000000000001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-            break;
-        default:
-            break;
+    int muxVal = (int)(CellID);
+    if ((muxVal >= 0 && muxVal <= 111)) {
+        stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell[muxVal]) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
+        stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell[muxVal]) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
+        stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell[muxVal]) & 0x1) >> 0) & 0x1) << 0);
+        stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell[muxVal]) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
+        stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell[muxVal]) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
+        stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell[muxVal]) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
+        stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VOpenCell[muxVal]) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
     }
 
     return CAN_transmit(stCANBus, &stFrame);
@@ -3372,12 +1060,12 @@ esp_err_t StatusAPPSSensorRx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x81) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    rAPPs1 = (float)((float)(((stFrame.abData[0] >> 0) & 0xFF)));
-    rAPPs2 = (float)((float)(((stFrame.abData[1] >> 0) & 0xFF)));
+    rAPPs[0] = (float)((float)(((stFrame.abData[0] >> 0) & 0xFF)));
+    rAPPs[1] = (float)((float)(((stFrame.abData[1] >> 0) & 0xFF)));
     rAPPsFinal = (float)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
     BThrottleOK = (bool)((float)(((stFrame.abData[3] >> 3) & 0x1)));
-    BAPPS1Fail = (bool)((float)(((stFrame.abData[3] >> 2) & 0x1)));
-    BAPPS2Fail = (bool)((float)(((stFrame.abData[3] >> 1) & 0x1)));
+    BAPPSFail[0] = (bool)((float)(((stFrame.abData[3] >> 2) & 0x1)));
+    BAPPSFail[1] = (bool)((float)(((stFrame.abData[3] >> 1) & 0x1)));
     BAPPSDrift = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
     return ESP_OK;
 }
@@ -3398,12 +1086,12 @@ esp_err_t StatusAPPSSensorTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)rAPPs1) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((float)rAPPs2) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)rAPPs[0]) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((float)rAPPs[1]) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)rAPPsFinal) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BThrottleOK) & 0x1) >> 0) & 0x1) << 3);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BAPPS1Fail) & 0x1) >> 0) & 0x1) << 2);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BAPPS2Fail) & 0x1) >> 0) & 0x1) << 1);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BAPPSFail[0]) & 0x1) >> 0) & 0x1) << 2);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BAPPSFail[1]) & 0x1) >> 0) & 0x1) << 1);
     stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BAPPSDrift) & 0x1) >> 0) & 0x1) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
@@ -3465,9 +1153,9 @@ esp_err_t DynoPressuresRawRx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x90) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    VDynoPressure1Raw = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.0001f);
-    VDynoPressure2Raw = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.0001f);
-    VDynoPressure3Raw = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.0001f);
+    VDynoPressureRaw[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.0001f);
+    VDynoPressureRaw[1] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.0001f);
+    VDynoPressureRaw[2] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.0001f);
     VDynoCoolantFlowRaw = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.0001f);
     return ESP_OK;
 }
@@ -3488,12 +1176,12 @@ esp_err_t DynoPressuresRawTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)VDynoPressure1Raw) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VDynoPressure1Raw) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VDynoPressure2Raw) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)VDynoPressure2Raw) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)VDynoPressure3Raw) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VDynoPressure3Raw) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)VDynoPressureRaw[0]) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VDynoPressureRaw[0]) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VDynoPressureRaw[1]) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)VDynoPressureRaw[1]) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)VDynoPressureRaw[2]) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VDynoPressureRaw[2]) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VDynoCoolantFlowRaw) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)(((((uint32_t)(((float)VDynoCoolantFlowRaw) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
@@ -3515,9 +1203,9 @@ esp_err_t DynoTempsRawRx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x91) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    VDynoTemp1Raw = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.0001f);
-    VDynoTemp2Raw = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.0001f);
-    VDynoTemp3Raw = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.0001f);
+    VDynoTempRaw[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.0001f);
+    VDynoTempRaw[1] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.0001f);
+    VDynoTempRaw[2] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.0001f);
     return ESP_OK;
 }
 
@@ -3537,12 +1225,12 @@ esp_err_t DynoTempsRawTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)VDynoTemp1Raw) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VDynoTemp1Raw) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VDynoTemp2Raw) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)VDynoTemp2Raw) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)VDynoTemp3Raw) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VDynoTemp3Raw) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)VDynoTempRaw[0]) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VDynoTempRaw[0]) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VDynoTempRaw[1]) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)VDynoTempRaw[1]) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)VDynoTempRaw[2]) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VDynoTempRaw[2]) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -3562,9 +1250,9 @@ esp_err_t DynoPressuresRx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x92) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    pDynoPressure1 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.0005f + -6.0f);
-    pDynoPressure2 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.0005f + -6.0f);
-    pDynoPressure3 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.0005f + -6.0f);
+    pDynoPressure[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.0005f + -6.0f);
+    pDynoPressure[1] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.0005f + -6.0f);
+    pDynoPressure[2] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.0005f + -6.0f);
     VDynoCoolantFlow = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 1e-05f);
     return ESP_OK;
 }
@@ -3585,12 +1273,12 @@ esp_err_t DynoPressuresTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure1) - -6.0f) / 0.0005f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure1) - -6.0f) / 0.0005f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure2) - -6.0f) / 0.0005f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure2) - -6.0f) / 0.0005f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure3) - -6.0f) / 0.0005f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure3) - -6.0f) / 0.0005f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure[0]) - -6.0f) / 0.0005f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure[0]) - -6.0f) / 0.0005f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure[1]) - -6.0f) / 0.0005f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure[1]) - -6.0f) / 0.0005f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure[2]) - -6.0f) / 0.0005f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)pDynoPressure[2]) - -6.0f) / 0.0005f) & 0xFFFF) >> 0) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)VDynoCoolantFlow) / 1e-05f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)(((((uint32_t)(((float)VDynoCoolantFlow) / 1e-05f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
@@ -3612,9 +1300,9 @@ esp_err_t DynoTempsRx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x93) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TDynoTemp1 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.005f + -30.0f);
-    TDynoTemp2 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.005f + -30.0f);
-    TDynoTemp3 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.005f + -30.0f);
+    TDynoTemp[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.005f + -30.0f);
+    TDynoTemp[1] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.005f + -30.0f);
+    TDynoTemp[2] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.005f + -30.0f);
     return ESP_OK;
 }
 
@@ -3634,12 +1322,12 @@ esp_err_t DynoTempsTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp1) - -30.0f) / 0.005f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp1) - -30.0f) / 0.005f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp2) - -30.0f) / 0.005f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp2) - -30.0f) / 0.005f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp3) - -30.0f) / 0.005f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp3) - -30.0f) / 0.005f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp[0]) - -30.0f) / 0.005f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp[0]) - -30.0f) / 0.005f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp[1]) - -30.0f) / 0.005f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp[1]) - -30.0f) / 0.005f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp[2]) - -30.0f) / 0.005f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TDynoTemp[2]) - -30.0f) / 0.005f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -3741,10 +1429,10 @@ esp_err_t SetDigOutputRx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0xE4) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    CMD_SetDigOutput4 = (bool)((float)(((stFrame.abData[0] >> 3) & 0x1)));
-    CMD_SetDigOutput3 = (bool)((float)(((stFrame.abData[0] >> 2) & 0x1)));
-    CMD_SetDigOutput2 = (bool)((float)(((stFrame.abData[0] >> 1) & 0x1)));
-    CMD_SetDigOutput1 = (bool)((float)(((stFrame.abData[0] >> 0) & 0x1)));
+    CMD_SetDigOutput[3] = (bool)((float)(((stFrame.abData[0] >> 3) & 0x1)));
+    CMD_SetDigOutput[2] = (bool)((float)(((stFrame.abData[0] >> 2) & 0x1)));
+    CMD_SetDigOutput[1] = (bool)((float)(((stFrame.abData[0] >> 1) & 0x1)));
+    CMD_SetDigOutput[0] = (bool)((float)(((stFrame.abData[0] >> 0) & 0x1)));
     return ESP_OK;
 }
 
@@ -3764,10 +1452,10 @@ esp_err_t SetDigOutputTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)CMD_SetDigOutput4) & 0x1) >> 0) & 0x1) << 3);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)CMD_SetDigOutput3) & 0x1) >> 0) & 0x1) << 2);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)CMD_SetDigOutput2) & 0x1) >> 0) & 0x1) << 1);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)CMD_SetDigOutput1) & 0x1) >> 0) & 0x1) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)CMD_SetDigOutput[3]) & 0x1) >> 0) & 0x1) << 3);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)CMD_SetDigOutput[2]) & 0x1) >> 0) & 0x1) << 2);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)CMD_SetDigOutput[1]) & 0x1) >> 0) & 0x1) << 1);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)CMD_SetDigOutput[0]) & 0x1) >> 0) & 0x1) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -3991,10 +1679,10 @@ esp_err_t FRTireTemp1Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x200) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TFRTireChannel01 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFRTireChannel02 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFRTireChannel03 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFRTireChannel04 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[1] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[2] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[3] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4014,14 +1702,14 @@ esp_err_t FRTireTemp1Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel01) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel01) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel02) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel02) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel03) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel03) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel04) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel04) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[0]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[0]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[1]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[1]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[2]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[2]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[3]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[3]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -4041,10 +1729,10 @@ esp_err_t FRTireTemp2Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x201) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TFRTireChannel05 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFRTireChannel06 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFRTireChannel07 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFRTireChannel08 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[4] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[5] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[6] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[7] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4064,14 +1752,14 @@ esp_err_t FRTireTemp2Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel05) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel05) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel06) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel06) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel07) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel07) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel08) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel08) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[4]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[4]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[5]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[5]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[6]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[6]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[7]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[7]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -4091,10 +1779,10 @@ esp_err_t FRTireTemp3Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x202) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TFRTireChannel09 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFRTireChannel10 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFRTireChannel11 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFRTireChannel12 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[8] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[9] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[10] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[11] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4114,14 +1802,14 @@ esp_err_t FRTireTemp3Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel09) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel09) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel10) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel10) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel11) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel11) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel12) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel12) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[8]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[8]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[9]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[9]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[10]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[10]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[11]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[11]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -4141,10 +1829,10 @@ esp_err_t FRTireTemp4Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x203) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TFRTireChannel13 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFRTireChannel14 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFRTireChannel15 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFRTireChannel16 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[12] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[13] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[14] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFRTireChannel[15] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4164,14 +1852,14 @@ esp_err_t FRTireTemp4Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel13) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel13) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel14) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel14) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel15) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel15) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel16) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel16) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[12]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[12]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[13]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[13]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[14]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[14]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[15]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFRTireChannel[15]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -4191,10 +1879,10 @@ esp_err_t FLTireTemp1Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x204) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TFLTireChannel01 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFLTireChannel02 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFLTireChannel03 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFLTireChannel04 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[1] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[2] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[3] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4214,14 +1902,14 @@ esp_err_t FLTireTemp1Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel01) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel01) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel02) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel02) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel03) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel03) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel04) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel04) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[0]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[0]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[1]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[1]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[2]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[2]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[3]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[3]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -4241,10 +1929,10 @@ esp_err_t FLTireTemp2Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x205) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TFLTireChannel05 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFLTireChannel06 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFLTireChannel07 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFLTireChannel08 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[4] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[5] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[6] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[7] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4264,14 +1952,14 @@ esp_err_t FLTireTemp2Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel05) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel05) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel06) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel06) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel07) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel07) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel08) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel08) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[4]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[4]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[5]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[5]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[6]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[6]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[7]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[7]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -4291,10 +1979,10 @@ esp_err_t FLTireTemp3Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x206) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TFLTireChannel09 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFLTireChannel10 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFLTireChannel11 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFLTireChannel12 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[8] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[9] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[10] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[11] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4314,14 +2002,14 @@ esp_err_t FLTireTemp3Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel09) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel09) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel10) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel10) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel11) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel11) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel12) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel12) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[8]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[8]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[9]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[9]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[10]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[10]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[11]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[11]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -4341,10 +2029,10 @@ esp_err_t FLTireTemp4Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x207) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TFLTireChannel13 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFLTireChannel14 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFLTireChannel15 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TFLTireChannel16 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[12] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[13] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[14] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TFLTireChannel[15] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4364,14 +2052,14 @@ esp_err_t FLTireTemp4Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel13) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel13) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel14) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel14) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel15) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel15) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel16) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel16) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[12]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[12]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[13]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[13]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[14]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[14]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[15]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TFLTireChannel[15]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -4391,10 +2079,10 @@ esp_err_t RRTireTemp1Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x208) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TRRTireChannel01 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRRTireChannel02 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRRTireChannel03 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRRTireChannel04 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[1] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[2] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[3] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4414,14 +2102,14 @@ esp_err_t RRTireTemp1Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel01) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel01) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel02) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel02) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel03) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel03) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel04) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel04) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[0]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[0]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[1]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[1]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[2]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[2]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[3]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[3]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -4441,10 +2129,10 @@ esp_err_t RRTireTemp2Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x209) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TRRTireChannel05 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRRTireChannel06 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRRTireChannel07 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRRTireChannel08 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[4] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[5] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[6] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[7] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4464,14 +2152,14 @@ esp_err_t RRTireTemp2Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel05) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel05) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel06) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel06) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel07) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel07) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel08) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel08) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[4]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[4]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[5]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[5]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[6]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[6]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[7]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[7]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -4491,10 +2179,10 @@ esp_err_t RRTireTemp3Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x20A) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TRRTireChannel09 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRRTireChannel10 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRRTireChannel11 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRRTireChannel12 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[8] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[9] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[10] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[11] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4514,14 +2202,14 @@ esp_err_t RRTireTemp3Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel09) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel09) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel10) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel10) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel11) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel11) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel12) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel12) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[8]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[8]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[9]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[9]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[10]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[10]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[11]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[11]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -4541,10 +2229,10 @@ esp_err_t RRTireTemp4Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x20B) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TRRTireChannel13 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRRTireChannel14 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRRTireChannel15 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRRTireChannel16 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[12] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[13] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[14] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRRTireChannel[15] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4564,14 +2252,14 @@ esp_err_t RRTireTemp4Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel13) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel13) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel14) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel14) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel15) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel15) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel16) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel16) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[12]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[12]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[13]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[13]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[14]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[14]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[15]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRRTireChannel[15]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -4591,10 +2279,10 @@ esp_err_t RLTireTemp1Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x20C) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TRLTireChannel01 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRLTireChannel02 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRLTireChannel03 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRLTireChannel04 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[1] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[2] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[3] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4614,14 +2302,14 @@ esp_err_t RLTireTemp1Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel01) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel01) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel02) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel02) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel03) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel03) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel04) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel04) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[0]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[0]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[1]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[1]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[2]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[2]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[3]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[3]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -4641,10 +2329,10 @@ esp_err_t RLTireTemp2Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x20D) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TRLTireChannel05 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRLTireChannel06 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRLTireChannel07 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRLTireChannel08 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[4] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[5] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[6] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[7] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4664,14 +2352,14 @@ esp_err_t RLTireTemp2Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel05) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel05) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel06) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel06) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel07) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel07) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel08) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel08) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[4]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[4]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[5]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[5]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[6]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[6]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[7]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[7]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -4691,10 +2379,10 @@ esp_err_t RLTireTemp3Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x20E) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TRLTireChannel09 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRLTireChannel10 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRLTireChannel11 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRLTireChannel12 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[8] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[9] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[10] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[11] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4714,14 +2402,14 @@ esp_err_t RLTireTemp3Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel09) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel09) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel10) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel10) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel11) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel11) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel12) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel12) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[8]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[8]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[9]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[9]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[10]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[10]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[11]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[11]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -4741,10 +2429,10 @@ esp_err_t RLTireTemp4Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x20F) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TRLTireChannel13 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRLTireChannel14 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRLTireChannel15 = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
-    TRLTireChannel16 = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[12] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[13] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[14] = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 0.1f + -100.0f);
+    TRLTireChannel[15] = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f + -100.0f);
     return ESP_OK;
 }
 
@@ -4764,14 +2452,14 @@ esp_err_t RLTireTemp4Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel13) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel13) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel14) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel14) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel15) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel15) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel16) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel16) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[12]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[12]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[13]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[13]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[14]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[14]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[15]) - -100.0f) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((((float)TRLTireChannel[15]) - -100.0f) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -5028,14 +2716,14 @@ esp_err_t Inverter_MISCRx(CAN_frame_t stFrame)
     /* Standard Signals */
     Actual_Throttle = (float)((float)(((stFrame.abData[0] >> 0) & 0xFF)));
     Actual_Brake = (float)((float)(((stFrame.abData[1] >> 0) & 0xFF)));
-    Digital_output_4 = (bool)((float)(((stFrame.abData[2] >> 7) & 0x1)));
-    Digital_output_3 = (bool)((float)(((stFrame.abData[2] >> 6) & 0x1)));
-    Digital_output_2 = (bool)((float)(((stFrame.abData[2] >> 5) & 0x1)));
-    Digital_output_1 = (bool)((float)(((stFrame.abData[2] >> 4) & 0x1)));
-    Digital_input_4 = (bool)((float)(((stFrame.abData[2] >> 3) & 0x1)));
-    Digital_input_3 = (bool)((float)(((stFrame.abData[2] >> 2) & 0x1)));
-    Digital_input_2 = (bool)((float)(((stFrame.abData[2] >> 1) & 0x1)));
-    Digital_input_1 = (bool)((float)(((stFrame.abData[2] >> 0) & 0x1)));
+    Digital_output_[3] = (bool)((float)(((stFrame.abData[2] >> 7) & 0x1)));
+    Digital_output_[2] = (bool)((float)(((stFrame.abData[2] >> 6) & 0x1)));
+    Digital_output_[1] = (bool)((float)(((stFrame.abData[2] >> 5) & 0x1)));
+    Digital_output_[0] = (bool)((float)(((stFrame.abData[2] >> 4) & 0x1)));
+    Digital_input_[3] = (bool)((float)(((stFrame.abData[2] >> 3) & 0x1)));
+    Digital_input_[2] = (bool)((float)(((stFrame.abData[2] >> 2) & 0x1)));
+    Digital_input_[1] = (bool)((float)(((stFrame.abData[2] >> 1) & 0x1)));
+    Digital_input_[0] = (bool)((float)(((stFrame.abData[2] >> 0) & 0x1)));
     Drive_enable = (uint8_t)((float)(((stFrame.abData[3] >> 0) & 0xFF)));
     Motor_temp_limit = (bool)((float)(((stFrame.abData[4] >> 7) & 0x1)));
     Motor_accel_limit = (bool)((float)(((stFrame.abData[4] >> 6) & 0x1)));
@@ -5070,14 +2758,14 @@ esp_err_t Inverter_MISCTx(twai_node_handle_t stCANBus)
 
     stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)Actual_Throttle) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[1] |= (uint8_t)(((((uint32_t)((float)Actual_Brake) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_output_4) & 0x1) >> 0) & 0x1) << 7);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_output_3) & 0x1) >> 0) & 0x1) << 6);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_output_2) & 0x1) >> 0) & 0x1) << 5);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_output_1) & 0x1) >> 0) & 0x1) << 4);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_input_4) & 0x1) >> 0) & 0x1) << 3);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_input_3) & 0x1) >> 0) & 0x1) << 2);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_input_2) & 0x1) >> 0) & 0x1) << 1);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_input_1) & 0x1) >> 0) & 0x1) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_output_[3]) & 0x1) >> 0) & 0x1) << 7);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_output_[2]) & 0x1) >> 0) & 0x1) << 6);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_output_[1]) & 0x1) >> 0) & 0x1) << 5);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_output_[0]) & 0x1) >> 0) & 0x1) << 4);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_input_[3]) & 0x1) >> 0) & 0x1) << 3);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_input_[2]) & 0x1) >> 0) & 0x1) << 2);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_input_[1]) & 0x1) >> 0) & 0x1) << 1);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_input_[0]) & 0x1) >> 0) & 0x1) << 0);
     stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)Drive_enable) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)Motor_temp_limit) & 0x1) >> 0) & 0x1) << 7);
     stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)Motor_accel_limit) & 0x1) >> 0) & 0x1) << 6);
@@ -5262,7 +2950,7 @@ esp_err_t CellStats2Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x6B1) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    Pack_CCL_0 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 4.0f);
+    Pack_CCL = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 4.0f);
     Pack_DCL = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 4.0f);
     Pack_DOD = (float)((float)((((uint16_t)((stFrame.abData[4] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[5] >> 0) & 0xFF))) * 2.0f);
     Pack_Open_Voltage = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.1f);
@@ -5285,8 +2973,8 @@ esp_err_t CellStats2Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL_0) / 4.0f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL_0) / 4.0f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL) / 4.0f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL) / 4.0f) & 0xFFFF) >> 0) & 0xFF) << 0);
     stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)Pack_DCL) / 4.0f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)Pack_DCL) / 4.0f) & 0xFFFF) >> 0) & 0xFF) << 0);
     stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)Pack_DOD) / 2.0f) & 0xFFFF) >> 8) & 0xFF) << 0);
@@ -5312,7 +3000,7 @@ esp_err_t CellStats3Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x6B2) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    Maximum_Pack_Voltage_0 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
+    Maximum_Pack_Voltage = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     Minimum_Pack_Voltage = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
     High_Cell_Voltage = (float)((float)(((stFrame.abData[4] >> 0) & 0xFF)) * 0.01f + 200.0f);
     Avg_Cell_Voltage = (float)((float)(((stFrame.abData[5] >> 0) & 0xFF)) * 0.01f + 200.0f);
@@ -5337,8 +3025,8 @@ esp_err_t CellStats3Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)Maximum_Pack_Voltage_0) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)Maximum_Pack_Voltage_0) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)Maximum_Pack_Voltage) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)Maximum_Pack_Voltage) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
     stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)Minimum_Pack_Voltage) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)Minimum_Pack_Voltage) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
     stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)High_Cell_Voltage) - 200.0f) / 0.01f) & 0xFF) >> 0) & 0xFF) << 0);
@@ -5465,9 +3153,9 @@ esp_err_t ElconInterface2Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x1806E5F4) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    Maximum_Cell_Voltage_0 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
-    Pack_CCL_2 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
-    DTC_P0A08_Charger_Safety_Relay_Fault_1 = (bool)((float)(((stFrame.abData[4] >> 7) & 0x1)));
+    Maximum_Cell_Voltage = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
+    Pack_CCL = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
+    DTC_P0A08_Charger_Safety_Relay_Fault = (bool)((float)(((stFrame.abData[4] >> 7) & 0x1)));
     return ESP_OK;
 }
 
@@ -5487,11 +3175,11 @@ esp_err_t ElconInterface2Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)Maximum_Cell_Voltage_0) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)Maximum_Cell_Voltage_0) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL_2) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL_2) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)DTC_P0A08_Charger_Safety_Relay_Fault_1) & 0x1) >> 0) & 0x1) << 7);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)Maximum_Cell_Voltage) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)Maximum_Cell_Voltage) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)DTC_P0A08_Charger_Safety_Relay_Fault) & 0x1) >> 0) & 0x1) << 7);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -5511,9 +3199,9 @@ esp_err_t ElconInterface1Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x1806E7F4) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    Maximum_Pack_Voltage_1 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
-    Pack_CCL_1 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
-    DTC_P0A08_Charger_Safety_Relay_Fault_0 = (bool)((float)(((stFrame.abData[4] >> 7) & 0x1)));
+    Maximum_Pack_Voltage = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
+    Pack_CCL = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
+    DTC_P0A08_Charger_Safety_Relay_Fault = (bool)((float)(((stFrame.abData[4] >> 7) & 0x1)));
     return ESP_OK;
 }
 
@@ -5533,11 +3221,11 @@ esp_err_t ElconInterface1Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)Maximum_Pack_Voltage_1) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)Maximum_Pack_Voltage_1) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL_1) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL_1) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)DTC_P0A08_Charger_Safety_Relay_Fault_0) & 0x1) >> 0) & 0x1) << 7);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)Maximum_Pack_Voltage) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)Maximum_Pack_Voltage) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)DTC_P0A08_Charger_Safety_Relay_Fault) & 0x1) >> 0) & 0x1) << 7);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -5557,9 +3245,9 @@ esp_err_t ElconInterface3Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x1806E9F4) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    Maximum_Cell_Voltage_1 = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
-    Pack_CCL_3 = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
-    DTC_P0A08_Charger_Safety_Relay_Fault_2 = (bool)((float)(((stFrame.abData[4] >> 7) & 0x1)));
+    Maximum_Cell_Voltage = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
+    Pack_CCL = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
+    DTC_P0A08_Charger_Safety_Relay_Fault = (bool)((float)(((stFrame.abData[4] >> 7) & 0x1)));
     return ESP_OK;
 }
 
@@ -5579,11 +3267,11 @@ esp_err_t ElconInterface3Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)Maximum_Cell_Voltage_1) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)Maximum_Cell_Voltage_1) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL_3) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL_3) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)DTC_P0A08_Charger_Safety_Relay_Fault_2) & 0x1) >> 0) & 0x1) << 7);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)Maximum_Cell_Voltage) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)Maximum_Cell_Voltage) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)DTC_P0A08_Charger_Safety_Relay_Fault) & 0x1) >> 0) & 0x1) << 7);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -5612,450 +3300,9 @@ esp_err_t CellTempGeneralRx(CAN_frame_t stFrame)
     NTCellID = (uint16_t)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))));
 
     /* Muxed Signals */
-    switch((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)))
-    {
-        case 1:
-            TCell001 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x0 ignored on receive */
-            break;
-        case 2:
-            TCell002 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x1 ignored on receive */
-            break;
-        case 3:
-            TCell003 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x2 ignored on receive */
-            break;
-        case 4:
-            TCell004 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x3 ignored on receive */
-            break;
-        case 5:
-            TCell005 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x4 ignored on receive */
-            break;
-        case 6:
-            TCell006 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x5 ignored on receive */
-            break;
-        case 7:
-            TCell007 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x6 ignored on receive */
-            break;
-        case 8:
-            TCell008 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x7 ignored on receive */
-            break;
-        case 9:
-            TCell009 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x8 ignored on receive */
-            break;
-        case 10:
-            TCell010 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x9 ignored on receive */
-            break;
-        case 11:
-            TCell011 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0xA ignored on receive */
-            break;
-        case 12:
-            TCell012 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0xB ignored on receive */
-            break;
-        case 13:
-            TCell013 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0xC ignored on receive */
-            break;
-        case 14:
-            TCell014 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0xD ignored on receive */
-            break;
-        case 15:
-            TCell015 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0xE ignored on receive */
-            break;
-        case 16:
-            TCell016 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0xF ignored on receive */
-            break;
-        case 17:
-            TCell017 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x10 ignored on receive */
-            break;
-        case 18:
-            TCell018 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x11 ignored on receive */
-            break;
-        case 19:
-            TCell019 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x12 ignored on receive */
-            break;
-        case 20:
-            TCell020 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x13 ignored on receive */
-            break;
-        case 21:
-            TCell021 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x14 ignored on receive */
-            break;
-        case 22:
-            TCell022 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x15 ignored on receive */
-            break;
-        case 23:
-            TCell023 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x16 ignored on receive */
-            break;
-        case 24:
-            TCell024 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x17 ignored on receive */
-            break;
-        case 25:
-            TCell025 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x18 ignored on receive */
-            break;
-        case 26:
-            TCell026 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x19 ignored on receive */
-            break;
-        case 27:
-            TCell027 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x1A ignored on receive */
-            break;
-        case 28:
-            TCell028 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x1B ignored on receive */
-            break;
-        case 29:
-            TCell029 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x1C ignored on receive */
-            break;
-        case 30:
-            TCell030 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x1D ignored on receive */
-            break;
-        case 31:
-            TCell031 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x1E ignored on receive */
-            break;
-        case 32:
-            TCell032 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x1F ignored on receive */
-            break;
-        case 33:
-            TCell033 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x20 ignored on receive */
-            break;
-        case 34:
-            TCell034 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x21 ignored on receive */
-            break;
-        case 35:
-            TCell035 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x22 ignored on receive */
-            break;
-        case 36:
-            TCell036 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x23 ignored on receive */
-            break;
-        case 37:
-            TCell037 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x24 ignored on receive */
-            break;
-        case 38:
-            TCell038 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x25 ignored on receive */
-            break;
-        case 39:
-            TCell039 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x26 ignored on receive */
-            break;
-        case 40:
-            TCell040 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x27 ignored on receive */
-            break;
-        case 41:
-            TCell041 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x28 ignored on receive */
-            break;
-        case 42:
-            TCell042 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x29 ignored on receive */
-            break;
-        case 43:
-            TCell043 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x2A ignored on receive */
-            break;
-        case 44:
-            TCell044 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x2B ignored on receive */
-            break;
-        case 45:
-            TCell045 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x2C ignored on receive */
-            break;
-        case 46:
-            TCell046 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x2D ignored on receive */
-            break;
-        case 47:
-            TCell047 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x2E ignored on receive */
-            break;
-        case 48:
-            TCell048 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x2F ignored on receive */
-            break;
-        case 49:
-            TCell049 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x30 ignored on receive */
-            break;
-        case 50:
-            TCell050 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x31 ignored on receive */
-            break;
-        case 51:
-            TCell051 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x32 ignored on receive */
-            break;
-        case 52:
-            TCell052 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x33 ignored on receive */
-            break;
-        case 53:
-            TCell053 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x34 ignored on receive */
-            break;
-        case 54:
-            TCell054 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x35 ignored on receive */
-            break;
-        case 55:
-            TCell055 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x36 ignored on receive */
-            break;
-        case 56:
-            TCell056 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x37 ignored on receive */
-            break;
-        case 57:
-            TCell057 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x38 ignored on receive */
-            break;
-        case 58:
-            TCell058 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x39 ignored on receive */
-            break;
-        case 59:
-            TCell059 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x3A ignored on receive */
-            break;
-        case 60:
-            TCell060 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x3B ignored on receive */
-            break;
-        case 61:
-            TCell061 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x3C ignored on receive */
-            break;
-        case 62:
-            TCell062 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x3D ignored on receive */
-            break;
-        case 63:
-            TCell063 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x3E ignored on receive */
-            break;
-        case 64:
-            TCell064 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x3F ignored on receive */
-            break;
-        case 65:
-            TCell065 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x40 ignored on receive */
-            break;
-        case 66:
-            TCell066 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x41 ignored on receive */
-            break;
-        case 67:
-            TCell067 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x42 ignored on receive */
-            break;
-        case 68:
-            TCell068 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x43 ignored on receive */
-            break;
-        case 69:
-            TCell069 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x44 ignored on receive */
-            break;
-        case 70:
-            TCell070 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x45 ignored on receive */
-            break;
-        case 71:
-            TCell071 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x46 ignored on receive */
-            break;
-        case 72:
-            TCell072 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x47 ignored on receive */
-            break;
-        case 73:
-            TCell073 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x48 ignored on receive */
-            break;
-        case 74:
-            TCell074 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x49 ignored on receive */
-            break;
-        case 75:
-            TCell075 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x4A ignored on receive */
-            break;
-        case 76:
-            TCell076 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x4B ignored on receive */
-            break;
-        case 77:
-            TCell077 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x4C ignored on receive */
-            break;
-        case 78:
-            TCell078 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x4D ignored on receive */
-            break;
-        case 79:
-            TCell079 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x4E ignored on receive */
-            break;
-        case 80:
-            TCell080 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x4F ignored on receive */
-            break;
-        case 81:
-            TCell081 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x50 ignored on receive */
-            break;
-        case 82:
-            TCell082 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x51 ignored on receive */
-            break;
-        case 83:
-            TCell083 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x52 ignored on receive */
-            break;
-        case 84:
-            TCell084 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x53 ignored on receive */
-            break;
-        case 85:
-            TCell085 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x54 ignored on receive */
-            break;
-        case 86:
-            TCell086 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x55 ignored on receive */
-            break;
-        case 87:
-            TCell087 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x56 ignored on receive */
-            break;
-        case 88:
-            TCell088 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x57 ignored on receive */
-            break;
-        case 89:
-            TCell089 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x58 ignored on receive */
-            break;
-        case 90:
-            TCell090 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x59 ignored on receive */
-            break;
-        case 91:
-            TCell091 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x5A ignored on receive */
-            break;
-        case 92:
-            TCell092 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x5B ignored on receive */
-            break;
-        case 93:
-            TCell093 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x5C ignored on receive */
-            break;
-        case 94:
-            TCell094 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x5D ignored on receive */
-            break;
-        case 95:
-            TCell095 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x5E ignored on receive */
-            break;
-        case 96:
-            TCell096 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x5F ignored on receive */
-            break;
-        case 97:
-            TCell097 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x60 ignored on receive */
-            break;
-        case 98:
-            TCell098 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x61 ignored on receive */
-            break;
-        case 99:
-            TCell099 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x62 ignored on receive */
-            break;
-        case 100:
-            TCell100 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x63 ignored on receive */
-            break;
-        case 101:
-            TCell101 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x64 ignored on receive */
-            break;
-        case 102:
-            TCell102 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x65 ignored on receive */
-            break;
-        case 103:
-            TCell103 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x66 ignored on receive */
-            break;
-        case 104:
-            TCell104 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x67 ignored on receive */
-            break;
-        case 105:
-            TCell105 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x68 ignored on receive */
-            break;
-        case 106:
-            TCell106 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x69 ignored on receive */
-            break;
-        case 107:
-            TCell107 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x6A ignored on receive */
-            break;
-        case 108:
-            TCell108 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x6B ignored on receive */
-            break;
-        case 109:
-            TCell109 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x6C ignored on receive */
-            break;
-        case 110:
-            TCell110 = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-            /* Constant 0x6D ignored on receive */
-            break;
-        default:
-            break;
+    int muxVal = (int)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)));
+    if ((muxVal >= 1 && muxVal <= 110)) {
+        TCell[(muxVal - 1)] = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
     }
     return ESP_OK;
 }
@@ -6086,450 +3333,9 @@ esp_err_t CellTempGeneralTx(twai_node_handle_t stCANBus)
     stFrame.abData[1] |= (uint8_t)(((((uint32_t)((float)NTCellID) & 0xFFFF) >> 0) & 0xFF) << 0);
 
     /* Muxed Signals */
-    switch((int)NTCellID)
-    {
-        case 1:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell001) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x0 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 2:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell002) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x1 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 3:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell003) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x2 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 4:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell004) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x3 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 5:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell005) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x4 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 6:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell006) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x5 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 7:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell007) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x6 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 8:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell008) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x7 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 9:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell009) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x8 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 10:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell010) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x9 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 11:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell011) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0xA & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 12:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell012) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0xB & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 13:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell013) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0xC & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 14:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell014) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0xD & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 15:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell015) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0xE & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 16:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell016) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0xF & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 17:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell017) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x10 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 18:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell018) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x11 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 19:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell019) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x12 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 20:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell020) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x13 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 21:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell021) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x14 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 22:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell022) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x15 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 23:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell023) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x16 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 24:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell024) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x17 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 25:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell025) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x18 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 26:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell026) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x19 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 27:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell027) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x1A & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 28:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell028) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x1B & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 29:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell029) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x1C & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 30:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell030) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x1D & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 31:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell031) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x1E & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 32:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell032) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x1F & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 33:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell033) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x20 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 34:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell034) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x21 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 35:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell035) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x22 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 36:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell036) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x23 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 37:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell037) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x24 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 38:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell038) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x25 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 39:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell039) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x26 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 40:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell040) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x27 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 41:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell041) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x28 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 42:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell042) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x29 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 43:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell043) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x2A & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 44:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell044) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x2B & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 45:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell045) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x2C & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 46:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell046) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x2D & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 47:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell047) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x2E & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 48:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell048) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x2F & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 49:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell049) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x30 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 50:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell050) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x31 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 51:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell051) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x32 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 52:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell052) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x33 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 53:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell053) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x34 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 54:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell054) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x35 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 55:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell055) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x36 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 56:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell056) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x37 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 57:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell057) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x38 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 58:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell058) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x39 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 59:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell059) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x3A & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 60:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell060) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x3B & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 61:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell061) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x3C & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 62:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell062) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x3D & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 63:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell063) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x3E & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 64:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell064) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x3F & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 65:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell065) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x40 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 66:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell066) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x41 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 67:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell067) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x42 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 68:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell068) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x43 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 69:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell069) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x44 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 70:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell070) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x45 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 71:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell071) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x46 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 72:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell072) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x47 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 73:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell073) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x48 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 74:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell074) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x49 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 75:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell075) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x4A & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 76:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell076) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x4B & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 77:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell077) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x4C & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 78:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell078) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x4D & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 79:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell079) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x4E & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 80:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell080) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x4F & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 81:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell081) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x50 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 82:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell082) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x51 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 83:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell083) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x52 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 84:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell084) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x53 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 85:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell085) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x54 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 86:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell086) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x55 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 87:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell087) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x56 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 88:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell088) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x57 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 89:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell089) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x58 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 90:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell090) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x59 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 91:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell091) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x5A & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 92:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell092) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x5B & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 93:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell093) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x5C & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 94:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell094) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x5D & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 95:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell095) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x5E & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 96:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell096) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x5F & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 97:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell097) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x60 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 98:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell098) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x61 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 99:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell099) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x62 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 100:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell100) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x63 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 101:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell101) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x64 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 102:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell102) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x65 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 103:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell103) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x66 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 104:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell104) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x67 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 105:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell105) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x68 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 106:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell106) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x69 & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 107:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell107) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x6A & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 108:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell108) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x6B & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 109:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell109) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x6C & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        case 110:
-            stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell110) & 0xFF) >> 0) & 0xFF) << 0);
-            stFrame.abData[3] |= (uint8_t)((((0x6D & 0xFF) >> 0) & 0xFF) << 0);
-            break;
-        default:
-            break;
+    int muxVal = (int)(NTCellID);
+    if ((muxVal >= 1 && muxVal <= 110)) {
+        stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell[(muxVal - 1)]) & 0xFF) >> 0) & 0xFF) << 0);
     }
 
     return CAN_transmit(stCANBus, &stFrame);
