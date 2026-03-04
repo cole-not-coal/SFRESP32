@@ -123,15 +123,15 @@ static void main_init(void)
 
     /* SD Card (SDCard and LCD share the SPI bus, take care) */
     /* SPI Devices */
-    // spi_bus_config_t stBusConfig = 
-    // {
-    //     .mosi_io_num = SPI_MOSI,
-    //     .miso_io_num = SPI_MISO,
-    //     .sclk_io_num = SPI_SCK,
-    //     .quadwp_io_num = -1,
-    //     .quadhd_io_num = -1,
-    // };
-    // eStatus = spi_bus_initialize(SPI2_HOST, &stBusConfig, SPI_DMA_CH_AUTO);
+    spi_bus_config_t stBusConfig = 
+    {
+        .mosi_io_num = SPI_MOSI,
+        .miso_io_num = SPI_MISO,
+        .sclk_io_num = SPI_SCK,
+        .quadwp_io_num = -1,
+        .quadhd_io_num = -1,
+    };
+    eStatus = spi_bus_initialize(SPI2_HOST, &stBusConfig, SPI_DMA_CH_AUTO);
 
     /* SD Card */
     // eStatus = SD_card_init();
@@ -141,12 +141,12 @@ static void main_init(void)
     // }
 
     /* ADC MCP3204/8 This is a example config is required */
-    // uint8_t aNCSPins[2] = {SPI_MCP3204_1_CS, SPI_MCP3204_2_CS};
-    // eStatus = MCP320X_init(aNCSPins, MCP320XDevs);
-    // if (eStatus != ESP_OK)
-    // {
-    //     ESP_LOGE(SFR_TAG, "Failed to initialise MCP320X: %s", esp_err_to_name(eStatus));
-    // }
+    uint8_t aNCSPins[2] = {SPI_MCP3204_1_CS, SPI_MCP3204_2_CS};
+    eStatus = MCP320X_init((word)2, aNCSPins, MCP320XDevs);
+    if (eStatus != ESP_OK)
+    {
+        ESP_LOGE(SFR_TAG, "Failed to initialise MCP320X: %s", esp_err_to_name(eStatus));
+    }
     /* END of SPI Devices*/
     
     /* CAN BUS */
@@ -169,13 +169,6 @@ static void main_init(void)
     // }
 
     /* ADC */
-    // adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle0);
-    // adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle1);
-    // adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle2);
-    adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle3);
-    // adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle4);
-    adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle5);
-    adc_register(ADC_ATTEN_DB_12, ADC_UNIT_1, &stADCHandle6);
     
     /* Timers and GPIO cause a hard fault on fail so no error warning */
     GPIO_init();
