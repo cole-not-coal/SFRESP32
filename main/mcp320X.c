@@ -22,12 +22,10 @@ spi_device_handle_t stMCP3208;
 #define MCP3208_SPI_FREQ 1000000 // 1 MHz
 #define VADC_REFERNCE 5.0
 
-/* --------------------------- Function prototypes -------------------- */
-esp_err_t MCP320X_init(uint8_t abyNCSPins[],spi_device_handle_t astDeviceHandles[]);
-float MCP320X_read(spi_device_handle_t stDeviceHandle, uint8_t NDevADC);
+
 
 /* --------------------------- Functions ------------------------------ */
-esp_err_t MCP320X_init(uint8_t abyNCSPins[],spi_device_handle_t astDeviceHandles[])
+esp_err_t MCP320X_init(word wNDevices, uint8_t abyNCSPins[], spi_device_handle_t astDeviceHandles[])
 {
     /*
     *===========================================================================
@@ -46,7 +44,6 @@ esp_err_t MCP320X_init(uint8_t abyNCSPins[],spi_device_handle_t astDeviceHandles
     */
     esp_err_t eStatus = ESP_OK;
     word wNCounter = 0;
-    word wNDevices = sizeof(*abyNCSPins) / sizeof(abyNCSPins[0]);
     spi_device_interface_config_t stDeviceConfig = 
     {
         .clock_speed_hz = MCP3208_SPI_FREQ,

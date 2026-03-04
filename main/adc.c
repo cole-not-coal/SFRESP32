@@ -189,3 +189,45 @@ float read_sensor(stADCHandles_t *stADCHandle, stSensorMap_t *stSensorMap)
     
     return -999.0f;
 }
+
+float convert_sensor(float fVSensor, stSensorMap_t *stSensorMap)
+/*
+*===========================================================================
+*   convert_sensor
+*   Takes:  fVoltage: The voltage reading from the ADC
+*           stSensorMap: Pointer to sensor map structure for lookup table and limits
+* 
+*   Returns: Normalised sensor reading as float, or -999.0f on error
+* 
+*   Uses the sensor map to convert the voltage to a real value.
+*   Includes plausibility check based on sensor map limits for SCS compliance.
+*
+*=========================================================================== 
+*   Revision History:
+*   16/11/25 CP Initial Version
+*
+*===========================================================================
+*/
+{
+    uint8_t NCounter;
+    /* If outside plauseable range throw error (SCS Requirement) */
+    if (fVSensor < stSensorMap->fLowerLimit || fVSensor > stSensorMap->fUpperLimit)
+    {
+        return -999.0f;
+    }
+
+    /* Lookup Sensor Value */
+    for (NCounter = 0; NCounter < sizeof(stSensorMap->afLookupTable[0])/sizeof(stSensorMap->afLookupTable[0][0]) - 1; NCounter++)
+    {
+        if (fVSensor >= stSensorMap->afLookupTable[0][NCounter] && fVSensor < stSensorMap->afLookupTable[0][NCounter + 1])
+        { 
+            float fSlope = (stSensorMap->afLookupTable[1][NCounter + 1] - stSensorMap->afLookupTable[1][NCounter]) /
+                           (stSensorMap->afLookupTable[0][NCounter + 1] - stSensorMap->afLookupTable[0][NCounter]);
+            float fOutput = stSensorMap->afLookupTable[1][NCounter] +
+                            fSlope * (fVSensor - stSensorMap->afLookupTable[0][NCounter]);
+            return fOutput;
+        }
+    }
+    
+    return -999.0f;
+}
