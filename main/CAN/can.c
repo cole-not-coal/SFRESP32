@@ -450,7 +450,7 @@ esp_err_t CAN_empty_ESPNOW_buffer(twai_node_handle_t stCANBus)
     *===========================================================================
     */
 
-    esp_err_t NStatus = ESP_OK;
+    esp_err_t eStatus = ESP_OK;
     word wCounter = 0;
     CAN_frame_t stCANFrame;   
 
@@ -464,16 +464,16 @@ esp_err_t CAN_empty_ESPNOW_buffer(twai_node_handle_t stCANBus)
     while (wCounter < MAX_CAN_TXS_PER_CALL && 
             xQueueReceive(xESPNOWRingBuffer, &stCANFrame, 0) == pdTRUE) 
     {    
-        NStatus = CAN_transmit(stCANBus, &stCANFrame);  
-        if (NStatus != ESP_OK) 
+        eStatus = CAN_transmit(stCANBus, &stCANFrame);  
+        if (eStatus != ESP_OK) 
         {
-            ESP_LOGI("CAN", "Failed to transmit CAN frame : %s", esp_err_to_name(NStatus));
-            return NStatus;
+            ESP_LOGI("CAN", "Failed to transmit CAN frame : %s", esp_err_to_name(eStatus));
+            return eStatus;
         }
         wCounter++;
     }
     
-    return NStatus;
+    return eStatus;
 }
 
 void CAN_CMD_response(twai_frame_t stRxFrame)
@@ -562,13 +562,64 @@ esp_err_t CAN_Tx_killlevel(KillLevel_t eKillLevel, KillSource_t eKillSource)
     * 
     * ==========================================================================
     */
-    esp_err_t NStatus;
+    esp_err_t eStatus;
     CAN_frame_t stCANFrame;
     stCANFrame.dwID = KILL_MSG_ID;
     stCANFrame.byDLC = 3;
     stCANFrame.abData[0] = (byte)eKillLevel;
     stCANFrame.abData[1] = (byte)eKillSource;
     stCANFrame.abData[2] = (byte)((stCANFrame.abData[0] + stCANFrame.abData[1]) % 256); // Checksum
-    NStatus = CAN_transmit(stCANBus0, &stCANFrame);
-    return NStatus;
+    eStatus = CAN_transmit(stCANBus0, &stCANFrame);
+    return eStatus;
+}
+
+esp_err_t CAN_read_from_buffer(void)
+{
+    /*
+    *===========================================================================
+    *   CAN_read_from_buffer
+    *   Takes:   None
+    * 
+    *   Returns: ESP_OK if successful, error code if not.
+    * 
+    *   Empties the CAN buffer and reads selected messages into internal variables.
+    * ===========================================================================
+    *   Revision History:
+    *   19/03/26 CP Initial Version
+    * 
+    * ==========================================================================
+    */
+    esp_err_t eStatus = ESP_OK;
+    CAN_frame_t stCANFrame; 
+    
+    if (!xCANRingBuffer) 
+    {
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    if (uxQueueMessagesWaiting(xCANRingBuffer) == 0)
+    {
+        /* Buffer empty */
+        return ESP_OK;
+    }
+
+    while (xQueueReceive(xCANRingBuffer, &stCANFrame, 0) == pdTRUE)
+    {
+        /* Look for relevent CAN frames */
+        switch (stCANFrame.dwID)
+        {
+            /* Populate this with the CAN IDs for messages required for this device. Example below in comment */
+            // case STATUSAPPS_ID:
+            //     /* Process BMS Cell Voltages */
+            //     {
+            //         StatusAPPSRx(stCANFrame);
+            //     }
+            //     break;
+            default:
+                /* Ignore other CAN frames */
+                break;
+        }
+    }
+
+    return eStatus;
 }

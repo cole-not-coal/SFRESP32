@@ -214,6 +214,7 @@ without the traling _burst in the name when exceution speed is not an issue - e.
 */
 
 #include "EVE_commands.h"
+#include "esp_log.h"
 
 /* EVE Memory Commands - used with EVE_memWritexx and EVE_memReadxx */
 #define MEM_WRITE 0x80U /* EVE Host Memory Write */
@@ -496,11 +497,22 @@ uint8_t EVE_get_and_reset_fault_state(void)
  */
 void EVE_execute_cmd(void)
 {
-    while (EVE_busy() != E_OK)
+    uint32_t timeout = 0;
+    uint8_t status;
+    while (1)
     {
+        status = EVE_busy();
+        if (status == E_OK || status == EVE_FAULT_RECOVERED)
+        {
+            break;
+        }
+        if (++timeout > 500000)
+        {
+            ESP_LOGE("EVE", "EVE_execute_cmd timeout");
+            break;
+        }
     }
 }
-
 /* begin a coprocessor command, this is used for non-display-list and non-burst-mode commands.*/
 static void eve_begin_cmd(const uint32_t command)
 {

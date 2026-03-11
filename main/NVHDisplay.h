@@ -13,6 +13,5 @@
 void NVHDisplay_init(void);
 void initStaticBackground(void);
 void TFT_display(void);
-esp_err_t display_empty_buffer(void);
 
 #endif // SFR_NVHDISPLAY

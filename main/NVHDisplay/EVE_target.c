@@ -317,7 +317,7 @@ void EVE_init_spi(void)
     HAL_GPIO_WritePin(EVE_PD_PORT, EVE_PD, GPIO_PIN_RESET);
 
     /* SPIx GPIO Configuration: */
-    gpio_init.Pin = EVE_SCK|EVE_MOSI|EVE_MISO;
+    gpio_init.Pin = SPI_SCK|SPI_MOSI|SPI_MISO;
     gpio_init.Mode = GPIO_MODE_AF_PP;
     gpio_init.Pull = GPIO_NOPULL;
     gpio_init.Speed = GPIO_SPEED_FREQ_HIGH;
@@ -522,7 +522,7 @@ void EVE_init_spi(void)
     __HAL_RCC_SPI6_CLK_ENABLE();
 #endif
 
-    gpio_init.Pin = EVE_SCK|EVE_MOSI|EVE_MISO;
+    gpio_init.Pin = SPI_SCK|SPI_MOSI|SPI_MISO;
     gpio_init.Mode = GPIO_MODE_AF_PP;
     gpio_init.Pull = GPIO_NOPULL;
     gpio_init.Speed = GPIO_SPEED_FREQ_HIGH;
@@ -708,9 +708,9 @@ void EVE_init_spi(void)
     gpio_set_level(EVE_CS, 1);
     gpio_set_level(EVE_PDN, 0);
 
-    buscfg.mosi_io_num = EVE_MOSI;
-    buscfg.miso_io_num = EVE_MISO;
-    buscfg.sclk_io_num = EVE_SCK;
+    buscfg.mosi_io_num = SPI_MOSI;
+    buscfg.miso_io_num = SPI_MISO;
+    buscfg.sclk_io_num = SPI_SCK;
     buscfg.quadwp_io_num = -1;
     buscfg.quadhd_io_num = -1;
     buscfg.max_transfer_sz= 4088;
@@ -775,9 +775,9 @@ void EVE_init_spi(void)
     gpio_put(EVE_PDN, 0);
 
     spi_init(EVE_SPI, 8000000U);
-    gpio_set_function(EVE_MISO, GPIO_FUNC_SPI);
-    gpio_set_function(EVE_SCK, GPIO_FUNC_SPI);
-    gpio_set_function(EVE_MOSI, GPIO_FUNC_SPI);
+    gpio_set_function(SPI_MISO, GPIO_FUNC_SPI);
+    gpio_set_function(SPI_SCK, GPIO_FUNC_SPI);
+    gpio_set_function(SPI_MOSI, GPIO_FUNC_SPI);
 }
 
 #if defined (EVE_DMA)

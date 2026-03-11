@@ -1,6 +1,7 @@
 #ifndef SFRTasks
 #include "driver/gpio.h"
 #include <stdint.h>
+#include <math.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_task_wdt.h"
@@ -11,11 +12,14 @@
 #include "CAN/can.h"
 #include "espnow.h"
 #include "sdcard.h"
+#include "contactors.h"
 #include "adc.h"
 #include "I2C.h"
 #include "NVHDisplay.h"
 #include "CAN/canflash.h"
 #include "main.h"
+#include "CAN/canDecodeAuto.h"
+#include "mcp320X.h"
 
 /* Function Definitions*/
 void task_BG(void);

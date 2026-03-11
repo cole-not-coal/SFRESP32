@@ -1,14 +1,16 @@
 #ifndef SFRCAN
+#define SFRCAN
+
 #include "./../main.h"
-
-#include "esp_twai.h"
-#include "esp_twai_onchip.h"
-
 #include "./../pin.h"
-#include "string.h"
 #include "./../espnow.h"
+#include "canDecodeAuto.h"
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
+#include "string.h"
+#include "esp_twai.h"
+#include "esp_twai_onchip.h"
 
 #define CAN_CMD_ID 0x010
 typedef enum {
@@ -85,5 +87,4 @@ static const char *KILL_DISCRIPTION[] = {
     "APPS 2 failure!",
 };
 
-#define SFRCAN
-#endif
+#endif //SFRCAN

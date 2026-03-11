@@ -46,43 +46,43 @@ i2c_device_config_t stI2C0Dev0Config = {
 
 esp_err_t I2C_init(void)
 {
-    esp_err_t NStatus;
-    NStatus = i2c_new_master_bus(&stI2C0MasterConfig, &stI2C0Handle);
-    if (NStatus != ESP_OK)
+    esp_err_t eStatus;
+    eStatus = i2c_new_master_bus(&stI2C0MasterConfig, &stI2C0Handle);
+    if (eStatus != ESP_OK)
     {
-        ESP_LOGE("I2C", "Failed to create I2C master bus: %s", esp_err_to_name(NStatus));
-        return NStatus;
+        ESP_LOGE("I2C", "Failed to create I2C master bus: %s", esp_err_to_name(eStatus));
+        return eStatus;
     }
 
-    NStatus = i2c_master_bus_add_device(stI2C0Handle, &stI2C0Dev0Config, &stI2C0Dev0Handle);
-    if (NStatus != ESP_OK)
+    eStatus = i2c_master_bus_add_device(stI2C0Handle, &stI2C0Dev0Config, &stI2C0Dev0Handle);
+    if (eStatus != ESP_OK)
     {
-        ESP_LOGE("I2C", "Failed to add I2C device to bus: %s", esp_err_to_name(NStatus));
-        return NStatus;
+        ESP_LOGE("I2C", "Failed to add I2C device to bus: %s", esp_err_to_name(eStatus));
+        return eStatus;
     }
     return ESP_OK;  
 }
 
 esp_err_t I2C_write(uint8_t *abyData, size_t NDataLength)
 {
-    esp_err_t NStatus;
-    NStatus = i2c_master_transmit(stI2C0Dev0Handle, abyData, NDataLength, I2C_WRITE_TIMEOUT_MS);
-    if (NStatus != ESP_OK)
+    esp_err_t eStatus;
+    eStatus = i2c_master_transmit(stI2C0Dev0Handle, abyData, NDataLength, I2C_WRITE_TIMEOUT_MS);
+    if (eStatus != ESP_OK)
     {
-        ESP_LOGE("I2C", "Failed to read from I2C device: %s", esp_err_to_name(NStatus));
-        return NStatus;
+        ESP_LOGE("I2C", "Failed to read from I2C device: %s", esp_err_to_name(eStatus));
+        return eStatus;
     }
     return ESP_OK;
 }
 
 esp_err_t I2C_read(uint8_t *abyData, size_t NDataLength)
 {
-    esp_err_t NStatus;
-    NStatus = i2c_master_receive(stI2C0Dev0Handle, abyData, NDataLength, I2C_READ_TIMEOUT_MS);
-    if (NStatus != ESP_OK)
+    esp_err_t eStatus;
+    eStatus = i2c_master_receive(stI2C0Dev0Handle, abyData, NDataLength, I2C_READ_TIMEOUT_MS);
+    if (eStatus != ESP_OK)
     {
-        ESP_LOGE("I2C", "Failed to read from I2C device: %s", esp_err_to_name(NStatus));
-        return NStatus;
+        ESP_LOGE("I2C", "Failed to read from I2C device: %s", esp_err_to_name(eStatus));
+        return eStatus;
     }
     return ESP_OK;
 }
@@ -92,11 +92,11 @@ esp_err_t eternal_clock_read_time(void)
     uint8_t byStartReg = 0x00;
     uint8_t abyTimeData[7];
     char achTime[20];
-    esp_err_t NStatus = ESP_OK;
+    esp_err_t eStatus = ESP_OK;
 
     /* Set register pointer in slave */
-    NStatus = I2C_write(&byStartReg, sizeof(byStartReg));
-    NStatus = I2C_read(abyTimeData, sizeof(abyTimeData));
+    eStatus = I2C_write(&byStartReg, sizeof(byStartReg));
+    eStatus = I2C_read(abyTimeData, sizeof(abyTimeData));
     
     /* if in 12 hour mode, convert to 24 hour mode */
     if (abyTimeData[2] & 0x40)
@@ -133,7 +133,7 @@ esp_err_t eternal_clock_read_time(void)
 
     ESP_LOGI("I2C", "%s", achTime);
     
-    return NStatus;
+    return eStatus;
 }
 
 esp_err_t eternal_clock_write_time(int year, int month, int day, int hour, int min, int sec)

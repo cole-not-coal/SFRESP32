@@ -162,7 +162,7 @@ def main():
         df_msgs = pd.read_excel(EXCEL_PATH, sheet_name='Main BUS Message', header=header_row_idx)
         
         # Forward fill ID
-        df_msgs['ID'] = df_msgs['ID'].fillna(method='ffill')
+        df_msgs['ID'] = df_msgs['ID'].fill()
         
         messages = {}
         

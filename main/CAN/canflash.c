@@ -74,6 +74,7 @@ esp_err_t CAN_flash_empty_queue(esp_partition_t *stOTAPartition)
     byte abyFlashBuffer[16];
     esp_err_t eState = ESP_OK;
     qword qwCANData = 0;
+    static qword qwTime = 0;
 
     if (!xCANRingBuffer) 
     {
@@ -139,6 +140,14 @@ esp_err_t CAN_flash_empty_queue(esp_partition_t *stOTAPartition)
         dwBytesWrittenReflash += 16;
     }
 
+    /* Debug Reporting */
+    if (esp_timer_get_time() - qwTime >= 500000) //Every 0.5s
+    {
+        qwTime = esp_timer_get_time();
+        ESP_LOGI("CANFLASH", "Reflash Progress: %d / %d bytes written, %d errors",
+            dwBytesWrittenReflash, CAN_flash_get_size(), dwErrorCountReflash);
+    }
+
     /* Detect if there are less then 16 bytes till the end of the binary. (would get stuck otherwise) */
     if (dwBytesWrittenReflash + 16 > CAN_flash_get_size())
     {
@@ -193,13 +202,14 @@ dword CAN_flash_get_size()
     if (xQueueReceive(xCANRingBuffer, &stCANFrame, 0) == pdTRUE)
     {
         if (stCANFrame.dwID == CAN_CMD_ID &&
-            stCANFrame.abData[0] == eCMD_NORMAL_MODE &&
+            stCANFrame.abData[0] == eCMD_REFLASH_MODE &&
             stCANFrame.abData[1] == DEVICE_ID)
         {
             dwFirmwareSize = ((dword)stCANFrame.abData[2] << 24) |
                              ((dword)stCANFrame.abData[3] << 16) |
                              ((dword)stCANFrame.abData[4] << 8)  |
                              ((dword)stCANFrame.abData[5]);
+            ESP_LOGI("CANFLASH", "New Firmware Size: %d bytes", dwFirmwareSize);
             return dwFirmwareSize;
         }
     }

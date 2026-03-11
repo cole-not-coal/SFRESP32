@@ -12,5 +12,6 @@
 esp_err_t adc_register(adc_atten_t eNAtten, adc_unit_t eNUnit, stADCHandles_t *stADCHandle);
 float adc_read_voltage(stADCHandles_t *stADCHandle);
 float read_sensor(stADCHandles_t *stADCHandle, stSensorMap_t *stSensorMap);
+float convert_sensor(float fVSensor, stSensorMap_t *stSensorMap);
 
 #endif // ADC_H

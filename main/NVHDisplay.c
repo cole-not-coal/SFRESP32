@@ -176,7 +176,7 @@ void NVHDisplay_init(void)
     *
     *===========================================================================
     */
-    esp_err_t NStatus = ESP_OK;
+    esp_err_t eStatus = ESP_OK;
 
     /* Initialize EVE SPI interface */
     EVE_init_spi();
@@ -377,44 +377,6 @@ void TFT_display(void)
 
         EVE_end_cmd_burst(); /* stop writing to the cmd-fifo, the cmd-FIFO will be executed automatically after this or when DMA is done */
     }
-}
-
-esp_err_t display_empty_buffer(void)
-{
-    esp_err_t NStatus = ESP_OK;
-    CAN_frame_t stCANFrame; 
-    
-    if (!xCANRingBuffer) 
-    {
-        return ESP_ERR_INVALID_STATE;
-    }
-
-    if (uxQueueMessagesWaiting(xCANRingBuffer) == 0)
-    {
-        /* Buffer empty */
-        return ESP_OK;
-    }
-
-    while (xQueueReceive(xCANRingBuffer, &stCANFrame, 0) == pdTRUE)
-    {
-        /* Look for relevent CAN frames */
-        switch (stCANFrame.dwID)
-        {
-            case BMSDATA1_ID:
-                /* Process BMS Cell Voltages */
-                {
-                    float fDiscard;
-                    uint16_t wDiscard;
-                    BMSData1(stCANFrame, &fDiscard, &fDiscard, &rBatterySOC, &wDiscard, &fDiscard);
-                }
-                break;
-            default:
-                /* Ignore other CAN frames */
-                break;
-        }
-    }
-
-    return NStatus;
 }
 
 
