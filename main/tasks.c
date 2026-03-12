@@ -26,20 +26,6 @@ extern stADCHandles_t stADCHandle3;
 extern stADCHandles_t stADCHandle4;
 extern stADCHandles_t stADCHandle5;
 extern stADCHandles_t stADCHandle6;
-float fVDynoPressure1Raw = 0.0;
-float fVDynoPressure2Raw = 0.0;
-float fVDynoPressure3Raw = 0.0;
-float fVDynoTemp1Raw = 0.0;
-float fVDynoTemp2Raw = 0.0;
-float fVDynoTemp3Raw = 0.0;
-float fVDynoFlowRaw = 0.0;
-float fpDynoPressure1 = 0.0;
-float fpDynoPressure2 = 0.0;
-float fpDynoPressure3 = 0.0;
-float fTDynoTemp1 = 0.0;
-float fTDynoTemp2 = 0.0;
-float fTDynoTemp3 = 0.0;
-float fVDynoFlow = 0.0; // L/min
 
 stSensorMap_t stDynoTempMap = {
     .fLowerLimit = 0.0f,
@@ -132,14 +118,6 @@ dword dwTimeSincePowerUpms = 0;
 #define PERIOD_10S 10000        // ms
 #define PERIOD_1S 1000          // ms
 #define MAX_eREFLASH_TIME_US 300000000 // us
-#define DYNO_PRESSURE_CAN_GAIN 2000
-#define DYNO_PRESSURE_CAN_OFFSET 2000
-#define DYNO_TEMP_CAN_GAIN 200
-#define DYNO_TEMP_CAN_OFFSET 10000
-#define DYNO_FLOW_CAN_GAIN 100000
-#define DYNO_PRESSURE_CAN_GAIN_RAW 10000
-#define DYNO_TEMP_CAN_GAIN_RAW 10000
-#define DYNO_FLOW_CAN_GAIN_RAW 10000
 
 /* --------------------------- Function prototypes ----------------------------- */
 void pin_toggle(gpio_num_t pin);
@@ -212,84 +190,29 @@ void task_100ms(void)
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_100MS] = eTASK_ACTIVE;
 
-    // fVDynoPressure1Raw = adc_read_voltage(&stADCHandle0);
-    // fVDynoPressure2Raw = adc_read_voltage(&stADCHandle1);
-    // fVDynoPressure3Raw = adc_read_voltage(&stADCHandle2);
-    fVDynoTemp1Raw = adc_read_voltage(&stADCHandle3);
-    // fVDynoTemp2Raw = adc_read_voltage(&stADCHandle4);
-    fVDynoTemp3Raw = adc_read_voltage(&stADCHandle5);
-    fVDynoFlowRaw = adc_read_voltage(&stADCHandle6);
+    // VDynoPressure1Raw = adc_read_voltage(&stADCHandle0);
+    // VDynoPressure2Raw = adc_read_voltage(&stADCHandle1);
+    // VDynoPressure3Raw = adc_read_voltage(&stADCHandle2);
+    VDynoTemp1Raw = adc_read_voltage(&stADCHandle3);
+    // VDynoTemp2Raw = adc_read_voltage(&stADCHandle4);
+    VDynoTemp3Raw = adc_read_voltage(&stADCHandle5);
+    VDynoCoolantFlowRaw = adc_read_voltage(&stADCHandle6);
 
-    // fpDynoPressure1 = read_sensor(&stADCHandle0, &stDynoPressureMap);
-    // fpDynoPressure2 = read_sensor(&stADCHandle1, &stDynoPressureMap);
-    // fpDynoPressure3 = read_sensor(&stADCHandle2, &stDynoPressureMap);
-    fTDynoTemp1 = read_sensor(&stADCHandle3, &stDynoTempMap);
-    // fTDynoTemp2 = read_sensor(&stADCHandle4, &stDynoTempMap);
-    fTDynoTemp3 = read_sensor(&stADCHandle5, &stDynoTempMap);
-    fVDynoFlow = read_sensor(&stADCHandle6, &stDynoFlowMap);
+    // pDynoPressure1 = read_sensor(&stADCHandle0, &stDynoPressureMap);
+    // pDynoPressure2 = read_sensor(&stADCHandle1, &stDynoPressureMap);
+    // pDynoPressure3 = read_sensor(&stADCHandle2, &stDynoPressureMap);
+    TDynoTemp1 = read_sensor(&stADCHandle3, &stDynoTempMap);
+    // TDynoTemp2 = read_sensor(&stADCHandle4, &stDynoTempMap);
+    TDynoTemp3 = read_sensor(&stADCHandle5, &stDynoTempMap);
+    VDynoCoolantFlow = read_sensor(&stADCHandle6, &stDynoFlowMap);
 
     /* Transmit Raw Volatages */
-    CAN_frame_t stTxFrame = {
-        .dwID = 0x90,
-        .byDLC = 8
-    };
-    word wTemp = (word)(fVDynoPressure1Raw * DYNO_PRESSURE_CAN_GAIN_RAW);
-    stTxFrame.abData[0] = (byte)(wTemp & 0xFF);
-    stTxFrame.abData[1] = (byte)((wTemp >> 8) & 0xFF);
-    wTemp = (word)(fVDynoPressure2Raw * DYNO_PRESSURE_CAN_GAIN_RAW);
-    stTxFrame.abData[2] = (byte)(wTemp & 0xFF);
-    stTxFrame.abData[3] = (byte)((wTemp >> 8) & 0xFF);
-    wTemp = (word)(fVDynoPressure3Raw * DYNO_PRESSURE_CAN_GAIN_RAW);
-    stTxFrame.abData[4] = (byte)(wTemp & 0xFF);
-    stTxFrame.abData[5] = (byte)((wTemp >> 8) & 0xFF);
-    wTemp = (word)(fVDynoFlow * DYNO_FLOW_CAN_GAIN_RAW);
-    stTxFrame.abData[6] = (byte)(wTemp & 0xFF);
-    stTxFrame.abData[7] = (byte)((wTemp >> 8) & 0xFF);
-    CAN_transmit(stCANBus0, &stTxFrame);
-
-    stTxFrame.dwID = 0x91;
-    stTxFrame.byDLC = 6;
-    wTemp = (word)(fVDynoTemp1Raw * DYNO_TEMP_CAN_GAIN_RAW);
-    stTxFrame.abData[0] = (byte)(wTemp & 0xFF);
-    stTxFrame.abData[1] = (byte)((wTemp >> 8) & 0xFF);
-    wTemp = (word)(fVDynoTemp2Raw * DYNO_TEMP_CAN_GAIN_RAW);
-    stTxFrame.abData[2] = (byte)(wTemp & 0xFF);
-    stTxFrame.abData[3] = (byte)((wTemp >> 8) & 0xFF);
-    wTemp = (word)(fVDynoTemp3Raw * DYNO_TEMP_CAN_GAIN_RAW);
-    stTxFrame.abData[4] = (byte)(wTemp & 0xFF);
-    stTxFrame.abData[5] = (byte)((wTemp >> 8) & 0xFF);
-    CAN_transmit(stCANBus0, &stTxFrame);
+    DynoPressuresRawTx(stCANBus0);
+    DynoTempsRawTx(stCANBus0);
 
     /* Transmit Processed Sensor Values */
-    stTxFrame.dwID = 0x92;
-    stTxFrame.byDLC = 8;
-    wTemp = (word)(fpDynoPressure1 * DYNO_PRESSURE_CAN_GAIN) + DYNO_PRESSURE_CAN_OFFSET;
-    stTxFrame.abData[0] = (byte)(wTemp & 0xFF);
-    stTxFrame.abData[1] = (byte)((wTemp >> 8) & 0xFF);
-    wTemp = (word)(fpDynoPressure2 * DYNO_PRESSURE_CAN_GAIN) + DYNO_PRESSURE_CAN_OFFSET;
-    stTxFrame.abData[2] = (byte)(wTemp & 0xFF);
-    stTxFrame.abData[3] = (byte)((wTemp >> 8) & 0xFF);
-    wTemp = (word)(fpDynoPressure3 * DYNO_PRESSURE_CAN_GAIN) + DYNO_PRESSURE_CAN_OFFSET;
-    stTxFrame.abData[4] = (byte)(wTemp & 0xFF);
-    stTxFrame.abData[5] = (byte)((wTemp >> 8) & 0xFF);
-    wTemp = (word)(fVDynoFlow * DYNO_FLOW_CAN_GAIN);
-    stTxFrame.abData[6] = (byte)(wTemp & 0xFF);
-    stTxFrame.abData[7] = (byte)((wTemp >> 8) & 0xFF);
-    CAN_transmit(stCANBus0, &stTxFrame);
-
-    stTxFrame.dwID = 0x93;
-    stTxFrame.byDLC = 6;
-    wTemp = (word)(fTDynoTemp1 * DYNO_TEMP_CAN_GAIN) + DYNO_TEMP_CAN_OFFSET;
-    stTxFrame.abData[0] = (byte)(wTemp & 0xFF);
-    stTxFrame.abData[1] = (byte)((wTemp >> 8) & 0xFF);
-    wTemp = (word)(fTDynoTemp2 * DYNO_TEMP_CAN_GAIN) + DYNO_TEMP_CAN_OFFSET;
-    stTxFrame.abData[2] = (byte)(wTemp & 0xFF);
-    stTxFrame.abData[3] = (byte)((wTemp >> 8) & 0xFF);
-    wTemp = (word)(fTDynoTemp3 * DYNO_TEMP_CAN_GAIN) + DYNO_TEMP_CAN_OFFSET;
-    stTxFrame.abData[4] = (byte)(wTemp & 0xFF);
-    stTxFrame.abData[5] = (byte)((wTemp >> 8) & 0xFF);
-    CAN_transmit(stCANBus0, &stTxFrame);
-
+    DynoPressuresTx(stCANBus0);
+    DynoTempsTx(stCANBus0);
 
     /* Every Second */
     if ( wNCounter % (PERIOD_1S / PERIOD_TASK_100MS) == 0 ) 
@@ -314,9 +237,8 @@ void task_100ms(void)
             }
         });
        
-        ESP_LOGI("ADC", "Pressures (Bar): %3.2f | %3.2f | %3.2f", fpDynoPressure1, fpDynoPressure2, fpDynoPressure3);
-        ESP_LOGI("ADC", "Temperatures (degC): %3.2f | %3.2f | %3.2f", fTDynoTemp1, fTDynoTemp2, fTDynoTemp3);
-        ESP_LOGI("ADC", "Flow Rate (L/min): %3.2f", fVDynoFlow);
+        ESP_LOGI("ADC", "Pressures (Bar): %3.2f | %3.2f | %3.2f     |     Temperatures (degC): %3.2f | %3.2f | %3.2f     |     Flow Rate (L/min): %3.2f",
+            pDynoPressure1, pDynoPressure2, pDynoPressure3, TDynoTemp1, TDynoTemp2, TDynoTemp3, VDynoCoolantFlow);
  
     };
 
