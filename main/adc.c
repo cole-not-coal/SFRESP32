@@ -13,14 +13,39 @@ static adc_oneshot_unit_handle_t sADCUnit2 = NULL;
 /* --------------------------- Global Variables ------------------------ */
 stADCHandles_t stADCHandle0 =
 {
-    .eNChannel = APPS1_IN, 
+    .eNChannel = BOSH_0, 
     .stCalibration = NULL,
 };
 stADCHandles_t stADCHandle1 =
 {
-    .eNChannel = APPS2_IN, 
+    .eNChannel = BOSH_1, 
     .stCalibration = NULL,
-}; 
+};
+stADCHandles_t stADCHandle2 =
+{
+    .eNChannel = BOSH_2, 
+    .stCalibration = NULL,
+};
+stADCHandles_t stADCHandle3 =
+{
+    .eNChannel = BOSH_3, 
+    .stCalibration = NULL,
+};
+stADCHandles_t stADCHandle4 =
+{
+    .eNChannel = BOSH_4, 
+    .stCalibration = NULL,
+};
+stADCHandles_t stADCHandle5 =
+{
+    .eNChannel = BOSH_5, 
+    .stCalibration = NULL,
+};
+stADCHandles_t stADCHandle6 =
+{
+    .eNChannel = DYNO_FLOW, 
+    .stCalibration = NULL,
+};
 //Add as needed for more ADC channels
 
 /* --------------------------- Definitions ----------------------------- */
