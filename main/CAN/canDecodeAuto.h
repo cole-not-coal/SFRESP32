@@ -119,6 +119,10 @@ extern float VDynoTempRaw[3];
 extern float pDynoPressure[3];
 extern float VDynoCoolantFlow;
 extern float TDynoTemp[3];
+extern float rFanDutyManual;
+extern float rPumpDutyManual;
+extern uint8_t NFanMode;
+extern uint8_t NPumpMode;
 extern float CMD_TargetRelativeCurrent;
 extern float CMD_TargeRelativeBrakeCurrent;
 extern bool CMD_SetDigOutput[4];
@@ -233,6 +237,7 @@ extern uint8_t NTempMonTargetAddress;
 #define DYNOTEMPSRAW_ID 0x91
 #define DYNOPRESSURES_ID 0x92
 #define DYNOTEMPS_ID 0x93
+#define DYNOCOOLING_ID 0x94
 #define SETRELCURRENT_ID 0xA4
 #define SETRELBRAKECURRENT_ID 0xC4
 #define SETDIGOUTPUT_ID 0xE4
@@ -321,6 +326,8 @@ esp_err_t DynoPressuresRx(CAN_frame_t stFrame);
 esp_err_t DynoPressuresTx(twai_node_handle_t stCANBus);
 esp_err_t DynoTempsRx(CAN_frame_t stFrame);
 esp_err_t DynoTempsTx(twai_node_handle_t stCANBus);
+esp_err_t DynoCoolingRx(CAN_frame_t stFrame);
+esp_err_t DynoCoolingTx(twai_node_handle_t stCANBus);
 esp_err_t SetRelCurrentRx(CAN_frame_t stFrame);
 esp_err_t SetRelCurrentTx(twai_node_handle_t stCANBus);
 esp_err_t SetRelBrakeCurrentRx(CAN_frame_t stFrame);
