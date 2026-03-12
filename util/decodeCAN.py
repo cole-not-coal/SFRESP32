@@ -2,6 +2,16 @@ import pandas as pd
 import os
 import re
 
+###
+#  CAN Decode Code Generator
+#  Reads an Excel file "CAN Loading.xlsx" with CAN message and signal definitions
+#  and generates C code to decode the CAN messages into variables.
+#
+#  How to use:
+#  1) Download CAN Loading.xlsx from team drive and place it in the same folder as this script.
+#  2) Run this script: python decodeCAN.py
+###
+
 # Paths
 EXCEL_PATH = filedialog.askopenfilename(
     title="Select CAN Loading Excel File",
@@ -248,7 +258,7 @@ def main():
         df_msgs = pd.read_excel(EXCEL_PATH, sheet_name='Main BUS Message', header=header_row_idx)
         
         # Forward fill ID
-        df_msgs['ID'] = df_msgs['ID'].fillna(method='ffill')
+        df_msgs['ID'] = df_msgs['ID'].fill()
         
         messages = {}
         seen_signal_names = {} # Map name -> signal dict (for validation)
