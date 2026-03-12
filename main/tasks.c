@@ -19,7 +19,6 @@ typedef enum {
     eMOTOR_AUTO,
 } eMotorMode_t;
 
-
 /* --------------------------- Local Variables ----------------------------- */ 
 extern uint8_t byMACAddress[6];
 extern esp_reset_reason_t eResetReason;
@@ -144,6 +143,7 @@ ledc_channel_config_t stPumpChannelConfig = {
 #define PERIOD_10S 10000        // ms
 #define PERIOD_1S 1000          // ms
 #define MAX_eREFLASH_TIME_US 300000000 // us
+#define PWM_MAX_DUTY 8191
 
 /* --------------------------- Function prototypes ----------------------------- */
 void pin_toggle(gpio_num_t pin);
@@ -211,20 +211,16 @@ void task_1ms(void)
     switch (NFanMode)
     {
     case eMOTOR_OFF:
-        /* code */
         rFanDuty = 0;
         break;
     case eMOTOR_FULL:
-        /* code */
-        rFanDuty = 8191;
+        rFanDuty = PWM_MAX_DUTY;
         break;
     case eMOTOR_MANUAL:
-        /* code */
-        rFanDuty = (uint32_t)rFanDutyManual*8191/100;
+        rFanDuty = (uint32_t)rFanDutyManual*PWM_MAX_DUTY/100;
         break;
     case eMOTOR_AUTO:
-        /* code */
-        rFanDuty = 8191;
+        rFanDuty = PWM_MAX_DUTY;
         break;
     default:
         break;
@@ -232,20 +228,16 @@ void task_1ms(void)
     switch (NPumpMode)
     {
     case eMOTOR_OFF:
-        /* code */
         rPumpDuty = 0;
         break;
     case eMOTOR_FULL:
-        /* code */
-        rPumpDuty = 8191;
+        rPumpDuty = PWM_MAX_DUTY;
         break;
     case eMOTOR_MANUAL:
-        /* code */
-        rPumpDuty = (uint32_t)rPumpDutyManual*8191/100;
+        rPumpDuty = (uint32_t)rPumpDutyManual*PWM_MAX_DUTY/100;
         break;
     case eMOTOR_AUTO:
-        /* code */
-        rPumpDuty = 8191;
+        rPumpDuty = PWM_MAX_DUTY;
         break;
     default:
         break;
