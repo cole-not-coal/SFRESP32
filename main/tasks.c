@@ -19,13 +19,7 @@ extern uint8_t byMACAddress[6];
 extern esp_reset_reason_t eResetReason;
 extern eChipMode_t eDeviceMode;
 static esp_partition_t *stOTAPartition = NULL;
-extern stADCHandles_t stADCHandle0;
-extern stADCHandles_t stADCHandle1;
-extern stADCHandles_t stADCHandle2;
-extern stADCHandles_t stADCHandle3;
-extern stADCHandles_t stADCHandle4;
-extern stADCHandles_t stADCHandle5;
-extern stADCHandles_t stADCHandle6;
+extern spi_device_handle_t MCP320XDevs[2];
 
 stSensorMap_t stDynoTempMap = {
     .fLowerLimit = 0.0f,
@@ -190,21 +184,21 @@ void task_100ms(void)
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_100MS] = eTASK_ACTIVE;
 
-    // VDynoPressure1Raw = adc_read_voltage(&stADCHandle0);
-    // VDynoPressure2Raw = adc_read_voltage(&stADCHandle1);
-    // VDynoPressure3Raw = adc_read_voltage(&stADCHandle2);
-    VDynoTemp1Raw = adc_read_voltage(&stADCHandle3);
-    // VDynoTemp2Raw = adc_read_voltage(&stADCHandle4);
-    VDynoTemp3Raw = adc_read_voltage(&stADCHandle5);
-    VDynoCoolantFlowRaw = adc_read_voltage(&stADCHandle6);
+    VDynoPressureRaw[0] = MCP320X_read(MCP320XDevs[0], 0); //1
+    VDynoPressureRaw[1] = MCP320X_read(MCP320XDevs[0], 2); //3
+    VDynoPressureRaw[2] = MCP320X_read(MCP320XDevs[1], 0); //5
+    VDynoTempRaw[0] = MCP320X_read(MCP320XDevs[0], 1); //2
+    VDynoTempRaw[1] = MCP320X_read(MCP320XDevs[0], 3); //4
+    VDynoTempRaw[2] = MCP320X_read(MCP320XDevs[1], 1); //6
+    VDynoCoolantFlowRaw = MCP320X_read(MCP320XDevs[1], 2); //7
 
-    // pDynoPressure1 = read_sensor(&stADCHandle0, &stDynoPressureMap);
-    // pDynoPressure2 = read_sensor(&stADCHandle1, &stDynoPressureMap);
-    // pDynoPressure3 = read_sensor(&stADCHandle2, &stDynoPressureMap);
-    TDynoTemp1 = read_sensor(&stADCHandle3, &stDynoTempMap);
-    // TDynoTemp2 = read_sensor(&stADCHandle4, &stDynoTempMap);
-    TDynoTemp3 = read_sensor(&stADCHandle5, &stDynoTempMap);
-    VDynoCoolantFlow = read_sensor(&stADCHandle6, &stDynoFlowMap);
+    pDynoPressure[0] = convert_sensor(VDynoPressureRaw[0], &stDynoPressureMap);
+    pDynoPressure[1] = convert_sensor(VDynoPressureRaw[1], &stDynoPressureMap);
+    pDynoPressure[2] = convert_sensor(VDynoPressureRaw[2], &stDynoPressureMap);
+    TDynoTemp[0] = convert_sensor(VDynoTempRaw[0], &stDynoTempMap);
+    TDynoTemp[1] = convert_sensor(VDynoTempRaw[1], &stDynoTempMap);
+    TDynoTemp[2] = convert_sensor(VDynoTempRaw[2], &stDynoTempMap);
+    VDynoCoolantFlow = convert_sensor(VDynoCoolantFlowRaw, &stDynoFlowMap);
 
     /* Transmit Raw Volatages */
     DynoPressuresRawTx(stCANBus0);
@@ -238,7 +232,7 @@ void task_100ms(void)
         });
        
         ESP_LOGI("ADC", "Pressures (Bar): %3.2f | %3.2f | %3.2f     |     Temperatures (degC): %3.2f | %3.2f | %3.2f     |     Flow Rate (L/min): %3.2f",
-            pDynoPressure1, pDynoPressure2, pDynoPressure3, TDynoTemp1, TDynoTemp2, TDynoTemp3, VDynoCoolantFlow);
+            pDynoPressure[0], pDynoPressure[1], pDynoPressure[2], TDynoTemp[0], TDynoTemp[1], TDynoTemp[2], VDynoCoolantFlow);
  
     };
 
