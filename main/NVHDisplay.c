@@ -378,5 +378,3 @@ void TFT_display(void)
         EVE_end_cmd_burst(); /* stop writing to the cmd-fifo, the cmd-FIFO will be executed automatically after this or when DMA is done */
     }
 }
-
-

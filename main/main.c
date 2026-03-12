@@ -25,10 +25,6 @@ Written by Cole Perera for Sheffield Formula Racing 2025
 #include "CAN/canflash.h"
 #include "NVHDisplay.h"
 #include "mcp320X.h"
-<<<<<<< HEAD
-#include "mcp320X.h"
-=======
->>>>>>> 4d16582748d19e50814eb2b4b822ab16dc8d50d5
 
 /* --------------------------- Definitions ----------------------------- */
 #define TIMER_INTERVAL_WD       100     // in microseconds
@@ -44,10 +40,6 @@ esp_timer_handle_t stTaskInterrupt100ms;
 esp_reset_reason_t eResetReason;
 eChipMode_t eDeviceMode = eNORMAL;
 spi_device_handle_t MCP320XDevs[2];
-<<<<<<< HEAD
-spi_device_handle_t MCP320XDevs[2];
-=======
->>>>>>> 4d16582748d19e50814eb2b4b822ab16dc8d50d5
 
 /* --------------------------- Function prototypes ----------------------------- */
 static void timers_init(void);
@@ -147,7 +139,6 @@ static void main_init(void)
     //     ESP_LOGE(SFR_TAG, "Failed to initialise MCP320X: %s", esp_err_to_name(eStatus));
     // }
     /* END of SPI Devices*/
-
     
     /* CAN BUS */
     eStatus = CAN_init(TRUE);
@@ -161,7 +152,7 @@ static void main_init(void)
         ESP_LOGE(SFR_TAG, "Failed to initialise CAN Reflash: %s", esp_err_to_name(eStatus));
     }
 
-    /* LDC (SDCard and LCD share the SPI bus, take care) */
+    /* Display */
     NVHDisplay_init();
 
     /* External Clock */
@@ -214,4 +205,3 @@ void set_device_mode(eChipMode_t mode)
 {
     eDeviceMode = mode;
 }
-

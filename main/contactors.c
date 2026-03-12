@@ -49,7 +49,3 @@ int check_contactor_state(byte byNContactorID, float fVContactorOut) {
         return FALSE;  // OFF
     }
 }
-
-
-
-
