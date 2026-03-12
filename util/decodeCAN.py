@@ -1,24 +1,6 @@
 import pandas as pd
 import os
 import re
-import tkinter as tk
-from tkinter import filedialog
-
-# Note from CP: I'm sorry. I cba with python and gpt spat this out.
-
-# Initialize tkinter root
-root = tk.Tk()
-root.withdraw() # Hide the main window
-
-###
-#  CAN Decode Code Generator
-#  Reads an Excel file "CAN Loading.xlsx" with CAN message and signal definitions
-#  and generates C code to decode the CAN messages into variables.
-#
-#  How to use:
-#  1) Download CAN Loading.xlsx from team drive and place it in the same folder as this script.
-#  2) Run this script: python decodeCAN.py
-###
 
 # Paths
 EXCEL_PATH = filedialog.askopenfilename(
@@ -266,7 +248,7 @@ def main():
         df_msgs = pd.read_excel(EXCEL_PATH, sheet_name='Main BUS Message', header=header_row_idx)
         
         # Forward fill ID
-        df_msgs['ID'] = df_msgs['ID'].ffill()
+        df_msgs['ID'] = df_msgs['ID'].fillna(method='ffill')
         
         messages = {}
         seen_signal_names = {} # Map name -> signal dict (for validation)
@@ -282,11 +264,14 @@ def main():
                 continue
             
             sname = str(sname).strip()
+<<<<<<< HEAD
             
             # Filter reserved/spare signals
             if any(x in sname.lower() for x in ['reserved', 'spare', 'padding', 'unused']):
                 continue
 
+=======
+>>>>>>> 9105219 (CAN message decode script)
             # Clean variable names (remove illegal chars)
             sname = re.sub(r'[^a-zA-Z0-9_]', '', sname)
             
@@ -586,6 +571,43 @@ def generate_c_code(messages, msg_map):
         h_content += f"#define {func_name.upper()}_ID 0x{pid:X}\n"
     h_content += "\n"
 
+    # Generate Defines
+    for pid in sorted(messages.keys()):
+        if pid not in msg_map:
+            continue
+            
+        msg_info = msg_map[pid]
+        msg_name = msg_info['name']
+        
+        # Sanitize for C function name
+        msg_name_clean = re.sub(r'[^a-zA-Z0-9_]', '', msg_name)
+        func_name = msg_name_clean
+        if not func_name: func_name = f"Msg_{pid:X}"
+        
+        h_content += f"#define {func_name.upper()}_ID 0x{pid:X}\n"
+
+    h_content += "\n"
+
+<<<<<<< HEAD
+    # Generate Defines
+    for pid in sorted(messages.keys()):
+        if pid not in msg_map:
+            continue
+            
+        msg_info = msg_map[pid]
+        msg_name = msg_info['name']
+        
+        # Sanitize for C function name
+        msg_name_clean = re.sub(r'[^a-zA-Z0-9_]', '', msg_name)
+        func_name = msg_name_clean
+        if not func_name: func_name = f"Msg_{pid:X}"
+        
+        h_content += f"#define {func_name.upper()}_ID 0x{pid:X}\n"
+
+    h_content += "\n"
+
+=======
+>>>>>>> 9105219 (CAN message decode script)
     count = 0
     for pid in sorted(messages.keys()):
         if pid not in msg_map:

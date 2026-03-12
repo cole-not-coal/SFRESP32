@@ -1,12 +1,11 @@
 #ifndef SFRCAN
+#define SFRCAN
+
 #include "./../main.h"
-
-#include "esp_twai.h"
-#include "esp_twai_onchip.h"
-
 #include "./../pin.h"
-#include "string.h"
 #include "./../espnow.h"
+#include "canDecodeAuto.h"
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
 #include "string.h"

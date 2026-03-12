@@ -25,6 +25,7 @@ Written by Cole Perera for Sheffield Formula Racing 2025
 #include "CAN/canflash.h"
 #include "NVHDisplay.h"
 #include "mcp320X.h"
+#include "mcp320X.h"
 
 /* --------------------------- Definitions ----------------------------- */
 #define TIMER_INTERVAL_WD       100     // in microseconds
@@ -39,6 +40,7 @@ esp_timer_handle_t stTaskInterrupt1ms;
 esp_timer_handle_t stTaskInterrupt100ms;
 esp_reset_reason_t eResetReason;
 eChipMode_t eDeviceMode = eNORMAL;
+spi_device_handle_t MCP320XDevs[2];
 spi_device_handle_t MCP320XDevs[2];
 
 /* --------------------------- Function prototypes ----------------------------- */
@@ -102,16 +104,34 @@ void IRAM_ATTR call_back_100ms(void *arg)
 
 static void main_init(void)
 {
+    esp_err_t eStatus;
     /* Initialises Features/ Peripherals, Comment out as needed*/
 
     /* ESP-NOW */
     // eStatus = ESPNOW_init();
     // if (eStatus != ESP_OK)
+    // eStatus = ESPNOW_init();
+    // if (eStatus != ESP_OK)
     // {
+    //     ESP_LOGE(SFR_TAG, "Failed to initialise ESP-NOW: %s", esp_err_to_name(eStatus));
     //     ESP_LOGE(SFR_TAG, "Failed to initialise ESP-NOW: %s", esp_err_to_name(eStatus));
     // }
 
     /* SD Card (SDCard and LCD share the SPI bus, take care) */
+    /* SPI Devices */
+    // spi_bus_config_t stBusConfig = 
+    // {
+    //     .mosi_io_num = SPI_MOSI,
+    //     .miso_io_num = SPI_MISO,
+    //     .sclk_io_num = SPI_SCK,
+    //     .quadwp_io_num = -1,
+    //     .quadhd_io_num = -1,
+    // };
+    // eStatus = spi_bus_initialize(SPI2_HOST, &stBusConfig, SPI_DMA_CH_AUTO);
+
+    /* SD Card */
+    // eStatus = SD_card_init();
+    // if (eStatus != ESP_OK)
     /* SPI Devices */
     // spi_bus_config_t stBusConfig = 
     // {
@@ -138,27 +158,30 @@ static void main_init(void)
     //     ESP_LOGE(SFR_TAG, "Failed to initialise MCP320X: %s", esp_err_to_name(eStatus));
     // }
     /* END of SPI Devices*/
+
     
     /* CAN BUS */
-    // NStatus = CAN_init(TRUE);
-    // if (NStatus != ESP_OK)
-    // {
-    //     ESP_LOGE(SFR_TAG, "Failed to initialise CAN: %s", esp_err_to_name(NStatus));
-    // }
-    // NStatus = CAN_flash_init();
-    // if (NStatus != ESP_OK)
-    // {
-    //     ESP_LOGE(SFR_TAG, "Failed to initialise CAN Reflash: %s", esp_err_to_name(NStatus));
-    // }
+    eStatus = CAN_init(TRUE);
+    if (eStatus != ESP_OK)
+    {
+        ESP_LOGE(SFR_TAG, "Failed to initialise CAN: %s", esp_err_to_name(eStatus));
+    }
+    eStatus = CAN_flash_init();
+    if (eStatus != ESP_OK)
+    {
+        ESP_LOGE(SFR_TAG, "Failed to initialise CAN Reflash: %s", esp_err_to_name(eStatus));
+    }
 
     /* LDC (SDCard and LCD share the SPI bus, take care) */
     NVHDisplay_init();
 
-
     /* External Clock */
     // eStatus = I2C_init();
     // if (eStatus != ESP_OK)
+    // eStatus = I2C_init();
+    // if (eStatus != ESP_OK)
     // {
+    //     ESP_LOGE(SFR_TAG, "Failed to initialise I2C: %s", esp_err_to_name(eStatus));
     //     ESP_LOGE(SFR_TAG, "Failed to initialise I2C: %s", esp_err_to_name(eStatus));
     // }
 

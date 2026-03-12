@@ -119,10 +119,13 @@ extern float VDynoTempRaw[3];
 extern float pDynoPressure[3];
 extern float VDynoCoolantFlow;
 extern float TDynoTemp[3];
+<<<<<<< HEAD
 extern float rFanDutyManual;
 extern float rPumpDutyManual;
 extern uint8_t NFanMode;
 extern uint8_t NPumpMode;
+=======
+>>>>>>> 4d16582 (Fixed Screen)
 extern float CMD_TargetRelativeCurrent;
 extern float CMD_TargeRelativeBrakeCurrent;
 extern bool CMD_SetDigOutput[4];
@@ -237,7 +240,10 @@ extern uint8_t NTempMonTargetAddress;
 #define DYNOTEMPSRAW_ID 0x91
 #define DYNOPRESSURES_ID 0x92
 #define DYNOTEMPS_ID 0x93
+<<<<<<< HEAD
 #define DYNOCOOLING_ID 0x94
+=======
+>>>>>>> 4d16582 (Fixed Screen)
 #define SETRELCURRENT_ID 0xA4
 #define SETRELBRAKECURRENT_ID 0xC4
 #define SETDIGOUTPUT_ID 0xE4
@@ -283,6 +289,9 @@ extern uint8_t NTempMonTargetAddress;
 #define TEMPMONADDRESSCAST_ID 0x18EEFF80
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4d16582 (Fixed Screen)
 esp_err_t ESPControlRx(CAN_frame_t stFrame);
 esp_err_t ESPControlTx(twai_node_handle_t stCANBus);
 esp_err_t MCUStatusTelemCarRx(CAN_frame_t stFrame);
@@ -327,8 +336,11 @@ esp_err_t DynoPressuresRx(CAN_frame_t stFrame);
 esp_err_t DynoPressuresTx(twai_node_handle_t stCANBus);
 esp_err_t DynoTempsRx(CAN_frame_t stFrame);
 esp_err_t DynoTempsTx(twai_node_handle_t stCANBus);
+<<<<<<< HEAD
 esp_err_t DynoCoolingRx(CAN_frame_t stFrame);
 esp_err_t DynoCoolingTx(twai_node_handle_t stCANBus);
+=======
+>>>>>>> 4d16582 (Fixed Screen)
 esp_err_t SetRelCurrentRx(CAN_frame_t stFrame);
 esp_err_t SetRelCurrentTx(twai_node_handle_t stCANBus);
 esp_err_t SetRelBrakeCurrentRx(CAN_frame_t stFrame);
@@ -415,6 +427,7 @@ esp_err_t BMSCellTempRx(CAN_frame_t stFrame);
 esp_err_t BMSCellTempTx(twai_node_handle_t stCANBus);
 esp_err_t TempMonAddressCastRx(CAN_frame_t stFrame);
 esp_err_t TempMonAddressCastTx(twai_node_handle_t stCANBus);
+<<<<<<< HEAD
 =======
 esp_err_t ESPControl(CAN_frame_t stFrame, uint8_t* BRestart, uint8_t* BClearMinMax, uint8_t* BClearErrors);
 esp_err_t MCUStatusTelemCar(CAN_frame_t stFrame, float* tLastTaskTime1ms, float* tMaxTaskTime1ms, float* tLastTaskTime100ms, float* tMaxTaskTime100ms, float* tLastTaskTimeBG, float* tMaxTaskTimeBG, float* tSincePowerUp, uint8_t* NLastResetReason);
@@ -468,5 +481,7 @@ esp_err_t PackTemperature(CAN_frame_t stFrame, float* TPackHigh, float* TPackLow
 esp_err_t CellVoltages2(CAN_frame_t stFrame, float* VCellLow, float* VCellHigh, float* VCellAvg, float* VCellLowOC);
 esp_err_t CellVoltages3(CAN_frame_t stFrame, float* VCellHighOC, float* VCellAvgOC, float* VCellMaximum, float* VCellMinimum, uint8_t* NVCellMaxID, uint8_t* NVCellMinID);
 >>>>>>> 03aad6a (CAN message decode script)
+=======
+>>>>>>> 4d16582 (Fixed Screen)
 
 #endif
