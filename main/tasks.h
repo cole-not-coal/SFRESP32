@@ -20,6 +20,7 @@
 #include "main.h"
 #include "CAN/canDecodeAuto.h"
 #include "mcp320X.h"
+#include "driver/ledc.h"
 
 /* Function Definitions*/
 void task_BG(void);
