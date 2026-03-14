@@ -40,11 +40,15 @@ word wToggleState = 0;
 word wDisplayListSize = 0;
 word wNProfileA = 0;
 word wNProfileB = 0;
-uint8_t rBatterySOC = 0;
+uint32_t colour = GREEN;
+const char* message = "";
+
 
 /* --------------------------- Screen Variables ------------------------------ */
-char abySOCBuffer[4];   // Buffer to hold the battery SOC string
-
+char BatteryBuffer[5];   // Buffer to hold the battery SOC string
+char CellTempBuffer[5];   // Buffer to hold the cell temperature string
+char MotorTempBuffer[5];   // Buffer to hold the motor temperature string
+char InverterTempBuffer[5];   // Buffer to hold the inverter temperature string
 
 /* --------------------------- Function prototypes -------------------------- */
 
@@ -130,6 +134,7 @@ void initStaticBackground(void)
     EVE_cmd_text(EVE_VSIZE/2 - 75, 55, 20, 0, "Battery:");  //x, y, font
 
     // Rectangle Cell temperature
+    EVE_color_rgb(WHITE);
     EVE_widget_rectangle(10, EVE_HSIZE/2 -15, 100U, 50U, 0, 4, ORANGE);  // x, y, width, height, border, transparency, colour
     EVE_color_rgb(WHITE);
     EVE_cmd_text(12, EVE_HSIZE/2 -13, 20, 0, "Cell temp:");  //x, y, font
@@ -154,8 +159,8 @@ void initStaticBackground(void)
 
 
     // Message rectangle
-    EVE_widget_rectangle(EVE_VSIZE/2 - 110, EVE_HSIZE-50, 220U, 35U, 0, 5, GREEN);  // x, y, width, height, border, transparency, colour
-    EVE_color_rgb(WHITE);
+    EVE_widget_rectangle(EVE_VSIZE/2 - 110, EVE_HSIZE-50, 220U, 35U, 0, 10, WHITE);  // x, y, width, height, border, transparency, colour
+    EVE_color_rgb(BLACK);
     EVE_cmd_text(EVE_VSIZE/2 - 105, EVE_HSIZE-40, 20, 0, "Messages:");  //x, y, font
 
 
@@ -187,35 +192,49 @@ void TFT_display(void)
 
         EVE_cmd_append(MEM_DL_STATIC, dwNStaticDisplaySize); /* insert static part of display-list from copy in gfx-mem */
 
+        if (Pack_SOC < 0.01f && TCellAvg == 0 && Actual_TempMotor < 0.01f && Actual_TempController < 0.01f) {
+            colour = ORANGE;
+            message = "No CAN data!";
+        } else {
+            colour = GREEN;
+            message = " ";
+        }
+
         // Status Circles
-        EVE_widget_circle(20, 18, 150, 1, GREEN);
-        EVE_widget_circle(48, 18, 150, 1, GREEN);
-        EVE_widget_circle(76, 18, 150, 1, GREEN);
-        EVE_widget_circle(EVE_VSIZE-20, 18, 150, 1, GREEN);
-        EVE_widget_circle(EVE_VSIZE-48, 18, 150, 1, GREEN);
-        EVE_widget_circle(EVE_VSIZE-76, 18, 150, 1, GREEN);
+        EVE_widget_circle(20, 18, 150, 1, colour);
+        EVE_widget_circle(48, 18, 150, 1, colour);
+        EVE_widget_circle(76, 18, 150, 1, colour);
+        EVE_widget_circle(EVE_VSIZE-20, 18, 150, 1, colour);
+        EVE_widget_circle(EVE_VSIZE-48, 18, 150, 1, colour);
+        EVE_widget_circle(EVE_VSIZE-76, 18, 150, 1, colour);
         
         // battery percentage
-        sprintf(abySOCBuffer, "%3d", rBatterySOC);
+        sprintf(BatteryBuffer, "%3.0f%%", Pack_SOC);  
         EVE_color_rgb(BLACK);
-        EVE_cmd_text(EVE_VSIZE/2, EVE_HSIZE/2-65, 31, EVE_OPT_CENTER, abySOCBuffer);  //x, y, font
+        EVE_cmd_text(EVE_VSIZE/2-10, EVE_HSIZE/2-65, 31, EVE_OPT_CENTER, BatteryBuffer);  //x, y, font
 
         // Cell temperature
+        sprintf(CellTempBuffer, "%3d", TCellAvg);  
         EVE_color_rgb(WHITE);
-        EVE_cmd_text(60, EVE_HSIZE/2 +20, 28, EVE_OPT_CENTER, "30 C");  //x, y, font
+        EVE_cmd_text(50, EVE_HSIZE/2 +18, 30, EVE_OPT_CENTER, CellTempBuffer);  //x, y, font
 
         // Motor temperature
+        sprintf(MotorTempBuffer, "%3.0f", Actual_TempMotor);  
         EVE_color_rgb(WHITE);
-        EVE_cmd_text(EVE_VSIZE/2+60, EVE_HSIZE/2 +20, 28, EVE_OPT_CENTER,"40 C");  //x, y, font
+        EVE_cmd_text(EVE_VSIZE/2+50, EVE_HSIZE/2 +18, 30, EVE_OPT_CENTER, MotorTempBuffer);  //x, y, font
 
         // Inverter temperature
+        sprintf(InverterTempBuffer, "%3.0f", Actual_TempController);  
         EVE_color_rgb(WHITE);
-        EVE_cmd_text(60, EVE_HSIZE/2 +80, 28, EVE_OPT_CENTER, "50 C");  //x, y, font
+        EVE_cmd_text(50, EVE_HSIZE/2 +78, 30, EVE_OPT_CENTER, InverterTempBuffer);  //x, y, font
 
         // Coolant temperature
         EVE_color_rgb(WHITE);
-        EVE_cmd_text(EVE_VSIZE/2+60, EVE_HSIZE/2 +80, 28, EVE_OPT_CENTER, "20 C");  //x, y, font
+        EVE_cmd_text(EVE_VSIZE/2+60, EVE_HSIZE/2 +78, 30, EVE_OPT_CENTER, "N/A");  //x, y, font
 
+        // Messages
+        EVE_color_rgb(RED);
+        EVE_cmd_text(EVE_VSIZE/2 - 50, EVE_HSIZE-45, 28, 0, message);  //x, y, font
 
 
         EVE_restore_context();
@@ -224,4 +243,51 @@ void TFT_display(void)
 
         EVE_end_cmd_burst(); /* stop writing to the cmd-fifo, the cmd-FIFO will be executed automatically after this or when DMA is done */
     }
+}
+
+esp_err_t display_empty_buffer(void)
+{
+    esp_err_t NStatus = ESP_OK;
+    CAN_frame_t stCANFrame; 
+    
+    if (!xCANRingBuffer) 
+    {
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    if (uxQueueMessagesWaiting(xCANRingBuffer) == 0)
+    {
+        /* Buffer empty */
+        return ESP_OK;
+    }
+
+    while (xQueueReceive(xCANRingBuffer, &stCANFrame, 0) == pdTRUE)
+    {
+        /* Look for relevent CAN frames */
+        switch (stCANFrame.dwID)
+        {
+            // battery percentage
+            case CELLSTATS1_ID:
+                CellStats1Rx(stCANFrame);   // writes to Pack_SOC globally for battery PERCENTAGE
+                break;
+            
+            // BMS Cell Temperature
+            case BMSCELLTEMP_ID:
+                BMSCellTempRx(stCANFrame);   // writes to TCellAvg globally
+                break;
+            
+            // Motor & Inverter temperature
+            case TEMPERATURES_ID:
+                TemperaturesRx(stCANFrame); // writes to Actual_TempMotor & Actual_TempController (respectively) globally
+                break;
+
+            // Coolant temperature
+
+            default:
+                /* Ignore other CAN frames */
+                break;
+        }
+    }
+
+    return NStatus;
 }
