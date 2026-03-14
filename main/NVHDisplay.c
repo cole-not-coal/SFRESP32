@@ -30,6 +30,7 @@ Written by Cole Perera & Ridwaan Joomun for Sheffield Formula Racing 2025
 #define DARK_GREEN 0x00009900
 
 #define MEM_DL_STATIC (EVE_RAM_G_SIZE - 4096)
+#define CELL_TEMP_WARNING_THRESHOLD 45  // degrees C - adjust to whatever the team decides
 
 /* --------------------------- Global Variables ----------------------------- */
 
@@ -189,13 +190,25 @@ void TFT_display(void)
         EVE_clear_color_rgb(BLACK); /* set the default clear color to white */
         EVE_clear(1, 1, 1); /* clear the screen - this and the previous prevent artifacts between lists, Attributes are the color, stencil and tag buffers */
         EVE_tag(0); /* no touch */
-
         EVE_cmd_append(MEM_DL_STATIC, dwNStaticDisplaySize); /* insert static part of display-list from copy in gfx-mem */
 
         if (Pack_SOC < 0.01f && TCellAvg == 0 && Actual_TempMotor < 0.01f && Actual_TempController < 0.01f) {
             colour = ORANGE;
             message = "No CAN data!";
-        } else {
+        } 
+        // Danger messages
+        // Low Battery
+        else if (Pack_SOC < 20.0f) {
+            colour = RED;
+            message = "Low battery!";
+        }
+        // High cell temperature
+        else if (TCellAvg > CELL_TEMP_WARNING_THRESHOLD) {
+            colour = RED;
+            message = "High cell temp!";
+        }
+
+        else {
             colour = GREEN;
             message = " ";
         }
@@ -207,7 +220,8 @@ void TFT_display(void)
         EVE_widget_circle(EVE_VSIZE-20, 18, 150, 1, colour);
         EVE_widget_circle(EVE_VSIZE-48, 18, 150, 1, colour);
         EVE_widget_circle(EVE_VSIZE-76, 18, 150, 1, colour);
-        
+
+
         // battery percentage
         sprintf(BatteryBuffer, "%3.0f%%", Pack_SOC);  
         EVE_color_rgb(BLACK);
@@ -236,6 +250,36 @@ void TFT_display(void)
         EVE_color_rgb(RED);
         EVE_cmd_text(EVE_VSIZE/2 - 50, EVE_HSIZE-45, 28, 0, message);  //x, y, font
 
+        // Danger warning box
+        if (colour == RED) {
+            EVE_color_rgb(YELLOW);
+            EVE_widget_rectangle(EVE_VSIZE/2 - 80, EVE_HSIZE/2 - 30, 160U, 60U, 3, 10, YELLOW);  // yellow border
+            EVE_widget_rectangle(EVE_VSIZE/2 - 77, EVE_HSIZE/2 - 27, 154U, 54U, 0, 15, RED);     // red fill
+            EVE_color_rgb(BLACK);
+            EVE_cmd_text(EVE_VSIZE/2, EVE_HSIZE/2, 30, EVE_OPT_CENTER, "DANGER");
+
+            // Left triangle
+            EVE_color_rgb(ORANGE);
+            EVE_begin(EVE_LINE_STRIP);
+            EVE_vertex2f(EVE_VSIZE/2 - 115, 110);   // bottom left
+            EVE_vertex2f(EVE_VSIZE/2 - 95, 75);     // top middle
+            EVE_vertex2f(EVE_VSIZE/2 - 75, 110);    // bottom right
+            EVE_vertex2f(EVE_VSIZE/2 - 115, 110);   // close the triangle
+            EVE_end();
+            EVE_color_rgb(WHITE);
+            EVE_cmd_text(EVE_VSIZE/2 - 95, 93, 29, EVE_OPT_CENTER, "!");
+
+            // Right triangle
+            EVE_color_rgb(ORANGE);
+            EVE_begin(EVE_LINE_STRIP);
+            EVE_vertex2f(EVE_VSIZE/2 + 75, 110);    // bottom left
+            EVE_vertex2f(EVE_VSIZE/2 + 95, 75);     // top middle
+            EVE_vertex2f(EVE_VSIZE/2 + 115, 110);   // bottom right
+            EVE_vertex2f(EVE_VSIZE/2 + 75, 110);    // close the triangle
+            EVE_end();
+            EVE_color_rgb(WHITE);
+            EVE_cmd_text(EVE_VSIZE/2 + 95, 93, 29, EVE_OPT_CENTER, "!");
+        }
 
         EVE_restore_context();
         EVE_display(); /* mark the end of the display list */
