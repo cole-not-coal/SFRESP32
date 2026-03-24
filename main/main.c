@@ -139,7 +139,6 @@ static void main_init(void)
     //     ESP_LOGE(SFR_TAG, "Failed to initialise MCP320X: %s", esp_err_to_name(eStatus));
     // }
     /* END of SPI Devices*/
-
     
     /* CAN BUS */
     eStatus = CAN_init(TRUE);
@@ -153,7 +152,7 @@ static void main_init(void)
         ESP_LOGE(SFR_TAG, "Failed to initialise CAN Reflash: %s", esp_err_to_name(eStatus));
     }
 
-    /* LDC (SDCard and LCD share the SPI bus, take care) */
+    /* Display */
     NVHDisplay_init();
 
     /* External Clock */
@@ -206,4 +205,3 @@ void set_device_mode(eChipMode_t mode)
 {
     eDeviceMode = mode;
 }
-

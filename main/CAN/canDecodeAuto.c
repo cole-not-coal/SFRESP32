@@ -3496,4 +3496,3 @@ esp_err_t TempMonAddressCastTx(twai_node_handle_t stCANBus)
 
     return CAN_transmit(stCANBus, &stFrame);
 }
-
