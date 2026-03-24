@@ -26,6 +26,9 @@ extern eChipMode_t eDeviceMode;
 static esp_partition_t *stOTAPartition = NULL;
 extern spi_device_handle_t MCP320XDevs[2];
 
+uint32_t rFanDuty = 0;
+uint32_t rPumpDuty = 0;
+
 stSensorMap_t stDynoTempMap = {
     .fLowerLimit = 0.0f,
     .fUpperLimit = 5.0f,
@@ -111,26 +114,26 @@ eTaskState_t astTaskState[eTASK_TOTAL];
 dword dwTimeSincePowerUpms = 0;
 ledc_channel_config_t stFanChannelConfig = {
     .gpio_num = FAN_PWM,
-    .speed_mode = LEDC_SPEED_MODE_MAX,
+    .speed_mode = LEDC_LOW_SPEED_MODE,
     .channel = LEDC_CHANNEL_0,
     .intr_type = LEDC_INTR_DISABLE,
     .timer_sel = LEDC_TIMER_0,
     .duty = 0,
     .hpoint = 0,
-    .sleep_mode = LEDC_SLEEP_MODE_INVALID,
+    .sleep_mode = LEDC_SLEEP_MODE_NO_ALIVE_NO_PD,
     .flags = {
         .output_invert = 0,
     },
 };
 ledc_channel_config_t stPumpChannelConfig = {
     .gpio_num = PUMP_PWM,
-    .speed_mode = LEDC_SPEED_MODE_MAX,
+    .speed_mode = LEDC_LOW_SPEED_MODE,
     .channel = LEDC_CHANNEL_1,
     .intr_type = LEDC_INTR_DISABLE,
     .timer_sel = LEDC_TIMER_0,
     .duty = 0,
     .hpoint = 0,
-    .sleep_mode = LEDC_SLEEP_MODE_INVALID,
+    .sleep_mode = LEDC_SLEEP_MODE_NO_ALIVE_NO_PD,
     .flags = {
         .output_invert = 0,
     },
@@ -194,15 +197,10 @@ void task_1ms(void)
     qword qwtTaskTimer;
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_1MS] = eTASK_ACTIVE;
-    uint32_t rFanDuty = 0;
-    uint32_t rPumpDuty = 0;
 
     /* Update time since power up */
     dwTimeSincePowerUpms++;
 
-    /* Update max task time */
-    qwtTaskTimer = esp_timer_get_time() - qwtTaskTimer;
-    adwLastTaskTime[eTASK_1MS] = (dword)qwtTaskTimer;
     if (qwtTaskTimer > adwMaxTaskTime[eTASK_1MS]) 
     {
         adwMaxTaskTime[eTASK_1MS] = (dword)qwtTaskTimer;
@@ -242,9 +240,16 @@ void task_1ms(void)
     default:
         break;
     }
-    
-    ledc_set_duty_and_update(LEDC_SPEED_MODE_MAX, LEDC_CHANNEL_0, rFanDuty, 0);
-    ledc_set_duty_and_update(LEDC_SPEED_MODE_MAX, LEDC_CHANNEL_1, rPumpDuty, 0);
+    rFanDuty = (uint32_t)20*PWM_MAX_DUTY/100;
+    rPumpDuty = (uint32_t)1000*PWM_MAX_DUTY/100;
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, rFanDuty);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, rPumpDuty);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1);
+
+    /* Update max task time */
+    qwtTaskTimer = esp_timer_get_time() - qwtTaskTimer;
+    adwLastTaskTime[eTASK_1MS] = (dword)qwtTaskTimer;
 }
 
 void task_100ms(void)
@@ -303,8 +308,9 @@ void task_100ms(void)
             }
         });
        
-        ESP_LOGI("ADC", "Pressures (Bar): %3.2f | %3.2f | %3.2f     |     Temperatures (degC): %3.2f | %3.2f | %3.2f     |     Flow Rate (L/min): %3.2f",
-            pDynoPressure[0], pDynoPressure[1], pDynoPressure[2], TDynoTemp[0], TDynoTemp[1], TDynoTemp[2], VDynoCoolantFlow);
+        // ESP_LOGI("ADC", "Pressures (Bar): %3.2f | %3.2f | %3.2f     |     Temperatures (degC): %3.2f | %3.2f | %3.2f     |     Flow Rate (L/min): %3.2f",
+        //     pDynoPressure[0], pDynoPressure[1], pDynoPressure[2], TDynoTemp[0], TDynoTemp[1], TDynoTemp[2], VDynoCoolantFlow);
+        ESP_LOGI("ADC", "Fan Duty: %3.1f%%     |     Pump Duty: %3.1f%%", (float)rFanDuty*100/PWM_MAX_DUTY, (float)rPumpDuty*100/PWM_MAX_DUTY);
  
     };
 

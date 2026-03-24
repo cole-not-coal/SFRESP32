@@ -14,6 +14,7 @@ Written by Cole Perera for Sheffield Formula Racing 2025
 #include "esp_task_wdt.h"
 #include "esp_timer.h"
 #include "driver/gpio.h"
+#include "driver/ledc.h"
 
 #include "CAN/can.h"
 #include "tasks.h"
@@ -65,7 +66,7 @@ void app_main(void)
 {
     /* Get last reset reason */
     eResetReason = esp_reset_reason();
-    
+
     /* Register app_main task with the WDT */ 
     (void)esp_task_wdt_deinit(); 
     esp_task_wdt_config_t stWDTConfig = {
@@ -207,6 +208,17 @@ static void GPIO_init(void)
         .intr_type = GPIO_INTR_DISABLE
     };
     gpio_config(&onboardLEDConfig);
+
+    ledc_timer_config_t stLedcTimerConfig = {
+        .speed_mode = LEDC_LOW_SPEED_MODE,
+        .duty_resolution = LEDC_TIMER_13_BIT,
+        .timer_num = LEDC_TIMER_0,
+        .freq_hz = 1000, // 1kHz
+        .clk_cfg = LEDC_AUTO_CLK,
+        .deconfigure = false,
+    };
+    ESP_ERROR_CHECK(ledc_timer_config(&stLedcTimerConfig));
+
     ledc_channel_config(&stFanChannelConfig);
     ledc_channel_config(&stPumpChannelConfig);
 }
