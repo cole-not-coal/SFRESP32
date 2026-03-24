@@ -10,16 +10,6 @@ from tkinter import filedialog
 root = tk.Tk()
 root.withdraw() # Hide the main window
 
-###
-#  CAN Decode Code Generator
-#  Reads an Excel file "CAN Loading.xlsx" with CAN message and signal definitions
-#  and generates C code to decode the CAN messages into variables.
-#
-#  How to use:
-#  1) Download CAN Loading.xlsx from team drive and place it in the same folder as this script.
-#  2) Run this script: python decodeCAN.py
-###
-
 # Paths
 EXCEL_PATH = filedialog.askopenfilename(
     title="Select CAN Loading Excel File",
