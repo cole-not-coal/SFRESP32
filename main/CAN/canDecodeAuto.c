@@ -3055,7 +3055,7 @@ esp_err_t CellStats3Rx(CAN_frame_t stFrame)
     Maximum_Pack_Voltage = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     Minimum_Pack_Voltage = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
     High_Cell_Voltage = (float)((float)(((stFrame.abData[4] >> 0) & 0xFF)) * 0.01f + 200.0f);
-    Avg_Cell_Voltage = (float)((float)(((stFrame.abData[5] >> 0) & 0xFF)) * 0.01f + 200.0f);
+    TCellAvg = (float)((float)(((stFrame.abData[5] >> 0) & 0xFF)) * 0.01f + 200.0f);
     Low_Cell_Voltage = (float)((float)(((stFrame.abData[6] >> 0) & 0xFF)) * 0.01f + 200.0f);
     High_Cell_Voltage_ID = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xFF)));
     return ESP_OK;
