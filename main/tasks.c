@@ -49,6 +49,8 @@ void task_BG(void)
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_BG] = eTASK_ACTIVE;
 
+    TFT_display();
+    
     /* Service the watchdog if all task have been completed at least once */
     word wNTaskCounter = 0;
     boolean bTasksComplete = TRUE;
