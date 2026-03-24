@@ -237,9 +237,8 @@ void initStaticBackground(void)
     EVE_color_rgb(WHITE);
     EVE_cmd_text(EVE_VSIZE/2+15, 5, 29, EVE_OPT_CENTERX, "R");
 
-
-    // // char buf[32];
-    // // snprintf(buf, sizeof(buf), "%d", battery);      // if battery is a string
+    char abySOCBuffer[4];
+    sprintf(abySOCBuffer, "%3d", rBatterySOC);
 
     // // Rectangle for battery percentage
     EVE_widget_rectangle(EVE_VSIZE/2 - 80, 50 , 160U, 80U, 0, 10, WHITE);  // x, y, width, height, border, transparency, colour
