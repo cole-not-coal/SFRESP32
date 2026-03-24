@@ -615,6 +615,12 @@ esp_err_t CAN_read_from_buffer(void)
             //         StatusAPPSRx(stCANFrame);
             //     }
             //     break;
+            case DYNOCOOLING_ID:
+                /* Process Dyno */
+                {
+                    DynoCoolingRx(stCANFrame);
+                }
+                break;
             default:
                 /* Ignore other CAN frames */
                 break;

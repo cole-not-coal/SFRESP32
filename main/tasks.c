@@ -12,6 +12,12 @@ Written by Cole Perera and Aditya Parnandi for Sheffield Formula Racing 2025
 #include "tasks.h"
 
 /* --------------------------- Local Types ----------------------------- */
+typedef enum {
+    eMOTOR_OFF = 0,
+    eMOTOR_FULL,
+    eMOTOR_MANUAL,
+    eMOTOR_AUTO,
+} eMotorMode_t;
 
 
 /* --------------------------- Local Variables ----------------------------- */ 
@@ -104,6 +110,32 @@ dword adwMaxTaskTime[eTASK_TOTAL];
 dword adwLastTaskTime[eTASK_TOTAL];
 eTaskState_t astTaskState[eTASK_TOTAL];
 dword dwTimeSincePowerUpms = 0;
+ledc_channel_config_t stFanChannelConfig = {
+    .gpio_num = FAN_PWM,
+    .speed_mode = LEDC_SPEED_MODE_MAX,
+    .channel = LEDC_CHANNEL_0,
+    .intr_type = LEDC_INTR_DISABLE,
+    .timer_sel = LEDC_TIMER_0,
+    .duty = 0,
+    .hpoint = 0,
+    .sleep_mode = LEDC_SLEEP_MODE_INVALID,
+    .flags = {
+        .output_invert = 0,
+    },
+};
+ledc_channel_config_t stPumpChannelConfig = {
+    .gpio_num = PUMP_PWM,
+    .speed_mode = LEDC_SPEED_MODE_MAX,
+    .channel = LEDC_CHANNEL_1,
+    .intr_type = LEDC_INTR_DISABLE,
+    .timer_sel = LEDC_TIMER_0,
+    .duty = 0,
+    .hpoint = 0,
+    .sleep_mode = LEDC_SLEEP_MODE_INVALID,
+    .flags = {
+        .output_invert = 0,
+    },
+};
 
 /* --------------------------- Function prototypes ----------------------------- */
 
@@ -162,6 +194,8 @@ void task_1ms(void)
     qword qwtTaskTimer;
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_1MS] = eTASK_ACTIVE;
+    uint32_t rFanDuty = 0;
+    uint32_t rPumpDuty = 0;
 
     /* Update time since power up */
     dwTimeSincePowerUpms++;
@@ -173,6 +207,52 @@ void task_1ms(void)
     {
         adwMaxTaskTime[eTASK_1MS] = (dword)qwtTaskTimer;
     }
+
+    switch (NFanMode)
+    {
+    case eMOTOR_OFF:
+        /* code */
+        rFanDuty = 0;
+        break;
+    case eMOTOR_FULL:
+        /* code */
+        rFanDuty = 8191;
+        break;
+    case eMOTOR_MANUAL:
+        /* code */
+        rFanDuty = (uint32_t)rFanDutyManual*8191/100;
+        break;
+    case eMOTOR_AUTO:
+        /* code */
+        rFanDuty = 8191;
+        break;
+    default:
+        break;
+    }
+    switch (NPumpMode)
+    {
+    case eMOTOR_OFF:
+        /* code */
+        rPumpDuty = 0;
+        break;
+    case eMOTOR_FULL:
+        /* code */
+        rPumpDuty = 8191;
+        break;
+    case eMOTOR_MANUAL:
+        /* code */
+        rPumpDuty = (uint32_t)rPumpDutyManual*8191/100;
+        break;
+    case eMOTOR_AUTO:
+        /* code */
+        rPumpDuty = 8191;
+        break;
+    default:
+        break;
+    }
+    
+    ledc_set_duty_and_update(LEDC_SPEED_MODE_MAX, LEDC_CHANNEL_0, rFanDuty, 0);
+    ledc_set_duty_and_update(LEDC_SPEED_MODE_MAX, LEDC_CHANNEL_1, rPumpDuty, 0);
 }
 
 void task_100ms(void)
