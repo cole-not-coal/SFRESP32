@@ -1,6 +1,8 @@
 #ifndef SFR_PIN
 #define SFR_PIN
 
+#define SFR_TAG  "SFR_ESP32"
+
 /* All Devices */
 #define SFR_TAG  "SFR_ESP32"
 
