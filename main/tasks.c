@@ -26,20 +26,20 @@ extern stADCHandles_t stADCHandle3;
 extern stADCHandles_t stADCHandle4;
 extern stADCHandles_t stADCHandle5;
 extern stADCHandles_t stADCHandle6;
-float fVDynoPressure1Raw;
-float fVDynoPressure2Raw;
-float fVDynoPressure3Raw;
-float fVDynoTemp1Raw;
-float fVDynoTemp2Raw;
-float fVDynoTemp3Raw;
-float fVDynoFlowRaw;
-float fpDynoPressure1;
-float fpDynoPressure2;
-float fpDynoPressure3;
-float fTDynoTemp1;
-float fTDynoTemp2;
-float fTDynoTemp3;
-float fVDynoFlow; // L/min
+float fVDynoPressure1Raw = 0.0;
+float fVDynoPressure2Raw = 0.0;
+float fVDynoPressure3Raw = 0.0;
+float fVDynoTemp1Raw = 0.0;
+float fVDynoTemp2Raw = 0.0;
+float fVDynoTemp3Raw = 0.0;
+float fVDynoFlowRaw = 0.0;
+float fpDynoPressure1 = 0.0;
+float fpDynoPressure2 = 0.0;
+float fpDynoPressure3 = 0.0;
+float fTDynoTemp1 = 0.0;
+float fTDynoTemp2 = 0.0;
+float fTDynoTemp3 = 0.0;
+float fVDynoFlow = 0.0; // L/min
 
 stSensorMap_t stDynoTempMap = {
     .fLowerLimit = 0.0f,
@@ -133,9 +133,9 @@ dword dwTimeSincePowerUpms = 0;
 #define PERIOD_1S 1000          // ms
 #define MAX_eREFLASH_TIME_US 300000000 // us
 #define DYNO_PRESSURE_CAN_GAIN 2000
-#define DYNO_PRESSURE_CAN_OFFSET -2000
+#define DYNO_PRESSURE_CAN_OFFSET 2000
 #define DYNO_TEMP_CAN_GAIN 200
-#define DYNO_TEMP_CAN_OFFSET -10000
+#define DYNO_TEMP_CAN_OFFSET 10000
 #define DYNO_FLOW_CAN_GAIN 100000
 #define DYNO_PRESSURE_CAN_GAIN_RAW 10000
 #define DYNO_TEMP_CAN_GAIN_RAW 10000
@@ -212,19 +212,19 @@ void task_100ms(void)
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_100MS] = eTASK_ACTIVE;
 
-    fVDynoPressure1Raw = adc_read_voltage(&stADCHandle0);
-    fVDynoPressure2Raw = adc_read_voltage(&stADCHandle1);
-    fVDynoPressure3Raw = adc_read_voltage(&stADCHandle2);
+    // fVDynoPressure1Raw = adc_read_voltage(&stADCHandle0);
+    // fVDynoPressure2Raw = adc_read_voltage(&stADCHandle1);
+    // fVDynoPressure3Raw = adc_read_voltage(&stADCHandle2);
     fVDynoTemp1Raw = adc_read_voltage(&stADCHandle3);
-    fVDynoTemp2Raw = adc_read_voltage(&stADCHandle4);
+    // fVDynoTemp2Raw = adc_read_voltage(&stADCHandle4);
     fVDynoTemp3Raw = adc_read_voltage(&stADCHandle5);
     fVDynoFlowRaw = adc_read_voltage(&stADCHandle6);
 
-    fpDynoPressure1 = read_sensor(&stADCHandle0, &stDynoPressureMap);
-    fpDynoPressure2 = read_sensor(&stADCHandle1, &stDynoPressureMap);
-    fpDynoPressure3 = read_sensor(&stADCHandle2, &stDynoPressureMap);
+    // fpDynoPressure1 = read_sensor(&stADCHandle0, &stDynoPressureMap);
+    // fpDynoPressure2 = read_sensor(&stADCHandle1, &stDynoPressureMap);
+    // fpDynoPressure3 = read_sensor(&stADCHandle2, &stDynoPressureMap);
     fTDynoTemp1 = read_sensor(&stADCHandle3, &stDynoTempMap);
-    fTDynoTemp2 = read_sensor(&stADCHandle4, &stDynoTempMap);
+    // fTDynoTemp2 = read_sensor(&stADCHandle4, &stDynoTempMap);
     fTDynoTemp3 = read_sensor(&stADCHandle5, &stDynoTempMap);
     fVDynoFlow = read_sensor(&stADCHandle6, &stDynoFlowMap);
 
