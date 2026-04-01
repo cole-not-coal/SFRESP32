@@ -174,15 +174,12 @@ void reflash_task_BG()
 {
     static qword qwtReflashEntryTime = 0;
     esp_err_t eState;
-
     (void)esp_task_wdt_reset();
 
     /* Initialise Reflash Mode */
     if (qwtReflashEntryTime == 0)
     {
-        dwFirmwareSize = 0; //Reset firmware size
-        CAN_flash_get_size();
-        CAN_clear_rx_buffer();
+        ESP_LOGI("CANFLASH", "Entering reflash mode with firmware size %d bytes", dwFirmwareSize);
         qwtReflashEntryTime = (qword)esp_timer_get_time();
     }
 
@@ -206,6 +203,11 @@ void reflash_task_BG()
 
     /* Write new binary as its recieved */
     eState = CAN_flash_empty_queue(stOTAPartition);
+    if (eState != ESP_OK)
+    {
+        ESP_LOGE("CANFLASH", "Failed to read reflash data to flash: %s", esp_err_to_name(eState));
+    }
+    eState = CAN_flash_write(stOTAPartition);
     if (eState != ESP_OK)
     {
         ESP_LOGE("CANFLASH", "Failed to write reflash data to flash: %s", esp_err_to_name(eState));

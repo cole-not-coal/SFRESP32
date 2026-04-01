@@ -14,11 +14,11 @@
 
 #define CAN_CMD_ID 0x010
 typedef enum {
-    eCMD_RESET          = 0x1,
-    eCMD_CLEAR_MINMAX   = 0x2,
-    eCMD_CLEAR_ERRORS   = 0x3,
-    eCMD_REFLASH_MODE   = 0x4,
-    eCMD_NORMAL_MODE    = 0x5,
+    eCMD_RESET          = 0b00000001,
+    eCMD_CLEAR_MINMAX   = 0b00000010,
+    eCMD_CLEAR_ERRORS   = 0b00000100,
+    eCMD_REFLASH_MODE   = 0b00001000,
+    eCMD_NORMAL_MODE    = 0b00010000,
 } eCAN_CMD_t;
 
 esp_err_t CAN_init(boolean bEnableRx);

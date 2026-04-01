@@ -71,25 +71,13 @@ esp_err_t CAN_flash_empty_queue(esp_partition_t *stOTAPartition)
     CAN_frame_t stCANFrame;
     CAN_frame_t stCANTxFrame;
     stCANTxFrame.dwID = DEVICE_ID;
-    byte abyFlashBuffer[16];
     esp_err_t eState = ESP_OK;
     qword qwCANData = 0;
-    static qword qwTime = 0;
 
     if (!xCANRingBuffer) 
     {
         return ESP_ERR_INVALID_STATE;
     } 
-
-    if (stOTAPartition == NULL)
-    {
-        return ESP_ERR_INVALID_ARG;
-    }
-
-    if (xReflashRingBuffer == NULL)
-    {
-        return ESP_ERR_INVALID_STATE;
-    }
 
     /* Read CAN messages and fill reflash buffer */
     while(xQueueReceive(xCANRingBuffer, &stCANFrame, 0) == pdTRUE)
@@ -107,7 +95,7 @@ esp_err_t CAN_flash_empty_queue(esp_partition_t *stOTAPartition)
             /* Send ACK */
             stCANTxFrame.byDLC = 1;
             stCANTxFrame.abData[0] = 0xFF;
-            CAN_transmit(stCANBus0, &stCANTxFrame);
+            eState = CAN_transmit(stCANBus0, &stCANTxFrame);
         } else
         {
             /* Invalid CRC - Send NACK and error count */
@@ -115,9 +103,41 @@ esp_err_t CAN_flash_empty_queue(esp_partition_t *stOTAPartition)
             stCANTxFrame.abData[0] = 0x00;
             stCANTxFrame.abData[1] = (byte)(dwErrorCountReflash & 0xFF);
             stCANTxFrame.abData[2] = (byte)((dwErrorCountReflash >> 8) & 0xFF);
-            CAN_transmit(stCANBus0, &stCANTxFrame);
+            eState = CAN_transmit(stCANBus0, &stCANTxFrame);
             dwErrorCountReflash++;
         }
+    }
+    return eState;
+}
+
+esp_err_t CAN_flash_write(esp_partition_t *stOTAPartition)
+{
+    /*
+    *===========================================================================
+    *   CAN_flash_write
+    *   Takes:   Target partition to write to.
+    * 
+    *   Returns: None
+    * 
+    *   Empties the can rx buffer and writes the data into the ota partition.
+    *   Flash likes to be written in 16 byte chunks.
+    *=========================================================================== 
+    *   Revision History:
+    *   03/01/26 CP Initial Version
+    *   09/01/26 CP Added CRC check and ACK/NACK response
+    *===========================================================================
+    */
+   static qword qwTime = 0;
+   byte abyFlashBuffer[16];
+   esp_err_t eState = ESP_OK;
+
+    if (stOTAPartition == NULL)
+    {
+        return ESP_ERR_INVALID_ARG;
+    }
+    if (xReflashRingBuffer == NULL)
+    {
+        return ESP_ERR_INVALID_STATE;
     }
 
     /* Write reflash buffer to flash in 16 byte chunks */
@@ -140,16 +160,8 @@ esp_err_t CAN_flash_empty_queue(esp_partition_t *stOTAPartition)
         dwBytesWrittenReflash += 16;
     }
 
-    /* Debug Reporting */
-    if (esp_timer_get_time() - qwTime >= 500000) //Every 0.5s
-    {
-        qwTime = esp_timer_get_time();
-        ESP_LOGI("CANFLASH", "Reflash Progress: %d / %d bytes written, %d errors",
-            dwBytesWrittenReflash, CAN_flash_get_size(), dwErrorCountReflash);
-    }
-
     /* Detect if there are less then 16 bytes till the end of the binary. (would get stuck otherwise) */
-    if (dwBytesWrittenReflash + 16 > CAN_flash_get_size())
+    if (dwBytesWrittenReflash + 16 > dwFirmwareSize && dwFirmwareSize > 0)
     {
         word wNCounter = 0;
         while (xQueueReceive(xReflashRingBuffer, &abyFlashBuffer[wNCounter], 0) == pdTRUE)
@@ -166,56 +178,16 @@ esp_err_t CAN_flash_empty_queue(esp_partition_t *stOTAPartition)
         }
         dwBytesWrittenReflash += wNCounter+1;
     }
+
+    /* Debug Reporting */
+    if (esp_timer_get_time() - qwTime >= 500000) //Every 0.5s
+    {
+        qwTime = esp_timer_get_time();
+        ESP_LOGI("CANFLASH", "Reflash Progress: %d / %d bytes written, %d waiting in queue",
+            (uint32_t)dwBytesWrittenReflash, (uint32_t)dwFirmwareSize, uxQueueMessagesWaiting(xReflashRingBuffer));
+    }
     
     return ESP_OK;
-}
-
-dword CAN_flash_get_size()
-{
-    /*
-    *===========================================================================
-    *   CAN_flash_get_size
-    *   Takes:   None
-    * 
-    *   Returns: Size of firmware binary in bytes.
-    * 
-    *   Reads the size of the firmware binary to be flashed over CAN.
-    *=========================================================================== 
-    *   Revision History:
-    *   03/01/26 CP Initial Version
-    *   
-    *===========================================================================
-    */
-
-    /* Firmware Size already known */
-    if (dwFirmwareSize > 0)
-    {
-        return dwFirmwareSize;
-    }
-
-    /* Read firmware size from command message */
-    CAN_frame_t stCANFrame;
-    if (!xCANRingBuffer) 
-    {
-        return 0;
-    }
-    if (xQueueReceive(xCANRingBuffer, &stCANFrame, 0) == pdTRUE)
-    {
-        if (stCANFrame.dwID == CAN_CMD_ID &&
-            stCANFrame.abData[0] == eCMD_REFLASH_MODE &&
-            stCANFrame.abData[1] == DEVICE_ID)
-        {
-            dwFirmwareSize = ((dword)stCANFrame.abData[2] << 24) |
-                             ((dword)stCANFrame.abData[3] << 16) |
-                             ((dword)stCANFrame.abData[4] << 8)  |
-                             ((dword)stCANFrame.abData[5]);
-            ESP_LOGI("CANFLASH", "New Firmware Size: %d bytes", dwFirmwareSize);
-            return dwFirmwareSize;
-        }
-    }
-
-    /* Read failed */
-    return 0;
 }
 
 word crc8(qword dwData)

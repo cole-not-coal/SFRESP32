@@ -51,13 +51,14 @@ DEVICE_ID = 0xFF
 CRC8_POLYNOMIAL = 0x12F
 
 # Command Codes (Must match firmware eCAN_CMD_t)
-CMD_REFLASH_MODE = 0x04
-CMD_NORMAL_MODE  = 0x05  # Reused for Size packet in firmware logic
+CMD_REFLASH_MODE = 0b00001000
+CMD_NORMAL_MODE  = 0b00010000  # Reused for Size packet in firmware logic
 
 # Timing
 TIMEOUT_RX = 1.0              # Timeout for receiving messages (if needed)
 ESP32_REFLASH_DELAY = 1.0   # Delay after sending reflash command
 TIMEOUT_COMMS = 5.0         # Timeout if no ACK/NACK received
+RESEND_INTERVAL = 0.5       # Resend frame if no ACK/NACK received for this long (s)
 
 # File Paths
 # Assumes script is in 'util/' and build is in 'build/' relative to project root
@@ -180,39 +181,65 @@ def main():
             # Construct 8-byte payload
             payload = list(chunk) + [crc_byte]
             
-            last_comms_time = time.time()
+            # Track overall wait and time since last ACK/NACK for this payload
+            start_wait_time = time.time()
+            last_response_time = start_wait_time  # last ACK/NACK (or initial send anchor)
 
-            # Send Loop (Retry on NACK)
+            def send_with_retry():
+                nonlocal last_response_time
+                while not send_frame(bus, DEVICE_ID, payload):
+                    if (time.time() - start_wait_time) > TIMEOUT_COMMS:
+                        raise TimeoutError(f"Communication Timeout: Unable to send frame for {TIMEOUT_COMMS}s")
+                    time.sleep(0.1)
+                # Anchor the "no response" timer to when we sent
+                last_response_time = time.time()
+
+            # Initial send: block/retry on TX errors but don't spam
+            send_with_retry()
+
+            # Wait for ACK/NACK. Ignore other bus traffic; only ACK/NACK
+            # affects resend timing.
             while True:
-                # Check for Communication Timeout
-                if (time.time() - last_comms_time) > TIMEOUT_COMMS:
+                now = time.time()
+                if (now - start_wait_time) > TIMEOUT_COMMS:
                     raise TimeoutError(f"Communication Timeout: No ACK or NACK received for {TIMEOUT_COMMS}s")
 
-                # Protocol: ID=DEVICE_ID, Data=[7 Bytes + CRC]
-                send_frame(bus, DEVICE_ID, payload)
-                
-                # Wait for ACK/NACK
+                # Short receive window so we can periodically check resend condition
+                recv_timeout = min(0.1, max(0.0, TIMEOUT_COMMS - (now - start_wait_time)))
+
                 try:
-                    msg = bus.recv(timeout=TIMEOUT_RX)
-                    if msg and msg.arbitration_id == DEVICE_ID:
-                        # Check first byte
-                        if msg.data[0] == 0xFF:
+                    msg = bus.recv(timeout=recv_timeout)
+                except can.CanError:
+                    msg = None
+
+                if msg and msg.arbitration_id == DEVICE_ID:
+                    # Some frames may have no or too few data bytes; guard against that.
+                    data_len = len(msg.data) if msg.data is not None else 0
+                    if data_len == 0:
+                        # Empty payload from our device, ignore
+                        pass
+                    else:
+                        first_byte = msg.data[0]
+
+                        if first_byte == 0xFF:
                             # ACK
                             break
-                        elif msg.data[0] == 0x00:
+                        elif first_byte == 0x00:
                             # NACK - Error Count in [1:3] (Little Endian)
-                            error_count = msg.data[1] | (msg.data[2] << 8)
-                            total_errors += 1
-                            # Update progress bar to show error count increasing, using 'i' as completed chunks
-                            print_progress(i, total_chunks, prefix='Progress:', suffix=f'Complete (Err: {total_errors})', length=40)
-                            last_comms_time = time.time()
-                            continue # Retry sending
-                        else:
-                            # Unknown message, keep waiting or retry?
-                            # For safety, let's treat as ignore or retry
-                            pass
-                except can.CanError:
-                    pass
+                            if data_len >= 3:
+                                error_count = msg.data[1] | (msg.data[2] << 8)
+                                total_errors += 1
+                                print_progress(i, total_chunks, prefix='Progress:', suffix=f'Complete (Err: {total_errors})', length=40)
+
+                            # Resend immediately on explicit NACK and reset response timer
+                            send_with_retry()
+
+                    # Either way, after handling our own device message, check resend timer below
+
+                # If we haven't seen an ACK/NACK for RESEND_INTERVAL seconds,
+                # resend the frame regardless of other bus traffic.
+                if (time.time() - last_response_time) >= RESEND_INTERVAL:
+                    send_with_retry()
 
             # Update Progress Bar every 10 chunks to reduce console I/O overhead
             if i % 10 == 0 or i == total_chunks - 1:

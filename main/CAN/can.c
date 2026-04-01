@@ -41,6 +41,7 @@ typedef struct {
 extern dword adwMaxTaskTime[eTASK_TOTAL];
 static can_tx_buffer_t astCANTxPool[MAX_CAN_TXS_PER_CALL];
 static uint8_t byCANTxPoolIndex = 0;
+extern qword dwFirmwareSize;
 
 /* --------------------------- Functions ------------------------------------ */
 esp_err_t CAN_init(boolean bEnableRx)
@@ -496,30 +497,38 @@ void CAN_CMD_response(twai_frame_t stRxFrame)
 
     if (stRxFrame.header.id == CAN_CMD_ID)
     {
-        if (stRxFrame.buffer[0] == eCMD_RESET)
+        switch (stRxFrame.buffer[0])
         {
-            esp_restart();
-        }
-        if (stRxFrame.buffer[0] == eCMD_CLEAR_MINMAX)
-        {
-            for (word wNCounter = 0; wNCounter < eTASK_TOTAL; wNCounter++)
-            {
-                adwMaxTaskTime[wNCounter] = 0;
-            }
-        }
-        if (stRxFrame.buffer[0] == eCMD_CLEAR_ERRORS)
-        {
-            /* To be implemented */
-        }
-        if (stRxFrame.buffer[0] == eCMD_REFLASH_MODE &&
-            stRxFrame.buffer[1] == DEVICE_ID)
-        {
-            set_device_mode(eREFLASH);
-        }
-        if (stRxFrame.buffer[0] == eCMD_NORMAL_MODE &&
-            stRxFrame.buffer[1] == DEVICE_ID)
-        {
-            set_device_mode(eNORMAL);
+            case eCMD_RESET:
+                esp_restart();
+                break;
+            case eCMD_CLEAR_MINMAX:
+                for (word wNCounter = 0; wNCounter < eTASK_TOTAL; wNCounter++)
+                {
+                    adwMaxTaskTime[wNCounter] = 0;
+                }
+                break;
+            case eCMD_CLEAR_ERRORS:
+                /* To be implemented */     
+                break;
+            case eCMD_REFLASH_MODE:
+                if (stRxFrame.header.dlc < 6)
+                {
+                    /* Not enough data for reflash command, ignore */
+                    break;
+                }
+                dwFirmwareSize = ((dword)stRxFrame.buffer[2] << 24) |
+                                 ((dword)stRxFrame.buffer[3] << 16) |
+                                 ((dword)stRxFrame.buffer[4] << 8)  |
+                                 ((dword)stRxFrame.buffer[5]);
+                set_device_mode(eREFLASH);
+                break;
+            case eCMD_NORMAL_MODE:
+                set_device_mode(eNORMAL);
+                break;
+            default:
+                /* Unknown command, ignore */
+                break;
         }
     }
 }
