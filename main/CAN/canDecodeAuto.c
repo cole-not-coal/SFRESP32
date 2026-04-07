@@ -3354,8 +3354,8 @@ esp_err_t CellTempGeneralRx(CAN_frame_t stFrame)
 
     /* Muxed Signals */
     int muxVal = (int)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)));
-    if ((muxVal >= 1 && muxVal <= 110)) {
-        TCell[(muxVal - 1)] = (int8_t)(((stFrame.abData[2] >> 0) & 0xFF));
+    if ((muxVal >= 0 && muxVal <= 109)) {
+        TCell[muxVal] = (int8_t)(((stFrame.abData[2] >> 0) & 0xFF));
     }
     return ESP_OK;
 }
@@ -3387,8 +3387,8 @@ esp_err_t CellTempGeneralTx(twai_node_handle_t stCANBus)
 
     /* Muxed Signals */
     int muxVal = (int)(NTCellID);
-    if ((muxVal >= 1 && muxVal <= 110)) {
-        stFrame.abData[2] |= (uint8_t)(((((uint32_t)TCell[(muxVal - 1)] & 0xFF) >> 0) & 0xFF) << 0);
+    if ((muxVal >= 0 && muxVal <= 109)) {
+        stFrame.abData[2] |= (uint8_t)(((((uint32_t)TCell[muxVal] & 0xFF) >> 0) & 0xFF) << 0);
     }
 
     return CAN_transmit(stCANBus, &stFrame);
