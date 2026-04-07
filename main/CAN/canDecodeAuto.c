@@ -4,6 +4,9 @@
 bool BRestart = 0;
 bool BClearMinMax = 0;
 bool BClearErrors = 0;
+bool BReflashMode = 0;
+bool BNormalMode = 0;
+uint8_t NTargetDeviceID = 0;
 uint8_t tLastTaskTime1msTelemCar = 0;
 uint8_t tMaxTaskTime1msTelemCar = 0;
 uint8_t tLastTaskTime100msTelemCar = 0;
@@ -227,6 +230,9 @@ esp_err_t ESPControlRx(CAN_frame_t stFrame)
     BRestart = (bool)((float)(((stFrame.abData[0] >> 7) & 0x1)));
     BClearMinMax = (bool)((float)(((stFrame.abData[0] >> 6) & 0x1)));
     BClearErrors = (bool)((float)(((stFrame.abData[0] >> 5) & 0x1)));
+    BReflashMode = (bool)((float)(((stFrame.abData[0] >> 4) & 0x1)));
+    BNormalMode = (bool)((float)(((stFrame.abData[0] >> 3) & 0x1)));
+    NTargetDeviceID = (uint8_t)((float)(((stFrame.abData[1] >> 0) & 0xFF)));
     return ESP_OK;
 }
 
@@ -249,6 +255,9 @@ esp_err_t ESPControlTx(twai_node_handle_t stCANBus)
     stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BRestart) & 0x1) >> 0) & 0x1) << 7);
     stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BClearMinMax) & 0x1) >> 0) & 0x1) << 6);
     stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BClearErrors) & 0x1) >> 0) & 0x1) << 5);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BReflashMode) & 0x1) >> 0) & 0x1) << 4);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BNormalMode) & 0x1) >> 0) & 0x1) << 3);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((float)NTargetDeviceID) & 0xFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }

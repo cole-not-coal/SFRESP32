@@ -90,6 +90,10 @@ esp_err_t ESPNOW_init(void)
         ESP_LOGE("NVS", "Failed to start: %s", esp_err_to_name(eStatus));
         return eStatus;
     }
+
+    /* Switch to External Antenna */
+    gpio_set_level(3,0);
+    gpio_set_level(14,1);
     
     /* Initialise Wifi */
     esp_netif_init();

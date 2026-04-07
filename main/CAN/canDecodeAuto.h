@@ -10,6 +10,9 @@
 extern bool BRestart;
 extern bool BClearMinMax;
 extern bool BClearErrors;
+extern bool BReflashMode;
+extern bool BNormalMode;
+extern uint8_t NTargetDeviceID;
 extern uint8_t tLastTaskTime1msTelemCar;
 extern uint8_t tMaxTaskTime1msTelemCar;
 extern uint8_t tLastTaskTime100msTelemCar;
