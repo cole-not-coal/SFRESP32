@@ -6,6 +6,7 @@
 #include "can.h"
 #include "esp_twai.h"
 #include "esp_twai_onchip.h"
+#include "esp_rom_crc.h"
 
 extern bool BRestart;
 extern bool BClearMinMax;
@@ -99,7 +100,6 @@ extern float VCell[112];
 extern float RCell[112];
 extern bool BBalancingCell[112];
 extern float VOpenCell[112];
-extern uint8_t CheckSum_CellVoltages;
 extern bool BIMDOff;
 extern bool BIMDUndervoltage;
 extern bool BIMDStarting;
@@ -181,7 +181,6 @@ extern float Pack_Current;
 extern float Pack_Inst_Voltage;
 extern float Pack_SOC;
 extern float Pack_Resistance;
-extern uint8_t CheckSum_CellStats1;
 extern float Pack_CCL;
 extern float Pack_DCL;
 extern float Pack_DOD;
@@ -214,7 +213,6 @@ extern uint8_t NTCellMinID;
 extern uint8_t NTempMonNumber;
 extern int8_t TCellAvg;
 extern uint8_t NCellTemps;
-extern uint8_t CheckSum_BMSCellTemp;
 extern uint32_t NTempMonJ1939Address;
 extern uint8_t NTempMonTargetAddress;
 

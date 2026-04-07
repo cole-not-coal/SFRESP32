@@ -93,7 +93,6 @@ float VCell[112] = {0};
 float RCell[112] = {0};
 bool BBalancingCell[112] = {0};
 float VOpenCell[112] = {0};
-uint8_t CheckSum_CellVoltages = 0;
 bool BIMDOff = 0;
 bool BIMDUndervoltage = 0;
 bool BIMDStarting = 0;
@@ -175,7 +174,6 @@ float Pack_Current = 0;
 float Pack_Inst_Voltage = 0;
 float Pack_SOC = 0;
 float Pack_Resistance = 0;
-uint8_t CheckSum_CellStats1 = 0;
 float Pack_CCL = 0;
 float Pack_DCL = 0;
 float Pack_DOD = 0;
@@ -208,7 +206,6 @@ uint8_t NTCellMinID = 0;
 uint8_t NTempMonNumber = 0;
 int8_t TCellAvg = 0;
 uint8_t NCellTemps = 0;
-uint8_t CheckSum_BMSCellTemp = 0;
 uint32_t NTempMonJ1939Address = 0;
 uint8_t NTempMonTargetAddress = 0;
 
@@ -227,12 +224,12 @@ esp_err_t ESPControlRx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x10) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    BRestart = (bool)((float)(((stFrame.abData[0] >> 7) & 0x1)));
-    BClearMinMax = (bool)((float)(((stFrame.abData[0] >> 6) & 0x1)));
-    BClearErrors = (bool)((float)(((stFrame.abData[0] >> 5) & 0x1)));
-    BReflashMode = (bool)((float)(((stFrame.abData[0] >> 4) & 0x1)));
-    BNormalMode = (bool)((float)(((stFrame.abData[0] >> 3) & 0x1)));
-    NTargetDeviceID = (uint8_t)((float)(((stFrame.abData[1] >> 0) & 0xFF)));
+    BRestart = (bool)(((stFrame.abData[0] >> 7) & 0x1));
+    BClearMinMax = (bool)(((stFrame.abData[0] >> 6) & 0x1));
+    BClearErrors = (bool)(((stFrame.abData[0] >> 5) & 0x1));
+    BReflashMode = (bool)(((stFrame.abData[0] >> 4) & 0x1));
+    BNormalMode = (bool)(((stFrame.abData[0] >> 3) & 0x1));
+    NTargetDeviceID = (uint8_t)(((stFrame.abData[1] >> 0) & 0xFF));
     return ESP_OK;
 }
 
@@ -252,12 +249,12 @@ esp_err_t ESPControlTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BRestart) & 0x1) >> 0) & 0x1) << 7);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BClearMinMax) & 0x1) >> 0) & 0x1) << 6);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BClearErrors) & 0x1) >> 0) & 0x1) << 5);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BReflashMode) & 0x1) >> 0) & 0x1) << 4);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BNormalMode) & 0x1) >> 0) & 0x1) << 3);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((float)NTargetDeviceID) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)BRestart & 0x1) >> 0) & 0x1) << 7);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)BClearMinMax & 0x1) >> 0) & 0x1) << 6);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)BClearErrors & 0x1) >> 0) & 0x1) << 5);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)BReflashMode & 0x1) >> 0) & 0x1) << 4);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)BNormalMode & 0x1) >> 0) & 0x1) << 3);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)NTargetDeviceID & 0xFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -284,7 +281,7 @@ esp_err_t MCUStatusTelemCarRx(CAN_frame_t stFrame)
     tLastTaskTimeBGTelemCar = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)) * 500.0f);
     tMaxTaskTimeBGTelemCar = (uint8_t)((float)(((stFrame.abData[5] >> 0) & 0xFF)) * 500.0f);
     tSincePowerUpTelemCar = (uint16_t)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 4) | ((uint16_t)((stFrame.abData[7] >> 4) & 0xF))) * 4.0f);
-    NLastResetReasonTelemCar = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xF)));
+    NLastResetReasonTelemCar = (uint8_t)(((stFrame.abData[7] >> 0) & 0xF));
     return ESP_OK;
 }
 
@@ -312,7 +309,7 @@ esp_err_t MCUStatusTelemCarTx(twai_node_handle_t stCANBus)
     stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)tMaxTaskTimeBGTelemCar) / 500.0f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpTelemCar) / 4.0f) & 0xFFF) >> 4) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpTelemCar) / 4.0f) & 0xFFF) >> 0) & 0xF) << 4);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)NLastResetReasonTelemCar) & 0xF) >> 0) & 0xF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)NLastResetReasonTelemCar & 0xF) >> 0) & 0xF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -339,7 +336,7 @@ esp_err_t MCUStatusTelemPitsRx(CAN_frame_t stFrame)
     tLastTaskTimeBGTelemPits = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)) * 500.0f);
     tMaxTaskTimeBGTelemPits = (uint8_t)((float)(((stFrame.abData[5] >> 0) & 0xFF)) * 500.0f);
     tSincePowerUpTelemPits = (uint16_t)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 4) | ((uint16_t)((stFrame.abData[7] >> 4) & 0xF))) * 4.0f);
-    NLastResetReasonTelemPits = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xF)));
+    NLastResetReasonTelemPits = (uint8_t)(((stFrame.abData[7] >> 0) & 0xF));
     return ESP_OK;
 }
 
@@ -367,7 +364,7 @@ esp_err_t MCUStatusTelemPitsTx(twai_node_handle_t stCANBus)
     stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)tMaxTaskTimeBGTelemPits) / 500.0f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpTelemPits) / 4.0f) & 0xFFF) >> 4) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpTelemPits) / 4.0f) & 0xFFF) >> 0) & 0xF) << 4);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)NLastResetReasonTelemPits) & 0xF) >> 0) & 0xF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)NLastResetReasonTelemPits & 0xF) >> 0) & 0xF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -394,7 +391,7 @@ esp_err_t MCUStatusIMDMonitorRx(CAN_frame_t stFrame)
     tLastTaskTimeBGIMDMon = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)) * 500.0f);
     tMaxTaskTimeBGIMDMon = (uint8_t)((float)(((stFrame.abData[5] >> 0) & 0xFF)) * 500.0f);
     tSincePowerUpIMDMon = (uint16_t)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 4) | ((uint16_t)((stFrame.abData[7] >> 4) & 0xF))) * 4.0f);
-    NLastResetReasonIMDMon = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xF)));
+    NLastResetReasonIMDMon = (uint8_t)(((stFrame.abData[7] >> 0) & 0xF));
     return ESP_OK;
 }
 
@@ -422,7 +419,7 @@ esp_err_t MCUStatusIMDMonitorTx(twai_node_handle_t stCANBus)
     stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)tMaxTaskTimeBGIMDMon) / 500.0f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpIMDMon) / 4.0f) & 0xFFF) >> 4) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpIMDMon) / 4.0f) & 0xFFF) >> 0) & 0xF) << 4);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)NLastResetReasonIMDMon) & 0xF) >> 0) & 0xF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)NLastResetReasonIMDMon & 0xF) >> 0) & 0xF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -449,7 +446,7 @@ esp_err_t MCUStatusLoggerRx(CAN_frame_t stFrame)
     tLastTaskTimeBGLogger = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)) * 500.0f);
     tMaxTaskTimeBGLogger = (uint8_t)((float)(((stFrame.abData[5] >> 0) & 0xFF)) * 500.0f);
     tSincePowerUpLogger = (uint16_t)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 4) | ((uint16_t)((stFrame.abData[7] >> 4) & 0xF))) * 4.0f);
-    NLastResetReasonLogger = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xF)));
+    NLastResetReasonLogger = (uint8_t)(((stFrame.abData[7] >> 0) & 0xF));
     return ESP_OK;
 }
 
@@ -477,7 +474,7 @@ esp_err_t MCUStatusLoggerTx(twai_node_handle_t stCANBus)
     stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)tMaxTaskTimeBGLogger) / 500.0f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpLogger) / 4.0f) & 0xFFF) >> 4) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpLogger) / 4.0f) & 0xFFF) >> 0) & 0xF) << 4);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)NLastResetReasonLogger) & 0xF) >> 0) & 0xF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)NLastResetReasonLogger & 0xF) >> 0) & 0xF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -504,7 +501,7 @@ esp_err_t MCUStatusPDURx(CAN_frame_t stFrame)
     tLastTaskTimeBGPDU = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)) * 500.0f);
     tMaxTaskTimeBGPDU = (uint8_t)((float)(((stFrame.abData[5] >> 0) & 0xFF)) * 500.0f);
     tSincePowerUpPDU = (uint16_t)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 4) | ((uint16_t)((stFrame.abData[7] >> 4) & 0xF))) * 4.0f);
-    NLastResetReasonPDU = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xF)));
+    NLastResetReasonPDU = (uint8_t)(((stFrame.abData[7] >> 0) & 0xF));
     return ESP_OK;
 }
 
@@ -532,7 +529,7 @@ esp_err_t MCUStatusPDUTx(twai_node_handle_t stCANBus)
     stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)tMaxTaskTimeBGPDU) / 500.0f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpPDU) / 4.0f) & 0xFFF) >> 4) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpPDU) / 4.0f) & 0xFFF) >> 0) & 0xF) << 4);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)NLastResetReasonPDU) & 0xF) >> 0) & 0xF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)NLastResetReasonPDU & 0xF) >> 0) & 0xF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -559,7 +556,7 @@ esp_err_t StatusAPPSRx(CAN_frame_t stFrame)
     tLastTaskTimeBGAPPS = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)) * 500.0f);
     tMaxTaskTimeBGAPPS = (uint8_t)((float)(((stFrame.abData[5] >> 0) & 0xFF)) * 500.0f);
     tSincePowerUpAPPS = (uint16_t)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 4) | ((uint16_t)((stFrame.abData[7] >> 4) & 0xF))) * 4.0f);
-    NLastResetReasonAPPS = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xF)));
+    NLastResetReasonAPPS = (uint8_t)(((stFrame.abData[7] >> 0) & 0xF));
     return ESP_OK;
 }
 
@@ -587,7 +584,7 @@ esp_err_t StatusAPPSTx(twai_node_handle_t stCANBus)
     stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)tMaxTaskTimeBGAPPS) / 500.0f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpAPPS) / 4.0f) & 0xFFF) >> 4) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpAPPS) / 4.0f) & 0xFFF) >> 0) & 0xF) << 4);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)NLastResetReasonAPPS) & 0xF) >> 0) & 0xF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)NLastResetReasonAPPS & 0xF) >> 0) & 0xF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -614,7 +611,7 @@ esp_err_t MCUStatusScreenRx(CAN_frame_t stFrame)
     tLastTaskTimeBGScreen = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)) * 500.0f);
     tMaxTaskTimeBGScreen = (uint8_t)((float)(((stFrame.abData[5] >> 0) & 0xFF)) * 500.0f);
     tSincePowerUpScreen = (uint16_t)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 4) | ((uint16_t)((stFrame.abData[7] >> 4) & 0xF))) * 4.0f);
-    NLastResetReasonScreen = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xF)));
+    NLastResetReasonScreen = (uint8_t)(((stFrame.abData[7] >> 0) & 0xF));
     return ESP_OK;
 }
 
@@ -642,7 +639,7 @@ esp_err_t MCUStatusScreenTx(twai_node_handle_t stCANBus)
     stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)tMaxTaskTimeBGScreen) / 500.0f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpScreen) / 4.0f) & 0xFFF) >> 4) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpScreen) / 4.0f) & 0xFFF) >> 0) & 0xF) << 4);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)NLastResetReasonScreen) & 0xF) >> 0) & 0xF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)NLastResetReasonScreen & 0xF) >> 0) & 0xF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -669,7 +666,7 @@ esp_err_t MCUStatusDashRx(CAN_frame_t stFrame)
     tLastTaskTimeBGDash = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)) * 500.0f);
     tMaxTaskTimeBGDash = (uint8_t)((float)(((stFrame.abData[5] >> 0) & 0xFF)) * 500.0f);
     tSincePowerUpDash = (uint16_t)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 4) | ((uint16_t)((stFrame.abData[7] >> 4) & 0xF))) * 4.0f);
-    NLastResetReasonDash = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xF)));
+    NLastResetReasonDash = (uint8_t)(((stFrame.abData[7] >> 0) & 0xF));
     return ESP_OK;
 }
 
@@ -697,7 +694,7 @@ esp_err_t MCUStatusDashTx(twai_node_handle_t stCANBus)
     stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)tMaxTaskTimeBGDash) / 500.0f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpDash) / 4.0f) & 0xFFF) >> 4) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpDash) / 4.0f) & 0xFFF) >> 0) & 0xF) << 4);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)NLastResetReasonDash) & 0xF) >> 0) & 0xF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)NLastResetReasonDash & 0xF) >> 0) & 0xF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -723,7 +720,7 @@ esp_err_t MCUStatusDynoRx(CAN_frame_t stFrame)
     tLastTaskTimeBGDyno = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)) * 500.0f);
     tMaxTaskTimeBGDyno = (uint8_t)((float)(((stFrame.abData[5] >> 0) & 0xFF)) * 500.0f);
     tSincePowerUpDyno = (uint16_t)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 4) | ((uint16_t)((stFrame.abData[7] >> 4) & 0xF))) * 4.0f);
-    NLastResetReasonDyno = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xF)));
+    NLastResetReasonDyno = (uint8_t)(((stFrame.abData[7] >> 0) & 0xF));
     return ESP_OK;
 }
 
@@ -751,7 +748,7 @@ esp_err_t MCUStatusDynoTx(twai_node_handle_t stCANBus)
     stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)tMaxTaskTimeBGDyno) / 500.0f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpDyno) / 4.0f) & 0xFFF) >> 4) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpDyno) / 4.0f) & 0xFFF) >> 0) & 0xF) << 4);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)NLastResetReasonDyno) & 0xF) >> 0) & 0xF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)NLastResetReasonDyno & 0xF) >> 0) & 0xF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -778,7 +775,7 @@ esp_err_t MCUStatusTempMonRx(CAN_frame_t stFrame)
     tLastTaskTimeBGTempMon = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)) * 500.0f);
     tMaxTaskTimeBGTempMon = (uint8_t)((float)(((stFrame.abData[5] >> 0) & 0xFF)) * 500.0f);
     tSincePowerUpTempMon = (uint16_t)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 4) | ((uint16_t)((stFrame.abData[7] >> 4) & 0xF))) * 4.0f);
-    NLastResetReasonTempMon = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xF)));
+    NLastResetReasonTempMon = (uint8_t)(((stFrame.abData[7] >> 0) & 0xF));
     return ESP_OK;
 }
 
@@ -806,7 +803,7 @@ esp_err_t MCUStatusTempMonTx(twai_node_handle_t stCANBus)
     stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)tMaxTaskTimeBGTempMon) / 500.0f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpTempMon) / 4.0f) & 0xFFF) >> 4) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)(((((uint32_t)(((float)tSincePowerUpTempMon) / 4.0f) & 0xFFF) >> 0) & 0xF) << 4);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)NLastResetReasonTempMon) & 0xF) >> 0) & 0xF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)NLastResetReasonTempMon & 0xF) >> 0) & 0xF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -866,17 +863,15 @@ esp_err_t CellVoltagesRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x36) return ESP_ERR_INVALID_ARG;
 
-    /* Standard Signals */
-    CheckSum_CellVoltages = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xFF)));
 
     /* Mux Switch */
-    CellID = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)));
+    CellID = (uint8_t)(((stFrame.abData[0] >> 0) & 0xFF));
 
     /* Muxed Signals */
     int muxVal = (int)(((stFrame.abData[0] >> 0) & 0xFF));
     if ((muxVal >= 0 && muxVal <= 111)) {
         VCell[muxVal] = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.0001f);
-        BBalancingCell[muxVal] = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
+        BBalancingCell[muxVal] = (bool)(((stFrame.abData[3] >> 0) & 0x1));
         RCell[muxVal] = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0x7F)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.01f);
         VOpenCell[muxVal] = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.0001f);
     }
@@ -899,17 +894,16 @@ esp_err_t CellVoltagesTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)CheckSum_CellVoltages) & 0xFF) >> 0) & 0xFF) << 0);
 
     /* Mux Switch */
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)CellID) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)CellID & 0xFF) >> 0) & 0xFF) << 0);
 
     /* Muxed Signals */
     int muxVal = (int)(CellID);
     if ((muxVal >= 0 && muxVal <= 111)) {
         stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)VCell[muxVal]) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
         stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)VCell[muxVal]) / 0.0001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-        stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BBalancingCell[muxVal]) & 0x1) >> 0) & 0x1) << 0);
+        stFrame.abData[3] |= (uint8_t)(((((uint32_t)BBalancingCell[muxVal] & 0x1) >> 0) & 0x1) << 0);
         stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)RCell[muxVal]) / 0.01f) & 0x7FFF) >> 8) & 0x7F) << 0);
         stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)RCell[muxVal]) / 0.01f) & 0x7FFF) >> 0) & 0xFF) << 0);
         stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)VOpenCell[muxVal]) / 0.0001f) & 0xFFFF) >> 8) & 0xFF) << 0);
@@ -934,13 +928,13 @@ esp_err_t IMDDataRx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x40) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    BIMDOff = (bool)((float)(((stFrame.abData[0] >> 7) & 0x1)));
-    BIMDUndervoltage = (bool)((float)(((stFrame.abData[0] >> 6) & 0x1)));
-    BIMDStarting = (bool)((float)(((stFrame.abData[0] >> 5) & 0x1)));
-    BIMDSSTGood = (bool)((float)(((stFrame.abData[0] >> 4) & 0x1)));
-    BIMDDeviceError = (bool)((float)(((stFrame.abData[0] >> 3) & 0x1)));
-    BIMDGroundConnectionFault = (bool)((float)(((stFrame.abData[0] >> 2) & 0x1)));
-    BIMDInvalidState = (bool)((float)(((stFrame.abData[0] >> 1) & 0x1)));
+    BIMDOff = (bool)(((stFrame.abData[0] >> 7) & 0x1));
+    BIMDUndervoltage = (bool)(((stFrame.abData[0] >> 6) & 0x1));
+    BIMDStarting = (bool)(((stFrame.abData[0] >> 5) & 0x1));
+    BIMDSSTGood = (bool)(((stFrame.abData[0] >> 4) & 0x1));
+    BIMDDeviceError = (bool)(((stFrame.abData[0] >> 3) & 0x1));
+    BIMDGroundConnectionFault = (bool)(((stFrame.abData[0] >> 2) & 0x1));
+    BIMDInvalidState = (bool)(((stFrame.abData[0] >> 1) & 0x1));
     RIsolation = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 200.0f);
     return ESP_OK;
 }
@@ -961,13 +955,13 @@ esp_err_t IMDDataTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BIMDOff) & 0x1) >> 0) & 0x1) << 7);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BIMDUndervoltage) & 0x1) >> 0) & 0x1) << 6);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BIMDStarting) & 0x1) >> 0) & 0x1) << 5);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BIMDSSTGood) & 0x1) >> 0) & 0x1) << 4);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BIMDDeviceError) & 0x1) >> 0) & 0x1) << 3);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BIMDGroundConnectionFault) & 0x1) >> 0) & 0x1) << 2);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)BIMDInvalidState) & 0x1) >> 0) & 0x1) << 1);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)BIMDOff & 0x1) >> 0) & 0x1) << 7);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)BIMDUndervoltage & 0x1) >> 0) & 0x1) << 6);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)BIMDStarting & 0x1) >> 0) & 0x1) << 5);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)BIMDSSTGood & 0x1) >> 0) & 0x1) << 4);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)BIMDDeviceError & 0x1) >> 0) & 0x1) << 3);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)BIMDGroundConnectionFault & 0x1) >> 0) & 0x1) << 2);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)BIMDInvalidState & 0x1) >> 0) & 0x1) << 1);
     stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)RIsolation) / 200.0f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)RIsolation) / 200.0f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
@@ -1076,10 +1070,10 @@ esp_err_t StatusAPPSSensorRx(CAN_frame_t stFrame)
     rAPPs[0] = (float)((float)(((stFrame.abData[0] >> 0) & 0xFF)));
     rAPPs[1] = (float)((float)(((stFrame.abData[1] >> 0) & 0xFF)));
     rAPPsFinal = (float)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-    BThrottleOK = (bool)((float)(((stFrame.abData[3] >> 3) & 0x1)));
-    BAPPSFail[0] = (bool)((float)(((stFrame.abData[3] >> 2) & 0x1)));
-    BAPPSFail[1] = (bool)((float)(((stFrame.abData[3] >> 1) & 0x1)));
-    BAPPSDrift = (bool)((float)(((stFrame.abData[3] >> 0) & 0x1)));
+    BThrottleOK = (bool)(((stFrame.abData[3] >> 3) & 0x1));
+    BAPPSFail[0] = (bool)(((stFrame.abData[3] >> 2) & 0x1));
+    BAPPSFail[1] = (bool)(((stFrame.abData[3] >> 1) & 0x1));
+    BAPPSDrift = (bool)(((stFrame.abData[3] >> 0) & 0x1));
     return ESP_OK;
 }
 
@@ -1102,10 +1096,10 @@ esp_err_t StatusAPPSSensorTx(twai_node_handle_t stCANBus)
     stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)rAPPs[0]) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[1] |= (uint8_t)(((((uint32_t)((float)rAPPs[1]) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)rAPPsFinal) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BThrottleOK) & 0x1) >> 0) & 0x1) << 3);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BAPPSFail[0]) & 0x1) >> 0) & 0x1) << 2);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BAPPSFail[1]) & 0x1) >> 0) & 0x1) << 1);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)BAPPSDrift) & 0x1) >> 0) & 0x1) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)BThrottleOK & 0x1) >> 0) & 0x1) << 3);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)BAPPSFail[0] & 0x1) >> 0) & 0x1) << 2);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)BAPPSFail[1] & 0x1) >> 0) & 0x1) << 1);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)BAPPSDrift & 0x1) >> 0) & 0x1) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -1362,8 +1356,8 @@ esp_err_t DynoCoolingRx(CAN_frame_t stFrame)
     /* Standard Signals */
     rFanDutyManual = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.002f);
     rPumpDutyManual = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.002f);
-    NFanMode = (uint8_t)((float)(((stFrame.abData[4] >> 4) & 0xF)));
-    NPumpMode = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xF)));
+    NFanMode = (uint8_t)(((stFrame.abData[4] >> 4) & 0xF));
+    NPumpMode = (uint8_t)(((stFrame.abData[4] >> 0) & 0xF));
     return ESP_OK;
 }
 
@@ -1387,8 +1381,8 @@ esp_err_t DynoCoolingTx(twai_node_handle_t stCANBus)
     stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)rFanDutyManual) / 0.002f) & 0xFFFF) >> 0) & 0xFF) << 0);
     stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)rPumpDutyManual) / 0.002f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)rPumpDutyManual) / 0.002f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)NFanMode) & 0xF) >> 0) & 0xF) << 4);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)NPumpMode) & 0xF) >> 0) & 0xF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)NFanMode & 0xF) >> 0) & 0xF) << 4);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)NPumpMode & 0xF) >> 0) & 0xF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -1490,10 +1484,10 @@ esp_err_t SetDigOutputRx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0xE4) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    CMD_SetDigOutput[3] = (bool)((float)(((stFrame.abData[0] >> 3) & 0x1)));
-    CMD_SetDigOutput[2] = (bool)((float)(((stFrame.abData[0] >> 2) & 0x1)));
-    CMD_SetDigOutput[1] = (bool)((float)(((stFrame.abData[0] >> 1) & 0x1)));
-    CMD_SetDigOutput[0] = (bool)((float)(((stFrame.abData[0] >> 0) & 0x1)));
+    CMD_SetDigOutput[3] = (bool)(((stFrame.abData[0] >> 3) & 0x1));
+    CMD_SetDigOutput[2] = (bool)(((stFrame.abData[0] >> 2) & 0x1));
+    CMD_SetDigOutput[1] = (bool)(((stFrame.abData[0] >> 1) & 0x1));
+    CMD_SetDigOutput[0] = (bool)(((stFrame.abData[0] >> 0) & 0x1));
     return ESP_OK;
 }
 
@@ -1513,10 +1507,10 @@ esp_err_t SetDigOutputTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)CMD_SetDigOutput[3]) & 0x1) >> 0) & 0x1) << 3);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)CMD_SetDigOutput[2]) & 0x1) >> 0) & 0x1) << 2);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)CMD_SetDigOutput[1]) & 0x1) >> 0) & 0x1) << 1);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)CMD_SetDigOutput[0]) & 0x1) >> 0) & 0x1) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)CMD_SetDigOutput[3] & 0x1) >> 0) & 0x1) << 3);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)CMD_SetDigOutput[2] & 0x1) >> 0) & 0x1) << 2);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)CMD_SetDigOutput[1] & 0x1) >> 0) & 0x1) << 1);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)CMD_SetDigOutput[0] & 0x1) >> 0) & 0x1) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -1700,7 +1694,7 @@ esp_err_t SetDriveEnableRx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x184) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    CMD_DriveEnable = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)));
+    CMD_DriveEnable = (uint8_t)(((stFrame.abData[0] >> 0) & 0xFF));
     return ESP_OK;
 }
 
@@ -1720,7 +1714,7 @@ esp_err_t SetDriveEnableTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)CMD_DriveEnable) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)CMD_DriveEnable & 0xFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -2540,10 +2534,10 @@ esp_err_t TargetIqInfoRx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x3E4) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    ControlMode = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)));
+    ControlMode = (uint8_t)(((stFrame.abData[0] >> 0) & 0xFF));
     TargetIq = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.1f);
     MotorPosition = (float)((float)((((uint16_t)((stFrame.abData[3] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[4] >> 0) & 0xFF))) * 0.1f);
-    isMotorStill = (uint8_t)((float)(((stFrame.abData[5] >> 0) & 0xFF)));
+    isMotorStill = (uint8_t)(((stFrame.abData[5] >> 0) & 0xFF));
     return ESP_OK;
 }
 
@@ -2563,12 +2557,12 @@ esp_err_t TargetIqInfoTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)ControlMode) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)ControlMode & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)TargetIq) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)TargetIq) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
     stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)MotorPosition) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)MotorPosition) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((float)isMotorStill) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)isMotorStill & 0xFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -2683,7 +2677,7 @@ esp_err_t TemperaturesRx(CAN_frame_t stFrame)
     /* Standard Signals */
     Actual_TempController = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     Actual_TempMotor = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
-    Actual_FaultCode = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)));
+    Actual_FaultCode = (uint8_t)(((stFrame.abData[4] >> 0) & 0xFF));
     return ESP_OK;
 }
 
@@ -2707,7 +2701,7 @@ esp_err_t TemperaturesTx(twai_node_handle_t stCANBus)
     stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)Actual_TempController) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
     stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)Actual_TempMotor) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)Actual_TempMotor) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)Actual_FaultCode) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)Actual_FaultCode & 0xFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -2777,26 +2771,26 @@ esp_err_t Inverter_MISCRx(CAN_frame_t stFrame)
     /* Standard Signals */
     Actual_Throttle = (float)((float)(((stFrame.abData[0] >> 0) & 0xFF)));
     Actual_Brake = (float)((float)(((stFrame.abData[1] >> 0) & 0xFF)));
-    Digital_output_[3] = (bool)((float)(((stFrame.abData[2] >> 7) & 0x1)));
-    Digital_output_[2] = (bool)((float)(((stFrame.abData[2] >> 6) & 0x1)));
-    Digital_output_[1] = (bool)((float)(((stFrame.abData[2] >> 5) & 0x1)));
-    Digital_output_[0] = (bool)((float)(((stFrame.abData[2] >> 4) & 0x1)));
-    Digital_input_[3] = (bool)((float)(((stFrame.abData[2] >> 3) & 0x1)));
-    Digital_input_[2] = (bool)((float)(((stFrame.abData[2] >> 2) & 0x1)));
-    Digital_input_[1] = (bool)((float)(((stFrame.abData[2] >> 1) & 0x1)));
-    Digital_input_[0] = (bool)((float)(((stFrame.abData[2] >> 0) & 0x1)));
-    Drive_enable = (uint8_t)((float)(((stFrame.abData[3] >> 0) & 0xFF)));
-    Motor_temp_limit = (bool)((float)(((stFrame.abData[4] >> 7) & 0x1)));
-    Motor_accel_limit = (bool)((float)(((stFrame.abData[4] >> 6) & 0x1)));
-    Input_voltage_limit = (bool)((float)(((stFrame.abData[4] >> 5) & 0x1)));
-    IGBT_temp_limit = (bool)((float)(((stFrame.abData[4] >> 4) & 0x1)));
-    IGBT_accel_limit = (bool)((float)(((stFrame.abData[4] >> 3) & 0x1)));
-    Drive_enable_limit = (bool)((float)(((stFrame.abData[4] >> 2) & 0x1)));
-    DC_current_limit = (bool)((float)(((stFrame.abData[4] >> 1) & 0x1)));
-    Capacitor_temp_limit = (bool)((float)(((stFrame.abData[4] >> 0) & 0x1)));
-    Power_limit = (bool)((float)(((stFrame.abData[5] >> 7) & 0x1)));
-    RPM_max_limit = (bool)((float)(((stFrame.abData[5] >> 6) & 0x1)));
-    RPM_min_limit = (bool)((float)(((stFrame.abData[5] >> 5) & 0x1)));
+    Digital_output_[3] = (bool)(((stFrame.abData[2] >> 7) & 0x1));
+    Digital_output_[2] = (bool)(((stFrame.abData[2] >> 6) & 0x1));
+    Digital_output_[1] = (bool)(((stFrame.abData[2] >> 5) & 0x1));
+    Digital_output_[0] = (bool)(((stFrame.abData[2] >> 4) & 0x1));
+    Digital_input_[3] = (bool)(((stFrame.abData[2] >> 3) & 0x1));
+    Digital_input_[2] = (bool)(((stFrame.abData[2] >> 2) & 0x1));
+    Digital_input_[1] = (bool)(((stFrame.abData[2] >> 1) & 0x1));
+    Digital_input_[0] = (bool)(((stFrame.abData[2] >> 0) & 0x1));
+    Drive_enable = (uint8_t)(((stFrame.abData[3] >> 0) & 0xFF));
+    Motor_temp_limit = (bool)(((stFrame.abData[4] >> 7) & 0x1));
+    Motor_accel_limit = (bool)(((stFrame.abData[4] >> 6) & 0x1));
+    Input_voltage_limit = (bool)(((stFrame.abData[4] >> 5) & 0x1));
+    IGBT_temp_limit = (bool)(((stFrame.abData[4] >> 4) & 0x1));
+    IGBT_accel_limit = (bool)(((stFrame.abData[4] >> 3) & 0x1));
+    Drive_enable_limit = (bool)(((stFrame.abData[4] >> 2) & 0x1));
+    DC_current_limit = (bool)(((stFrame.abData[4] >> 1) & 0x1));
+    Capacitor_temp_limit = (bool)(((stFrame.abData[4] >> 0) & 0x1));
+    Power_limit = (bool)(((stFrame.abData[5] >> 7) & 0x1));
+    RPM_max_limit = (bool)(((stFrame.abData[5] >> 6) & 0x1));
+    RPM_min_limit = (bool)(((stFrame.abData[5] >> 5) & 0x1));
     CAN_map_version = (uint8_t)((float)((((stFrame.abData[5] >> 0) & 0x1F) << 3) | ((stFrame.abData[6] >> 5) & 0x7)) * 0.1f);
     return ESP_OK;
 }
@@ -2819,26 +2813,26 @@ esp_err_t Inverter_MISCTx(twai_node_handle_t stCANBus)
 
     stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)Actual_Throttle) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[1] |= (uint8_t)(((((uint32_t)((float)Actual_Brake) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_output_[3]) & 0x1) >> 0) & 0x1) << 7);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_output_[2]) & 0x1) >> 0) & 0x1) << 6);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_output_[1]) & 0x1) >> 0) & 0x1) << 5);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_output_[0]) & 0x1) >> 0) & 0x1) << 4);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_input_[3]) & 0x1) >> 0) & 0x1) << 3);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_input_[2]) & 0x1) >> 0) & 0x1) << 2);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_input_[1]) & 0x1) >> 0) & 0x1) << 1);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)Digital_input_[0]) & 0x1) >> 0) & 0x1) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)Drive_enable) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)Motor_temp_limit) & 0x1) >> 0) & 0x1) << 7);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)Motor_accel_limit) & 0x1) >> 0) & 0x1) << 6);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)Input_voltage_limit) & 0x1) >> 0) & 0x1) << 5);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)IGBT_temp_limit) & 0x1) >> 0) & 0x1) << 4);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)IGBT_accel_limit) & 0x1) >> 0) & 0x1) << 3);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)Drive_enable_limit) & 0x1) >> 0) & 0x1) << 2);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)DC_current_limit) & 0x1) >> 0) & 0x1) << 1);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)Capacitor_temp_limit) & 0x1) >> 0) & 0x1) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((float)Power_limit) & 0x1) >> 0) & 0x1) << 7);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((float)RPM_max_limit) & 0x1) >> 0) & 0x1) << 6);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((float)RPM_min_limit) & 0x1) >> 0) & 0x1) << 5);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)Digital_output_[3] & 0x1) >> 0) & 0x1) << 7);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)Digital_output_[2] & 0x1) >> 0) & 0x1) << 6);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)Digital_output_[1] & 0x1) >> 0) & 0x1) << 5);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)Digital_output_[0] & 0x1) >> 0) & 0x1) << 4);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)Digital_input_[3] & 0x1) >> 0) & 0x1) << 3);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)Digital_input_[2] & 0x1) >> 0) & 0x1) << 2);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)Digital_input_[1] & 0x1) >> 0) & 0x1) << 1);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)Digital_input_[0] & 0x1) >> 0) & 0x1) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)Drive_enable & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)Motor_temp_limit & 0x1) >> 0) & 0x1) << 7);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)Motor_accel_limit & 0x1) >> 0) & 0x1) << 6);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)Input_voltage_limit & 0x1) >> 0) & 0x1) << 5);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)IGBT_temp_limit & 0x1) >> 0) & 0x1) << 4);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)IGBT_accel_limit & 0x1) >> 0) & 0x1) << 3);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)Drive_enable_limit & 0x1) >> 0) & 0x1) << 2);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)DC_current_limit & 0x1) >> 0) & 0x1) << 1);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)Capacitor_temp_limit & 0x1) >> 0) & 0x1) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)Power_limit & 0x1) >> 0) & 0x1) << 7);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)RPM_max_limit & 0x1) >> 0) & 0x1) << 6);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)RPM_min_limit & 0x1) >> 0) & 0x1) << 5);
     stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)CAN_map_version) / 0.1f) & 0xFF) >> 3) & 0x1F) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)CAN_map_version) / 0.1f) & 0xFF) >> 0) & 0x7) << 5);
 
@@ -2964,7 +2958,6 @@ esp_err_t CellStats1Rx(CAN_frame_t stFrame)
     Pack_Inst_Voltage = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
     Pack_SOC = (float)((float)(((stFrame.abData[4] >> 0) & 0xFF)) * 0.5f);
     Pack_Resistance = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.001f);
-    CheckSum_CellStats1 = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xFF)));
     return ESP_OK;
 }
 
@@ -2991,7 +2984,6 @@ esp_err_t CellStats1Tx(twai_node_handle_t stCANBus)
     stFrame.abData[4] |= (uint8_t)(((((uint32_t)(((float)Pack_SOC) / 0.5f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)Pack_Resistance) / 0.001f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)Pack_Resistance) / 0.001f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)CheckSum_CellStats1) & 0xFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -3066,7 +3058,7 @@ esp_err_t CellStats3Rx(CAN_frame_t stFrame)
     High_Cell_Voltage = (float)((float)(((stFrame.abData[4] >> 0) & 0xFF)) * 0.01f + 200.0f);
     Avg_Cell_Voltage = (float)((float)(((stFrame.abData[5] >> 0) & 0xFF)) * 0.01f + 200.0f);
     Low_Cell_Voltage = (float)((float)(((stFrame.abData[6] >> 0) & 0xFF)) * 0.01f + 200.0f);
-    High_Cell_Voltage_ID = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xFF)));
+    High_Cell_Voltage_ID = (uint8_t)(((stFrame.abData[7] >> 0) & 0xFF));
     return ESP_OK;
 }
 
@@ -3093,7 +3085,7 @@ esp_err_t CellStats3Tx(twai_node_handle_t stCANBus)
     stFrame.abData[4] |= (uint8_t)(((((uint32_t)((((float)High_Cell_Voltage) - 200.0f) / 0.01f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[5] |= (uint8_t)(((((uint32_t)((((float)Avg_Cell_Voltage) - 200.0f) / 0.01f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)((((float)Low_Cell_Voltage) - 200.0f) / 0.01f) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)High_Cell_Voltage_ID) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)High_Cell_Voltage_ID & 0xFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -3113,12 +3105,12 @@ esp_err_t CellStats4Rx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x6B3) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    Low_Cell_Voltage_ID = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)));
+    Low_Cell_Voltage_ID = (uint8_t)(((stFrame.abData[0] >> 0) & 0xFF));
     High_Opencell_Voltage = (float)((float)(((stFrame.abData[1] >> 0) & 0xFF)) * 0.01f + 200.0f);
     Avg_Opencell_Voltage = (float)((float)(((stFrame.abData[2] >> 0) & 0xFF)) * 0.01f + 200.0f);
     Low_Opencell_Voltage = (float)((float)(((stFrame.abData[3] >> 0) & 0xFF)) * 0.01f + 200.0f);
-    High_Opencell_ID = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)));
-    Low_Opencell_ID = (uint8_t)((float)(((stFrame.abData[5] >> 0) & 0xFF)));
+    High_Opencell_ID = (uint8_t)(((stFrame.abData[4] >> 0) & 0xFF));
+    Low_Opencell_ID = (uint8_t)(((stFrame.abData[5] >> 0) & 0xFF));
     High_Cell_Resistance = (float)((float)((((uint16_t)((stFrame.abData[6] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[7] >> 0) & 0xFF))) * 0.01f);
     return ESP_OK;
 }
@@ -3139,12 +3131,12 @@ esp_err_t CellStats4Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)Low_Cell_Voltage_ID) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)Low_Cell_Voltage_ID & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[1] |= (uint8_t)(((((uint32_t)((((float)High_Opencell_Voltage) - 200.0f) / 0.01f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[2] |= (uint8_t)(((((uint32_t)((((float)Avg_Opencell_Voltage) - 200.0f) / 0.01f) & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[3] |= (uint8_t)(((((uint32_t)((((float)Low_Opencell_Voltage) - 200.0f) / 0.01f) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)High_Opencell_ID) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((float)Low_Opencell_ID) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)High_Opencell_ID & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)Low_Opencell_ID & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)High_Cell_Resistance) / 0.01f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)(((((uint32_t)(((float)High_Cell_Resistance) / 0.01f) & 0xFFFF) >> 0) & 0xFF) << 0);
 
@@ -3168,8 +3160,8 @@ esp_err_t CellStats5Rx(CAN_frame_t stFrame)
     /* Standard Signals */
     Avg_Cell_Resistance = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.01f);
     Low_Cell_Resistance = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.01f);
-    High_Intres_ID = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)));
-    Low_Intres_ID = (uint8_t)((float)(((stFrame.abData[5] >> 0) & 0xFF)));
+    High_Intres_ID = (uint8_t)(((stFrame.abData[4] >> 0) & 0xFF));
+    Low_Intres_ID = (uint8_t)(((stFrame.abData[5] >> 0) & 0xFF));
     return ESP_OK;
 }
 
@@ -3193,8 +3185,8 @@ esp_err_t CellStats5Tx(twai_node_handle_t stCANBus)
     stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)Avg_Cell_Resistance) / 0.01f) & 0xFFFF) >> 0) & 0xFF) << 0);
     stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)Low_Cell_Resistance) / 0.01f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)Low_Cell_Resistance) / 0.01f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)High_Intres_ID) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((float)Low_Intres_ID) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)High_Intres_ID & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)Low_Intres_ID & 0xFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -3216,7 +3208,7 @@ esp_err_t ElconInterface2Rx(CAN_frame_t stFrame)
     /* Standard Signals */
     Maximum_Cell_Voltage = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     Pack_CCL = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
-    DTC_P0A08_Charger_Safety_Relay_Fault = (bool)((float)(((stFrame.abData[4] >> 7) & 0x1)));
+    DTC_P0A08_Charger_Safety_Relay_Fault = (bool)(((stFrame.abData[4] >> 7) & 0x1));
     return ESP_OK;
 }
 
@@ -3240,7 +3232,7 @@ esp_err_t ElconInterface2Tx(twai_node_handle_t stCANBus)
     stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)Maximum_Cell_Voltage) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
     stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)DTC_P0A08_Charger_Safety_Relay_Fault) & 0x1) >> 0) & 0x1) << 7);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)DTC_P0A08_Charger_Safety_Relay_Fault & 0x1) >> 0) & 0x1) << 7);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -3262,7 +3254,7 @@ esp_err_t ElconInterface1Rx(CAN_frame_t stFrame)
     /* Standard Signals */
     Maximum_Pack_Voltage = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     Pack_CCL = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
-    DTC_P0A08_Charger_Safety_Relay_Fault = (bool)((float)(((stFrame.abData[4] >> 7) & 0x1)));
+    DTC_P0A08_Charger_Safety_Relay_Fault = (bool)(((stFrame.abData[4] >> 7) & 0x1));
     return ESP_OK;
 }
 
@@ -3286,7 +3278,7 @@ esp_err_t ElconInterface1Tx(twai_node_handle_t stCANBus)
     stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)Maximum_Pack_Voltage) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
     stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)DTC_P0A08_Charger_Safety_Relay_Fault) & 0x1) >> 0) & 0x1) << 7);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)DTC_P0A08_Charger_Safety_Relay_Fault & 0x1) >> 0) & 0x1) << 7);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -3308,7 +3300,7 @@ esp_err_t ElconInterface3Rx(CAN_frame_t stFrame)
     /* Standard Signals */
     Maximum_Cell_Voltage = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     Pack_CCL = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
-    DTC_P0A08_Charger_Safety_Relay_Fault = (bool)((float)(((stFrame.abData[4] >> 7) & 0x1)));
+    DTC_P0A08_Charger_Safety_Relay_Fault = (bool)(((stFrame.abData[4] >> 7) & 0x1));
     return ESP_OK;
 }
 
@@ -3332,7 +3324,7 @@ esp_err_t ElconInterface3Tx(twai_node_handle_t stCANBus)
     stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)Maximum_Cell_Voltage) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
     stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL) / 0.1f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)Pack_CCL) / 0.1f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)DTC_P0A08_Charger_Safety_Relay_Fault) & 0x1) >> 0) & 0x1) << 7);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)DTC_P0A08_Charger_Safety_Relay_Fault & 0x1) >> 0) & 0x1) << 7);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -3352,18 +3344,18 @@ esp_err_t CellTempGeneralRx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x1838F380) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    TCellMin = (int8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)));
-    TCellMax = (int8_t)((float)(((stFrame.abData[5] >> 0) & 0xFF)));
-    NTCellMaxID = (uint8_t)((float)(((stFrame.abData[6] >> 0) & 0xFF)));
-    NTCellMinID = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xFF)));
+    TCellMin = (int8_t)(((stFrame.abData[4] >> 0) & 0xFF));
+    TCellMax = (int8_t)(((stFrame.abData[5] >> 0) & 0xFF));
+    NTCellMaxID = (uint8_t)(((stFrame.abData[6] >> 0) & 0xFF));
+    NTCellMinID = (uint8_t)(((stFrame.abData[7] >> 0) & 0xFF));
 
     /* Mux Switch */
-    NTCellID = (uint16_t)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))));
+    NTCellID = (uint16_t)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)));
 
     /* Muxed Signals */
     int muxVal = (int)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)));
     if ((muxVal >= 1 && muxVal <= 110)) {
-        TCell[(muxVal - 1)] = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
+        TCell[(muxVal - 1)] = (int8_t)(((stFrame.abData[2] >> 0) & 0xFF));
     }
     return ESP_OK;
 }
@@ -3384,19 +3376,19 @@ esp_err_t CellTempGeneralTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)TCellMin) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((float)TCellMax) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((float)NTCellMaxID) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)NTCellMinID) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)TCellMin & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)TCellMax & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)NTCellMaxID & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[7] |= (uint8_t)(((((uint32_t)NTCellMinID & 0xFF) >> 0) & 0xFF) << 0);
 
     /* Mux Switch */
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)NTCellID) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((float)NTCellID) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)NTCellID & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)NTCellID & 0xFFFF) >> 0) & 0xFF) << 0);
 
     /* Muxed Signals */
     int muxVal = (int)(NTCellID);
     if ((muxVal >= 1 && muxVal <= 110)) {
-        stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCell[(muxVal - 1)]) & 0xFF) >> 0) & 0xFF) << 0);
+        stFrame.abData[2] |= (uint8_t)(((((uint32_t)TCell[(muxVal - 1)] & 0xFF) >> 0) & 0xFF) << 0);
     }
 
     return CAN_transmit(stCANBus, &stFrame);
@@ -3416,15 +3408,24 @@ esp_err_t BMSCellTempRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x1839F380) return ESP_ERR_INVALID_ARG;
 
+    /* Checksum verification (Rule 1) */
+    uint8_t received_checksum = stFrame.abData[7];
+    uint16_t checksum_acc = 0;
+    for (int i = 0; i < 7; ++i) {
+        checksum_acc = (uint16_t)(checksum_acc + (uint16_t)stFrame.abData[i]);
+    }
+    checksum_acc = (uint16_t)(checksum_acc + 0x39 + stFrame.byDLC);
+    uint8_t computed_checksum = (uint8_t)checksum_acc;
+    if (computed_checksum != received_checksum) return ESP_ERR_INVALID_RESPONSE;
+
     /* Standard Signals */
-    NTempMonNumber = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)));
-    TCellMin = (int8_t)((float)(((stFrame.abData[1] >> 0) & 0xFF)));
-    TCellMax = (int8_t)((float)(((stFrame.abData[2] >> 0) & 0xFF)));
-    TCellAvg = (int8_t)((float)(((stFrame.abData[3] >> 0) & 0xFF)));
-    NCellTemps = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)));
-    NTCellMaxID = (uint8_t)((float)(((stFrame.abData[5] >> 0) & 0xFF)));
-    NTCellMinID = (uint8_t)((float)(((stFrame.abData[6] >> 0) & 0xFF)));
-    CheckSum_BMSCellTemp = (uint8_t)((float)(((stFrame.abData[7] >> 0) & 0xFF)));
+    NTempMonNumber = (uint8_t)(((stFrame.abData[0] >> 0) & 0xFF));
+    TCellMin = (int8_t)(((stFrame.abData[1] >> 0) & 0xFF));
+    TCellMax = (int8_t)(((stFrame.abData[2] >> 0) & 0xFF));
+    TCellAvg = (int8_t)(((stFrame.abData[3] >> 0) & 0xFF));
+    NCellTemps = (uint8_t)(((stFrame.abData[4] >> 0) & 0xFF));
+    NTCellMaxID = (uint8_t)(((stFrame.abData[5] >> 0) & 0xFF));
+    NTCellMinID = (uint8_t)(((stFrame.abData[6] >> 0) & 0xFF));
     return ESP_OK;
 }
 
@@ -3444,14 +3445,22 @@ esp_err_t BMSCellTempTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)NTempMonNumber) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((float)TCellMin) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)TCellMax) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)TCellAvg) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)NCellTemps) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[5] |= (uint8_t)(((((uint32_t)((float)NTCellMaxID) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[6] |= (uint8_t)(((((uint32_t)((float)NTCellMinID) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[7] |= (uint8_t)(((((uint32_t)((float)CheckSum_BMSCellTemp) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)NTempMonNumber & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)TCellMin & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)TCellMax & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)TCellAvg & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)NCellTemps & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[5] |= (uint8_t)(((((uint32_t)NTCellMaxID & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[6] |= (uint8_t)(((((uint32_t)NTCellMinID & 0xFF) >> 0) & 0xFF) << 0);
+
+    /* Checksum encode (Rule 1) */
+    uint16_t checksum_acc = 0;
+    for (int i = 0; i < 7; ++i) {
+        checksum_acc = (uint16_t)(checksum_acc + (uint16_t)stFrame.abData[i]);
+    }
+    checksum_acc = (uint16_t)(checksum_acc + 0x39 + stFrame.byDLC);
+    uint8_t computed_checksum = (uint8_t)checksum_acc;
+    stFrame.abData[7] = computed_checksum;
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -3471,9 +3480,9 @@ esp_err_t TempMonAddressCastRx(CAN_frame_t stFrame)
     if (stFrame.dwID != 0x18EEFF80) return ESP_ERR_INVALID_ARG;
 
     /* Standard Signals */
-    NTempMonJ1939Address = (uint32_t)((float)((((uint32_t)((stFrame.abData[0] >> 0) & 0xFF)) << 16) | (((uint32_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint32_t)((stFrame.abData[2] >> 0) & 0xFF))));
-    NTempMonTargetAddress = (uint8_t)((float)(((stFrame.abData[3] >> 0) & 0xFF)));
-    NTempMonNumber = (uint8_t)((float)(((stFrame.abData[4] >> 0) & 0xFF)));
+    NTempMonJ1939Address = (uint32_t)((((uint32_t)((stFrame.abData[0] >> 0) & 0xFF)) << 16) | (((uint32_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint32_t)((stFrame.abData[2] >> 0) & 0xFF)));
+    NTempMonTargetAddress = (uint8_t)(((stFrame.abData[3] >> 0) & 0xFF));
+    NTempMonNumber = (uint8_t)(((stFrame.abData[4] >> 0) & 0xFF));
     /* Constant 0x401E90 ignored on receive */
     return ESP_OK;
 }
@@ -3494,11 +3503,11 @@ esp_err_t TempMonAddressCastTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)((float)NTempMonJ1939Address) & 0xFFFFFF) >> 16) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)((float)NTempMonJ1939Address) & 0xFFFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)((float)NTempMonJ1939Address) & 0xFFFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)((float)NTempMonTargetAddress) & 0xFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)((float)NTempMonNumber) & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)NTempMonJ1939Address & 0xFFFFFF) >> 16) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)NTempMonJ1939Address & 0xFFFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)NTempMonJ1939Address & 0xFFFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)NTempMonTargetAddress & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)NTempMonNumber & 0xFF) >> 0) & 0xFF) << 0);
     stFrame.abData[5] |= (uint8_t)((((0x401E90 & 0xFFFFFF) >> 16) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)((((0x401E90 & 0xFFFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)((((0x401E90 & 0xFFFFFF) >> 0) & 0xFF) << 0);
