@@ -94,13 +94,15 @@ float RCell[112] = {0};
 bool BBalancingCell[112] = {0};
 float VOpenCell[112] = {0};
 bool BIMDOff = 0;
-bool BIMDUndervoltage = 0;
+bool BIMDUnderVoltage = 0;
 bool BIMDStarting = 0;
 bool BIMDSSTGood = 0;
 bool BIMDDeviceError = 0;
 bool BIMDGroundConnectionFault = 0;
 bool BIMDInvalidState = 0;
 float RIsolation = 0;
+uint8_t fIMDPWM = 0;
+uint8_t rIMDPWM = 0;
 float CMD_TargetBrakeCurrent = 0;
 float CMD_TargetSpeed = 0;
 float rAPPs[2] = {0};
@@ -940,13 +942,15 @@ esp_err_t IMDDataRx(CAN_frame_t stFrame)
 
     /* Standard Signals */
     BIMDOff = (bool)(((stFrame.abData[0] >> 7) & 0x1));
-    BIMDUndervoltage = (bool)(((stFrame.abData[0] >> 6) & 0x1));
+    BIMDUnderVoltage = (bool)(((stFrame.abData[0] >> 6) & 0x1));
     BIMDStarting = (bool)(((stFrame.abData[0] >> 5) & 0x1));
     BIMDSSTGood = (bool)(((stFrame.abData[0] >> 4) & 0x1));
     BIMDDeviceError = (bool)(((stFrame.abData[0] >> 3) & 0x1));
     BIMDGroundConnectionFault = (bool)(((stFrame.abData[0] >> 2) & 0x1));
     BIMDInvalidState = (bool)(((stFrame.abData[0] >> 1) & 0x1));
     RIsolation = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 200.0f);
+    fIMDPWM = (uint8_t)(((stFrame.abData[3] >> 0) & 0xFF));
+    rIMDPWM = (uint8_t)(((stFrame.abData[4] >> 0) & 0xFF));
     return ESP_OK;
 }
 
@@ -967,7 +971,7 @@ esp_err_t IMDDataTx(twai_node_handle_t stCANBus)
     memset(stFrame.abData, 0, 8);
 
     stFrame.abData[0] |= (uint8_t)(((((uint32_t)BIMDOff & 0x1) >> 0) & 0x1) << 7);
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)BIMDUndervoltage & 0x1) >> 0) & 0x1) << 6);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)BIMDUnderVoltage & 0x1) >> 0) & 0x1) << 6);
     stFrame.abData[0] |= (uint8_t)(((((uint32_t)BIMDStarting & 0x1) >> 0) & 0x1) << 5);
     stFrame.abData[0] |= (uint8_t)(((((uint32_t)BIMDSSTGood & 0x1) >> 0) & 0x1) << 4);
     stFrame.abData[0] |= (uint8_t)(((((uint32_t)BIMDDeviceError & 0x1) >> 0) & 0x1) << 3);
@@ -975,6 +979,8 @@ esp_err_t IMDDataTx(twai_node_handle_t stCANBus)
     stFrame.abData[0] |= (uint8_t)(((((uint32_t)BIMDInvalidState & 0x1) >> 0) & 0x1) << 1);
     stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)RIsolation) / 200.0f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)RIsolation) / 200.0f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)fIMDPWM & 0xFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)rIMDPWM & 0xFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
