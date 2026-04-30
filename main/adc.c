@@ -11,41 +11,6 @@ static adc_oneshot_unit_handle_t sADCUnit1 = NULL;
 static adc_oneshot_unit_handle_t sADCUnit2 = NULL;
 
 /* --------------------------- Global Variables ------------------------ */
-stADCHandles_t stADCHandle0 =
-{
-    .eNChannel = DYNO_PRESSURE_1, 
-    .stCalibration = NULL,
-};
-stADCHandles_t stADCHandle1 =
-{
-    .eNChannel = DYNO_PRESSURE_2, 
-    .stCalibration = NULL,
-};
-stADCHandles_t stADCHandle2 =
-{
-    .eNChannel = DYNO_PRESSURE_3, 
-    .stCalibration = NULL,
-};
-stADCHandles_t stADCHandle3 =
-{
-    .eNChannel = DYNO_TEMP_1, 
-    .stCalibration = NULL,
-};
-stADCHandles_t stADCHandle4 =
-{
-    .eNChannel = DYNO_TEMP_2, 
-    .stCalibration = NULL,
-};
-stADCHandles_t stADCHandle5 =
-{
-    .eNChannel = DYNO_TEMP_3, 
-    .stCalibration = NULL,
-};
-stADCHandles_t stADCHandle6 =
-{
-    .eNChannel = DYNO_FLOW, 
-    .stCalibration = NULL,
-};
 //Add as needed for more ADC channels
 
 /* --------------------------- Definitions ----------------------------- */
@@ -172,16 +137,16 @@ float adc_read_voltage(stADCHandles_t *stADCHandle)
     return (float)NVADC / 1000.0f; // Convert mV to V
 }
 
-float read_sensor(stADCHandles_t *stADCHandle, stSensorMap_t *stSensorMap)
+float convert_sensor(float fVSensor, stSensorMap_t *stSensorMap)
 /*
 *===========================================================================
-*   read_sensor
-*   Takes:  stADCHandle: Pointer to ADC handle structure, contains unit and calibration handles
+*   convert_sensor
+*   Takes:  fVoltage: The voltage reading from the ADC
 *           stSensorMap: Pointer to sensor map structure for lookup table and limits
 * 
 *   Returns: Normalised sensor reading as float, or -999.0f on error
 * 
-*   Reads from the ADC and uses the sensor map to convert this to a real value.
+*   Uses the sensor map to convert the voltage to a real value.
 *   Includes plausibility check based on sensor map limits for SCS compliance.
 *
 *=========================================================================== 
@@ -192,7 +157,6 @@ float read_sensor(stADCHandles_t *stADCHandle, stSensorMap_t *stSensorMap)
 */
 {
     uint8_t NCounter;
-    float fVSensor = adc_read_voltage(stADCHandle);
     /* If outside plauseable range throw error (SCS Requirement) */
     if (fVSensor < stSensorMap->fLowerLimit || fVSensor > stSensorMap->fUpperLimit)
     {
