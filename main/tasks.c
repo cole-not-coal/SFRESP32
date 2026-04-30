@@ -19,14 +19,14 @@ extern esp_reset_reason_t eResetReason;
 extern eChipMode_t eDeviceMode;
 static esp_partition_t *stOTAPartition = NULL;
 extern stADCHandles_t stADCHandle0;
+word wfPWM;
+word wrPWMDutyCycle;
 
 /* --------------------------- Global Variables ----------------------------- */
 dword adwMaxTaskTime[eTASK_TOTAL];
 dword adwLastTaskTime[eTASK_TOTAL];
 eTaskState_t astTaskState[eTASK_TOTAL];
 dword dwTimeSincePowerUpms = 0;
-word wfPWM;
-word wrPWMDutyCycle;
 
 /* --------------------------- Definitions ----------------------------- */
 #define PERIOD_TASK_100MS 100   // ms
@@ -41,13 +41,6 @@ word wrPWMDutyCycle;
 #define IMDGROUNDFAULT_BITSHIFT      5
 #define IMDINVALIDSTATE_BITSHIFT     6
 #define PWM_CROSSOVER_THRESHOLD      1.5  // Volts
-
-/* --------------------------- Function prototypes ----------------------------- */
-void pin_toggle(gpio_num_t pin);
-void task_BG(void);
-void task_1ms(void);
-void task_100ms(void);
-void reflash_task_100ms(void);
 
 /* --------------------------- Functions ----------------------------- */
 /* Background task that runs as often as processor time is available. */
