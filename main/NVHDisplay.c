@@ -75,7 +75,6 @@ void NVHDisplay_init(void)
     *
     *===========================================================================
     */
-    esp_err_t eStatus = ESP_OK;
 
     /* Initialize EVE SPI interface */
     EVE_init_spi();
@@ -92,7 +91,6 @@ void NVHDisplay_init(void)
 
         initStaticBackground();
     }
-
 }
 
 void initStaticBackground(void)
@@ -110,7 +108,6 @@ void initStaticBackground(void)
     EVE_vertex2f(0, 0); /* set to 0 / 0 */
     EVE_vertex2f(EVE_HSIZE,LAYOUT_Y1-2);
     EVE_end();
-
 
     /* display the logo */
     // EVE_color_rgb(WHITE);
@@ -134,27 +131,7 @@ void initStaticBackground(void)
     EVE_cmd_text(EVE_VSIZE/2+15, 5, 29, EVE_OPT_CENTERX, "R");
 
     char abySOCBuffer[4];
-    sprintf(abySOCBuffer, "%3d", rBatterySOC);
-
-    // // Rectangle for battery percentage
-    EVE_widget_rectangle(EVE_VSIZE/2 - 80, 50 , 160U, 80U, 0, 10, WHITE);  // x, y, width, height, border, transparency, colour
-    EVE_color_rgb(DARK_GREY);
-    EVE_cmd_text(EVE_VSIZE/2 - 75, 55, 20, 0, "Battery:");  //x, y, font
-    // EVE_color_rgb(PINK);
-    // EVE_begin(EVE_LINES);
-    // EVE_vertex2f(EVE_HSIZE-35,0);
-    // EVE_vertex2f(EVE_HSIZE-35, EVE_HSIZE-35);
-    // EVE_end();
-
-    EVE_color_rgb(WHITE);
-    EVE_cmd_text(EVE_VSIZE/2-15, 5, 29, EVE_OPT_CENTERX, "S");
-    EVE_color_rgb(YELLOW2);
-    EVE_cmd_text(EVE_VSIZE/2, 5, 29, EVE_OPT_CENTERX, "F");
-    EVE_color_rgb(WHITE);
-    EVE_cmd_text(EVE_VSIZE/2+15, 5, 29, EVE_OPT_CENTERX, "R");
-
-    char abySOCBuffer[4];
-    sprintf(abySOCBuffer, "%3d", rBatterySOC);
+    sprintf(abySOCBuffer, "%3d", (uint8_t)(Pack_SOC));  // convert battery percentage to string for display
 
     // // Rectangle for battery percentage
     EVE_widget_rectangle(EVE_VSIZE/2 - 80, 50 , 160U, 80U, 0, 10, WHITE);  // x, y, width, height, border, transparency, colour
@@ -210,11 +187,6 @@ void TFT_display(void)
 
     if(byTFTActive != 0U)
     {
-        #if defined (EVE_DMA)
-            uint16_t cmd_fifo_size;
-            cmd_fifo_size = EVE_dma_buffer_index*4; /* without DMA there is no way to tell how many bytes are written to the cmd-fifo */
-        #endif
-
         EVE_start_cmd_burst(); /* start writing to the cmd-fifo as one stream of bytes, only sending the address once */
         EVE_cmd_dlstart(); /* start the display list */
         EVE_clear_color_rgb(BLACK); /* set the default clear color to white */
