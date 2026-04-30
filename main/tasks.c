@@ -146,14 +146,6 @@ void task_100ms(void)
     
     static qword qwtTaskTimer;
     static word wNCounter;
-    boolean BIMDOff = FALSE;
-    boolean BIMDUnderVoltage = FALSE;
-    boolean BIMDStarting = FALSE;
-    boolean BIMDSSTGood = FALSE;
-    boolean BIMDDeviceError = FALSE;
-    boolean BIMDGroundConnectionFault = FALSE;
-    boolean BIMDInvalidState = FALSE;
-    float fRIsolation = 0.0f;
 
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_100MS] = eTASK_ACTIVE;
@@ -197,34 +189,34 @@ void task_100ms(void)
         {
         case 0 ... 5:
         {
-            fRIsolation = 5e6f; // 5 Mohm
+            RIsolation = 5e6f; // 5 Mohm
             BIMDInvalidState = TRUE;
             break;
         }
         case 6 ... 95:
         {
-            fRIsolation = (90*1.2e6f)/(wrPWMDutyCycle - 5.0f) - 1.2e6f; 
+            RIsolation = (90*1.2e6f)/(wrPWMDutyCycle - 5.0f) - 1.2e6f; 
             break;
         }
         case 96 ... 100:
         {
-            fRIsolation = 0.0f;
+            RIsolation = 0.0f;
             BIMDInvalidState = TRUE;
             break;
         }
         default:
         {
-            fRIsolation = 0.0f;
+            RIsolation = 0.0f;
             BIMDInvalidState = TRUE;
             break;
         }
         }
         if (wfPWM > 15)
         {
-            BIMDUnderVoltage = TRUE;
+            BIMDUndervoltage = TRUE;
         } else
         {
-            BIMDUnderVoltage = FALSE;
+            BIMDUndervoltage = FALSE;
         }
         break;
     }
@@ -280,37 +272,14 @@ void task_100ms(void)
     }
     }
 
-    /* Create Status Byte */
-    byte byStatusByte = 0;
-    byStatusByte |= (BIMDOff                    << IMDOFF_BITSHIFT);
-    byStatusByte |= (BIMDUnderVoltage           << IMDUV_BITSHIFT);
-    byStatusByte |= (BIMDStarting               << IMDSTARTING_BITSHIFT);
-    byStatusByte |= (BIMDSSTGood                << IMDSSTGOOD_BITSHIFT);
-    byStatusByte |= (BIMDDeviceError            << IMDDEVICEERROR_BITSHIFT);
-    byStatusByte |= (BIMDGroundConnectionFault  << IMDGROUNDFAULT_BITSHIFT);
-    byStatusByte |= (BIMDInvalidState           << IMDINVALIDSTATE_BITSHIFT);
-
     /* Send 0x400 CAN message */
-    #ifdef DEBUG
-        //ESP_LOGI(SFR_TAG, "IMD PWM Frequency: %d Hz, Duty Cycle: %d %%", wfPWM, wrPWMDutyCycle);
-        //ESP_LOGI(SFR_TAG, "IMD Status Byte: 0x%02X, Riso: %.2f KOhms", byStatusByte, fRIsolation/1000.0f);
-        //ESP_LOGI(SFR_TAG, "ADC Read: %.2f", adc_read_voltage(&stADCHandle0));
-    #endif
-    CAN_transmit(stCANBus0, (CAN_frame_t)
-    {
-        .dwID = 0x400,
-        .byDLC = 3,
-        .abData = {
-            (byte)byStatusByte,
-            (byte)((word)fRIsolation*200 >> 8),
-            (byte)((word)fRIsolation*200 & 0xFF),
-            0,
-            0,
-            0,
-            0,
-            0
-        }
-    });
+    IMDDataTx(stCANBus0);
+
+    /*Debug */
+    //ESP_LOGI(SFR_TAG, "IMD PWM Frequency: %d Hz, Duty Cycle: %d %%", wfPWM, wrPWMDutyCycle);
+    //ESP_LOGI(SFR_TAG, "IMD Status Byte: 0x%02X, Riso: %.2f KOhms", byStatusByte, RIsolation/1000.0f);
+    //ESP_LOGI(SFR_TAG, "ADC Read: %.2f", adc_read_voltage(&stADCHandle0));
+    
 
     /* Every 10 Seconds */
     if (wNCounter >= PERIOD_10S / PERIOD_TASK_100MS)

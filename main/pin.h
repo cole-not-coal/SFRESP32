@@ -26,7 +26,7 @@
 #define EVE_CS 17
 
 /* IMD Monitor Only */
-#define IMD_PWM_IN ADC_CHANNEL_0 // GPIO0
+#define IMD_PWM_IN ADC_CHANNEL_1 // GPIO1
 
 /* APPs Only */
 #define APPS1_IN ADC_CHANNEL_0 // GPIO0
