@@ -21,7 +21,7 @@
 #include "CAN/canDecodeAuto.h"
 #include "mcp320X.h"
 
-/* Function Definitions*/
+/* --------------------------- Function prototypes ----------------------------- */
 void task_BG(void);
 void task_1ms(void);
 void task_100ms(void);

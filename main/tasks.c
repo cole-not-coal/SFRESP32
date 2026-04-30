@@ -4,7 +4,6 @@ File contains the tasks that run on the device. Tasks are called by interrupts a
 Tasks are:
     task_BG: Background task that runs as often as processor time is available.
     task_1ms: Task that runs every 1ms.
-    task_10ms: Task that runs every 10ms.
     task_100ms: Task that runs every 100ms.
 
 Written by Cole Perera and Aditya Parnandi for Sheffield Formula Racing 2025
@@ -26,25 +25,16 @@ dword adwLastTaskTime[eTASK_TOTAL];
 eTaskState_t astTaskState[eTASK_TOTAL];
 dword dwTimeSincePowerUpms = 0;
 
-/* --------------------------- Function prototypes ----------------------------- */
-
 /* --------------------------- Definitions ----------------------------- */
 #define PERIOD_TASK_100MS 100   // ms
 #define PERIOD_10S 10000        // ms
 #define PERIOD_1S 1000          // ms
 #define MAX_eREFLASH_TIME_US 300000000 // us
 
-/* --------------------------- Function prototypes ----------------------------- */
-void pin_toggle(gpio_num_t pin);
-void task_BG(void);
-void task_1ms(void);
-void task_100ms(void);
-void reflash_task_100ms(void);
-
 /* --------------------------- Functions ----------------------------- */
+/* Background task that runs as often as processor time is available. */
 void task_BG(void)
-{
-    /* Background task that runs as often as processor time is available. */
+{ 
     static qword qwtTaskTimer;
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_BG] = eTASK_ACTIVE;
@@ -77,9 +67,9 @@ void task_BG(void)
     }
 }
 
+/* Task that runs every 1ms. */
 void task_1ms(void)
 {
-    /* Task that runs every 1ms. */
     qword qwtTaskTimer;
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_1MS] = eTASK_ACTIVE;
@@ -96,9 +86,10 @@ void task_1ms(void)
     }
 }
 
+/* Task that runs every 100ms. */
 void task_100ms(void)
 {
-    /* Task that runs every 100ms. */
+    
     static qword qwtTaskTimer;
     static word wNCounter;
 
@@ -160,16 +151,19 @@ void task_100ms(void)
     }
 }
 
+/* Task that runs every 1ms in reflash mode */
 void reflash_task_1ms(void)
 {
 
 }
 
+/* Task that runs every 100ms in reflash mode */
 void reflash_task_100ms(void)
 {
     pin_toggle(GPIO_ONBOARD_LED);
 }
 
+/* Background task for reflash mode */
 void reflash_task_BG()
 {
     static qword qwtReflashEntryTime = 0;
@@ -185,7 +179,7 @@ void reflash_task_BG()
 
     if (stOTAPartition == NULL)
     {
-        stOTAPartition = esp_ota_get_next_update_partition(NULL);
+        stOTAPartition = (esp_partition_t *)esp_ota_get_next_update_partition(NULL);
         if (stOTAPartition == NULL)
         {
             ESP_LOGE("CANFLASH", "Failed to find OTA partition");
