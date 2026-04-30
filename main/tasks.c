@@ -25,8 +25,8 @@ extern eChipMode_t eDeviceMode;
 static esp_partition_t *stOTAPartition = NULL;
 extern spi_device_handle_t MCP320XDevs[2];
 
-uint32_t rFanDuty = 0;
-uint32_t rPumpDuty = 0;
+uint32_t rFanDutyLocal = 0;
+uint32_t rPumpDutyLocal = 0;
 
 stSensorMap_t stDynoTempMap = {
     .fLowerLimit = 0.0f,
@@ -199,16 +199,16 @@ void task_1ms(void)
     switch (NFanMode)
     {
     case eMOTOR_OFF:
-        rFanDuty = 0;
+        rFanDutyLocal = 0;
         break;
     case eMOTOR_FULL:
-        rFanDuty = PWM_MAX_DUTY;
+        rFanDutyLocal = PWM_MAX_DUTY;
         break;
     case eMOTOR_MANUAL:
-        rFanDuty = (uint32_t)rFanDutyManual*PWM_MAX_DUTY/100;
+        rFanDutyLocal = (uint32_t)rFanDutyManual*PWM_MAX_DUTY/100;
         break;
     case eMOTOR_AUTO:
-        rFanDuty = PWM_MAX_DUTY;
+        rFanDutyLocal = PWM_MAX_DUTY;
         break;
     default:
         break;
@@ -216,25 +216,25 @@ void task_1ms(void)
     switch (NPumpMode)
     {
     case eMOTOR_OFF:
-        rPumpDuty = 0;
+        rPumpDutyLocal = 0;
         break;
     case eMOTOR_FULL:
-        rPumpDuty = PWM_MAX_DUTY;
+        rPumpDutyLocal = PWM_MAX_DUTY;
         break;
     case eMOTOR_MANUAL:
-        rPumpDuty = (uint32_t)rPumpDutyManual*PWM_MAX_DUTY/100;
+        rPumpDutyLocal = (uint32_t)rPumpDutyManual*PWM_MAX_DUTY/100;
         break;
     case eMOTOR_AUTO:
-        rPumpDuty = PWM_MAX_DUTY;
+        rPumpDutyLocal = PWM_MAX_DUTY;
         break;
     default:
         break;
     }
-    rFanDuty = (uint32_t)20*PWM_MAX_DUTY/100;
-    rPumpDuty = (uint32_t)1000*PWM_MAX_DUTY/100;
-    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, rFanDuty);
+    rFanDutyLocal = (uint32_t)20*PWM_MAX_DUTY/100;
+    rPumpDutyLocal = (uint32_t)1000*PWM_MAX_DUTY/100;
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, rFanDutyLocal);
     ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
-    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, rPumpDuty);
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, rPumpDutyLocal);
     ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1);
 
     /* Update max task time */
@@ -301,7 +301,7 @@ void task_100ms(void)
        
         // ESP_LOGI("ADC", "Pressures (Bar): %3.2f | %3.2f | %3.2f     |     Temperatures (degC): %3.2f | %3.2f | %3.2f     |     Flow Rate (L/min): %3.2f",
         //     pDynoPressure[0], pDynoPressure[1], pDynoPressure[2], TDynoTemp[0], TDynoTemp[1], TDynoTemp[2], VDynoCoolantFlow);
-        ESP_LOGI("ADC", "Fan Duty: %3.1f%%     |     Pump Duty: %3.1f%%", (float)rFanDuty*100/PWM_MAX_DUTY, (float)rPumpDuty*100/PWM_MAX_DUTY);
+        ESP_LOGI("ADC", "Fan Duty: %3.1f%%     |     Pump Duty: %3.1f%%", (float)rFanDutyLocal*100/PWM_MAX_DUTY, (float)rPumpDutyLocal*100/PWM_MAX_DUTY);
  
     };
 
