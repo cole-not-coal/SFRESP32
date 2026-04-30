@@ -13,32 +13,32 @@ static adc_oneshot_unit_handle_t sADCUnit2 = NULL;
 /* --------------------------- Global Variables ------------------------ */
 stADCHandles_t stADCHandle0 =
 {
-    .eNChannel = BOSH_0, 
+    .eNChannel = DYNO_PRESSURE_1, 
     .stCalibration = NULL,
 };
 stADCHandles_t stADCHandle1 =
 {
-    .eNChannel = BOSH_1, 
+    .eNChannel = DYNO_PRESSURE_2, 
     .stCalibration = NULL,
 };
 stADCHandles_t stADCHandle2 =
 {
-    .eNChannel = BOSH_2, 
+    .eNChannel = DYNO_PRESSURE_3, 
     .stCalibration = NULL,
 };
 stADCHandles_t stADCHandle3 =
 {
-    .eNChannel = BOSH_3, 
+    .eNChannel = DYNO_TEMP_1, 
     .stCalibration = NULL,
 };
 stADCHandles_t stADCHandle4 =
 {
-    .eNChannel = BOSH_4, 
+    .eNChannel = DYNO_TEMP_2, 
     .stCalibration = NULL,
 };
 stADCHandles_t stADCHandle5 =
 {
-    .eNChannel = BOSH_5, 
+    .eNChannel = DYNO_TEMP_3, 
     .stCalibration = NULL,
 };
 stADCHandles_t stADCHandle6 =
