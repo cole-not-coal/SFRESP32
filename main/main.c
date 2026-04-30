@@ -49,6 +49,8 @@ extern stADCHandles_t stADCHandle3;
 extern stADCHandles_t stADCHandle4;
 extern stADCHandles_t stADCHandle5;
 extern stADCHandles_t stADCHandle6;
+extern ledc_channel_config_t stFanChannelConfig;
+extern ledc_channel_config_t stPumpChannelConfig;
 
 /* --------------------------- Function prototypes ----------------------------- */
 static void timers_init(void);
@@ -205,6 +207,8 @@ static void GPIO_init(void)
         .intr_type = GPIO_INTR_DISABLE
     };
     gpio_config(&onboardLEDConfig);
+    ledc_channel_config(&stFanChannelConfig);
+    ledc_channel_config(&stPumpChannelConfig);
 }
 
 void set_device_mode(eChipMode_t mode)

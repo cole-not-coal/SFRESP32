@@ -51,5 +51,7 @@
 /* Dyno Only */
 #define SPI_MCP3204_1_CS 17
 #define SPI_MCP3204_2_CS 16
+#define FAN_PWM 0
+#define PUMP_PWM 1
 
 #endif // SFR_PIN
