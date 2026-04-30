@@ -213,10 +213,10 @@ void task_100ms(void)
         }
         if (wfPWM > 15)
         {
-            BIMDUndervoltage = TRUE;
+            BIMDUnderVoltage = TRUE;
         } else
         {
-            BIMDUndervoltage = FALSE;
+            BIMDUnderVoltage = FALSE;
         }
         break;
     }
@@ -272,7 +272,9 @@ void task_100ms(void)
     }
     }
 
-    /* Send 0x400 CAN message */
+    /* Send IMD Status CAN message */
+    fIMDPWM = (float)wfPWM;
+    rIMDPWM = (float)wrPWMDutyCycle;
     IMDDataTx(stCANBus0);
 
     /*Debug */
