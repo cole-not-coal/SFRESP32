@@ -13,14 +13,9 @@ static adc_oneshot_unit_handle_t sADCUnit2 = NULL;
 /* --------------------------- Global Variables ------------------------ */
 stADCHandles_t stADCHandle0 =
 {
-    .eNChannel = APPS1_IN, 
+    .eNChannel = IMD_PWM_IN, 
     .stCalibration = NULL,
 };
-stADCHandles_t stADCHandle1 =
-{
-    .eNChannel = APPS2_IN, 
-    .stCalibration = NULL,
-}; 
 //Add as needed for more ADC channels
 
 /* --------------------------- Definitions ----------------------------- */
