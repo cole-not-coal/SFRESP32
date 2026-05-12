@@ -71,8 +71,12 @@ void task_BG(void)
 void task_1ms(void)
 {
     qword qwtTaskTimer;
+
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_1MS] = eTASK_ACTIVE;
+
+    /* CAN error handling */
+    CANRxCheck1ms();
 
     /* Update time since power up */
     dwTimeSincePowerUpms++;
@@ -96,6 +100,9 @@ void task_100ms(void)
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_100MS] = eTASK_ACTIVE;
 
+    /* CAN error handling */
+    CANRxCheck1ms();
+
     /* Every Second */
     if ( wNCounter % (PERIOD_1S / PERIOD_TASK_100MS) == 0 ) 
     {
@@ -103,6 +110,7 @@ void task_100ms(void)
         pin_toggle(GPIO_ONBOARD_LED); 
 
         /* Send Status Message */
+        /* This is not how you should send a CAN message but in this special case it is better this way */
         CAN_transmit(stCANBus0, &(CAN_frame_t)
         {
             .dwID = DEVICE_ID,
@@ -118,7 +126,6 @@ void task_100ms(void)
                 (byte)(((dwTimeSincePowerUpms/4000) & 0xF) << 4 | (eResetReason & 0x0F)),
             }
         });
-
     };
 
     /* Every 10 Seconds */

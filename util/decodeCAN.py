@@ -35,6 +35,57 @@ def parse_id(id_val):
     except:
         return None
 
+
+def parse_rate(cell):
+    """Parse a message rate or period from Excel cell and return rate in Hz and period in ms.
+    Accepts numeric Hz, strings like '10Hz', '100ms', '0.1s', '10 Hz', '100 ms', or period numbers.
+    Returns (rate_hz, period_ms) where unknown returns (0.0, 0).
+    """
+    if pd.isna(cell):
+        return 0.0, 0
+    # If it's numeric, assume it's Hz if reasonable (>0 and <=10000), else treat as period_ms if large
+    try:
+        if isinstance(cell, (int, float)):
+            val = float(cell)
+            if 0 < val <= 10000:
+                # Ambiguous numeric could be Hz or ms; assume Hz if <=1000 and not large
+                # If value >=1 and <=1000 treat as Hz; if >=5 and looks like ms assume ms? Conservative: treat as Hz
+                rate_hz = val
+                period_ms = int(round(1000.0 / rate_hz)) if rate_hz > 0 else 0
+                return rate_hz, period_ms
+    except Exception:
+        pass
+
+    s = str(cell).strip().lower()
+    # hz
+    m = re.match(r"^([0-9]*\.?[0-9]+)\s*hz$", s)
+    if m:
+        rate_hz = float(m.group(1))
+        return rate_hz, int(round(1000.0 / rate_hz)) if rate_hz > 0 else 0
+
+    # ms
+    m = re.match(r"^([0-9]*\.?[0-9]+)\s*ms$", s)
+    if m:
+        period_ms = float(m.group(1))
+        rate_hz = 1000.0 / period_ms if period_ms > 0 else 0.0
+        return rate_hz, int(round(period_ms))
+
+    # seconds
+    m = re.match(r"^([0-9]*\.?[0-9]+)\s*s$", s)
+    if m:
+        period_s = float(m.group(1))
+        period_ms = period_s * 1000.0
+        rate_hz = 1.0 / period_s if period_s > 0 else 0.0
+        return rate_hz, int(round(period_ms))
+
+    # plain number - assume Hz
+    m = re.match(r"^([0-9]*\.?[0-9]+)$", s)
+    if m:
+        rate_hz = float(m.group(1))
+        return rate_hz, int(round(1000.0 / rate_hz)) if rate_hz > 0 else 0
+
+    return 0.0, 0
+
 def generate_unpack_expr(start_bit, length, is_big_endian):
     # Generates C expression to extract bits
     # Assumptions:
@@ -205,10 +256,10 @@ def main():
     try:
         print(f"Reading {EXCEL_PATH}...")
         
-        # --- Read Main BUS (Map ID -> MessageName) ---
-        df_bus_raw = pd.read_excel(EXCEL_PATH, sheet_name='Main BUS', header=None)
+        # --- Read Main Bus (Map ID -> MessageName) ---
+        df_bus_raw = pd.read_excel(EXCEL_PATH, sheet_name='Main Bus', header=None)
         
-        # Find header for Main BUS (Row with "ID" and "Name")
+        # Find header for Main Bus (Row with "ID" and "Name")
         header_row_idx = None
         for i, row in df_bus_raw.iterrows():
             row_str = " ".join([str(x) for x in row if pd.notna(x)])
@@ -217,13 +268,24 @@ def main():
                 break
         
         if header_row_idx is None:
-            raise Exception("Could not find header in Main BUS sheet")
+            raise Exception("Could not find header in Main Bus sheet")
             
-        df_bus = pd.read_excel(EXCEL_PATH, sheet_name='Main BUS', header=header_row_idx)
+        df_bus = pd.read_excel(EXCEL_PATH, sheet_name='Main Bus', header=header_row_idx)
         
         msg_map = {}
         seen_msg_names = set()
-        
+        # Try to detect a rate/period column in the Main Bus sheet
+        rate_col = None
+        rate_col_is_period_ms = False
+        for col in df_bus.columns:
+            cn = str(col).strip().lower()
+            if any(k in cn for k in ['rate', 'frequency', 'freq', 'period', 'cycle', 'interval']):
+                rate_col = col
+                # If the header explicitly mentions ms, treat numeric values as period in ms
+                if 'ms' in cn or 'rate (ms)' in cn:
+                    rate_col_is_period_ms = True
+                break
+
         for _, row in df_bus.iterrows():
             pid = parse_id(row['ID'])
             if pid is not None and pd.notna(row['Name']):
@@ -234,13 +296,33 @@ def main():
                     raise Exception(f"Duplicate message name found: '{cleaned_name}' (First seen, now at ID: 0x{pid:X})")
                 seen_msg_names.add(cleaned_name)
                 
+                # Parse rate if available
+                rate_hz = 0.0
+                period_ms = 0
+                if rate_col is not None and rate_col in row:
+                    try:
+                        cell = row[rate_col]
+                        if rate_col_is_period_ms:
+                            # If the column is Rate (ms), numeric entries are periods in ms
+                            if isinstance(cell, (int, float)) and not pd.isna(cell):
+                                period_ms = int(round(float(cell)))
+                                rate_hz = 1000.0 / period_ms if period_ms > 0 else 0.0
+                            else:
+                                rate_hz, period_ms = parse_rate(cell)
+                        else:
+                            rate_hz, period_ms = parse_rate(cell)
+                    except Exception:
+                        rate_hz, period_ms = 0.0, 0
+
                 msg_map[pid] = {
                     'name': msg_name_raw,
-                    'desc': str(row['Description']).strip() if pd.notna(row['Description']) else ""
+                    'desc': str(row['Description']).strip() if pd.notna(row['Description']) else "",
+                    'rate_hz': rate_hz,
+                    'period_ms': period_ms
                 }
                 
-        # --- Read Main BUS Message (Signals) ---
-        df_msgs_raw = pd.read_excel(EXCEL_PATH, sheet_name='Main BUS Message', header=None)
+        # --- Read Main Bus Message (Signals) ---
+        df_msgs_raw = pd.read_excel(EXCEL_PATH, sheet_name='Main Bus Message', header=None)
         
         # Find header
         header_row_idx = None
@@ -251,9 +333,9 @@ def main():
                  break
                  
         if header_row_idx is None:
-             raise Exception("Could not find header in Main BUS Message sheet")
+             raise Exception("Could not find header in Main Bus Message sheet")
              
-        df_msgs = pd.read_excel(EXCEL_PATH, sheet_name='Main BUS Message', header=header_row_idx)
+        df_msgs = pd.read_excel(EXCEL_PATH, sheet_name='Main Bus Message', header=header_row_idx)
         
         # Forward fill ID
         df_msgs['ID'] = df_msgs['ID'].ffill()
@@ -564,7 +646,7 @@ def identify_arrays(messages):
                 sig['array_size'] = array_size
 
 def generate_c_code(messages, msg_map):
-    h_content = "#ifndef CAN_DECODE_AUTO_H\n#define CAN_DECODE_AUTO_H\n\n#include <stdint.h>\n#include \"esp_err.h\"\n#include \"can.h\"\n#include \"esp_twai.h\"\n#include \"esp_twai_onchip.h\"\n#include \"esp_rom_crc.h\"\n\n"
+    h_content = "#ifndef CAN_DECODE_AUTO_H\n#define CAN_DECODE_AUTO_H\n\n#include <stdint.h>\n#include <stdbool.h>\n#include \"esp_err.h\"\n#include \"can.h\"\n#include \"esp_twai.h\"\n#include \"esp_twai_onchip.h\"\n#include \"esp_rom_crc.h\"\n\n"
     c_content = "/* This file is autogenerated from the script decodeCAN.py */\n#include \"canDecodeAuto.h\"\n\n"
 
     # 1. Generate Global Variables (Externs in H, Definitions in C)
@@ -595,8 +677,37 @@ def generate_c_code(messages, msg_map):
                 h_content += f"extern {sig['type']} {sig['name']};\n"
                 c_content += f"{sig['type']} {sig['name']} = 0;\n"
     
+    # Per-message timing and error flags will be generated here
     h_content += "\n"
     c_content += "\n"
+
+    # Generate per-message timing variables and collect message timing info
+    per_msg_list = []
+    for pid in sorted(messages.keys()):
+        if pid not in msg_map:
+            continue
+        msg_info = msg_map[pid]
+        msg_name_clean = re.sub(r'[^a-zA-Z0-9_]', '', msg_info['name'])
+        base_name = msg_name_clean if msg_name_clean else f"Msg_{pid:X}"
+
+        # derive period and threshold first
+        period_ms = int(msg_info.get('period_ms', 0) or 0)
+        rate_hz = float(msg_info.get('rate_hz', 0.0) or 0.0)
+        if period_ms == 0 and rate_hz > 0.0:
+            try:
+                period_ms = int(round(1000.0 / rate_hz))
+            except Exception:
+                period_ms = 0
+        thresh_ms = int(round(period_ms * 5)) if period_ms > 0 else 0
+        per_msg_list.append((pid, base_name, rate_hz, period_ms, thresh_ms))
+
+        tname = f"tSince{base_name}"
+        bname = f"B{base_name}InError"
+        h_content += f"extern uint32_t {tname};\n"
+        h_content += f"extern bool {bname};\n"
+        # Initialize to timeout and mark in-error by default
+        c_content += f"uint32_t {tname} = {thresh_ms};\n"
+        c_content += f"bool {bname} = true;\n"
 
     # 2. Generate Defines
     for pid in sorted(messages.keys()):
@@ -608,6 +719,17 @@ def generate_c_code(messages, msg_map):
         func_name = msg_name_clean
         if not func_name: func_name = f"Msg_{pid:X}"
         h_content += f"#define {func_name.upper()}_ID 0x{pid:X}\n"
+        # add period and threshold (ms)
+        period_ms = int(msg_info.get('period_ms', 0) or 0)
+        rate_hz = float(msg_info.get('rate_hz', 0.0) or 0.0)
+        if period_ms == 0 and rate_hz > 0.0:
+            try:
+                period_ms = int(round(1000.0 / rate_hz))
+            except Exception:
+                period_ms = 0
+        thresh_ms = int(round(period_ms * 5)) if period_ms > 0 else 0
+        h_content += f"#define {func_name.upper()}_PERIOD_MS {period_ms}\n"
+        h_content += f"#define {func_name.upper()}_THRESH_MS {thresh_ms}\n"
     h_content += "\n"
 
     # 3. Generate Functions
@@ -642,6 +764,8 @@ def generate_c_code(messages, msg_map):
         
         c_content += "    if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;\n"
         c_content += f"    if (stFrame.dwID != 0x{pid:X}) return ESP_ERR_INVALID_ARG;\n\n"
+        # Reset the tSince counter for this message on receive
+        c_content += f"    tSince{base_name} = 0;\n\n"
         
         # Sort out signals
         checksum_sig = next((s for s in messages[pid] if s.get('is_checksum')), None)
@@ -1037,8 +1161,34 @@ def generate_c_code(messages, msg_map):
         
         count += 1
 
+    # Prototypes for periodic check functions
+    h_content += "\nvoid CANRxCheck1ms(void);\nvoid CANRxCheck100ms(void);\n\n"
     h_content += "\n#endif\n"
     
+    # Generate periodic check functions in C
+    c_content += "/* Periodic RX health checks - autogenerated */\n\n"
+    # 1ms checker: messages with rate > 10Hz
+    c_content += "void CANRxCheck1ms(void)\n{\n"
+    for (pid, base_name, rate_hz, period_ms, thresh_ms) in per_msg_list:
+        if rate_hz > 10.0:
+            bname = f"B{base_name}InError"
+            if thresh_ms > 0:
+                c_content += f"    tSince{base_name} += 1; if (tSince{base_name} > {thresh_ms}) {bname} = true;\n"
+            else:
+                c_content += f"    tSince{base_name} += 1;\n"
+    c_content += "}\n\n"
+
+    # 100ms checker: messages with rate <= 10Hz or unknown
+    c_content += "void CANRxCheck100ms(void)\n{\n"
+    for (pid, base_name, rate_hz, period_ms, thresh_ms) in per_msg_list:
+        if not (rate_hz > 10.0):
+            bname = f"B{base_name}InError"
+            if thresh_ms > 0:
+                c_content += f"    tSince{base_name} += 100; if (tSince{base_name} > {thresh_ms}) {bname} = true;\n"
+            else:
+                c_content += f"    tSince{base_name} += 100;\n"
+    c_content += "}\n\n"
+
     with open(OUTPUT_C_PATH, 'w') as f:
         f.write(c_content)
     with open(OUTPUT_H_PATH, 'w') as f:

@@ -117,18 +117,17 @@ float VDynoTempRaw[3] = {0};
 float pDynoPressure[3] = {0};
 float VDynoCoolantFlow = 0;
 float TDynoTemp[3] = {0};
-float rFanDutyManual = 0;
-float rPumpDutyManual = 0;
-uint8_t NFanMode = 0;
-uint8_t NPumpMode = 0;
+float rDynoFanDutyManual = 0;
+float rDynoPumpDutyManual = 0;
+uint8_t NDynoFanMode = 0;
+uint8_t NDynoPumpMode = 0;
 float CMD_TargetRelativeCurrent = 0;
 uint8_t rRadFanDuty = 0;
 uint8_t NRadFanMode = 0;
 float IRadFan = 0;
 uint8_t rPumpDuty[2] = {0};
-uint8_t NPump1Mode = 0;
+uint8_t NPumpMode[2] = {0};
 float IPump[2] = {0};
-uint8_t NPump2Mode = 0;
 uint8_t rAccuFanDuty[2] = {0};
 uint8_t NAccuFanMode[2] = {0};
 float IAccuFan[2] = {0};
@@ -222,6 +221,144 @@ uint8_t NCellTemps = 0;
 uint32_t NTempMonJ1939Address = 0;
 uint8_t NTempMonTargetAddress = 0;
 
+uint32_t tSinceESPControl = 500;
+bool BESPControlInError = true;
+uint32_t tSinceMCUStatusTelemCar = 5000;
+bool BMCUStatusTelemCarInError = true;
+uint32_t tSinceMCUStatusTelemPits = 5000;
+bool BMCUStatusTelemPitsInError = true;
+uint32_t tSinceMCUStatusIMDMonitor = 5000;
+bool BMCUStatusIMDMonitorInError = true;
+uint32_t tSinceMCUStatusLogger = 5000;
+bool BMCUStatusLoggerInError = true;
+uint32_t tSinceMCUStatusPDU = 5000;
+bool BMCUStatusPDUInError = true;
+uint32_t tSinceStatusAPPS = 5000;
+bool BStatusAPPSInError = true;
+uint32_t tSinceMCUStatusScreen = 5000;
+bool BMCUStatusScreenInError = true;
+uint32_t tSinceMCUStatusDash = 5000;
+bool BMCUStatusDashInError = true;
+uint32_t tSinceMCUStatusDyno = 5000;
+bool BMCUStatusDynoInError = true;
+uint32_t tSinceMCUStatusTempMon = 5000;
+bool BMCUStatusTempMonInError = true;
+uint32_t tSinceSetAcCurrent = 500;
+bool BSetAcCurrentInError = true;
+uint32_t tSinceCellVoltages = 40;
+bool BCellVoltagesInError = true;
+uint32_t tSinceIMDData = 500;
+bool BIMDDataInError = true;
+uint32_t tSinceSetBrakeCurrent = 500;
+bool BSetBrakeCurrentInError = true;
+uint32_t tSinceSetERPM = 500;
+bool BSetERPMInError = true;
+uint32_t tSinceStatusAPPSSensor = 500;
+bool BStatusAPPSSensorInError = true;
+uint32_t tSinceSetPosition = 500;
+bool BSetPositionInError = true;
+uint32_t tSinceDynoPressuresRaw = 500;
+bool BDynoPressuresRawInError = true;
+uint32_t tSinceDynoTempsRaw = 500;
+bool BDynoTempsRawInError = true;
+uint32_t tSinceDynoPressures = 500;
+bool BDynoPressuresInError = true;
+uint32_t tSinceDynoTemps = 500;
+bool BDynoTempsInError = true;
+uint32_t tSinceDynoCooling = 500;
+bool BDynoCoolingInError = true;
+uint32_t tSinceSetRelCurrent = 5;
+bool BSetRelCurrentInError = true;
+uint32_t tSincePDUStats1 = 500;
+bool BPDUStats1InError = true;
+uint32_t tSincePDUStats2 = 500;
+bool BPDUStats2InError = true;
+uint32_t tSincePDUStats3 = 500;
+bool BPDUStats3InError = true;
+uint32_t tSinceSetRelBrakeCurrent = 500;
+bool BSetRelBrakeCurrentInError = true;
+uint32_t tSinceSetDigOutput = 500;
+bool BSetDigOutputInError = true;
+uint32_t tSinceSetMaxAcCurrent = 500;
+bool BSetMaxAcCurrentInError = true;
+uint32_t tSinceSetMaxAcBrakeCurrent = 500;
+bool BSetMaxAcBrakeCurrentInError = true;
+uint32_t tSinceSetMaxDcCurrent = 500;
+bool BSetMaxDcCurrentInError = true;
+uint32_t tSinceSetMaxDcBrakeCurrent = 500;
+bool BSetMaxDcBrakeCurrentInError = true;
+uint32_t tSinceSetDriveEnable = 500;
+bool BSetDriveEnableInError = true;
+uint32_t tSinceFRTireTemp1 = 150;
+bool BFRTireTemp1InError = true;
+uint32_t tSinceFRTireTemp2 = 150;
+bool BFRTireTemp2InError = true;
+uint32_t tSinceFRTireTemp3 = 150;
+bool BFRTireTemp3InError = true;
+uint32_t tSinceFRTireTemp4 = 150;
+bool BFRTireTemp4InError = true;
+uint32_t tSinceFLTireTemp1 = 150;
+bool BFLTireTemp1InError = true;
+uint32_t tSinceFLTireTemp2 = 150;
+bool BFLTireTemp2InError = true;
+uint32_t tSinceFLTireTemp3 = 150;
+bool BFLTireTemp3InError = true;
+uint32_t tSinceFLTireTemp4 = 150;
+bool BFLTireTemp4InError = true;
+uint32_t tSinceRRTireTemp1 = 150;
+bool BRRTireTemp1InError = true;
+uint32_t tSinceRRTireTemp2 = 150;
+bool BRRTireTemp2InError = true;
+uint32_t tSinceRRTireTemp3 = 150;
+bool BRRTireTemp3InError = true;
+uint32_t tSinceRRTireTemp4 = 150;
+bool BRRTireTemp4InError = true;
+uint32_t tSinceRLTireTemp1 = 150;
+bool BRLTireTemp1InError = true;
+uint32_t tSinceRLTireTemp2 = 150;
+bool BRLTireTemp2InError = true;
+uint32_t tSinceRLTireTemp3 = 150;
+bool BRLTireTemp3InError = true;
+uint32_t tSinceRLTireTemp4 = 150;
+bool BRLTireTemp4InError = true;
+uint32_t tSinceTargetIqInfo = 125;
+bool BTargetIqInfoInError = true;
+uint32_t tSinceERPM_DUTY_VOLTAGE = 125;
+bool BERPM_DUTY_VOLTAGEInError = true;
+uint32_t tSinceAC_DC_current = 125;
+bool BAC_DC_currentInError = true;
+uint32_t tSinceTemperatures = 125;
+bool BTemperaturesInError = true;
+uint32_t tSinceFOC = 125;
+bool BFOCInError = true;
+uint32_t tSinceInverter_MISC = 125;
+bool BInverter_MISCInError = true;
+uint32_t tSinceMinMaxAcCurrent = 125;
+bool BMinMaxAcCurrentInError = true;
+uint32_t tSinceMinMaxDcCurrent = 125;
+bool BMinMaxDcCurrentInError = true;
+uint32_t tSinceCellStats1 = 40;
+bool BCellStats1InError = true;
+uint32_t tSinceCellStats2 = 520;
+bool BCellStats2InError = true;
+uint32_t tSinceCellStats3 = 520;
+bool BCellStats3InError = true;
+uint32_t tSinceCellStats4 = 520;
+bool BCellStats4InError = true;
+uint32_t tSinceCellStats5 = 520;
+bool BCellStats5InError = true;
+uint32_t tSinceElconInterface2 = 4040;
+bool BElconInterface2InError = true;
+uint32_t tSinceElconInterface1 = 4040;
+bool BElconInterface1InError = true;
+uint32_t tSinceElconInterface3 = 4040;
+bool BElconInterface3InError = true;
+uint32_t tSinceCellTempGeneral = 50;
+bool BCellTempGeneralInError = true;
+uint32_t tSinceBMSCellTemp = 500;
+bool BBMSCellTempInError = true;
+uint32_t tSinceTempMonAddressCast = 1000;
+bool BTempMonAddressCastInError = true;
 esp_err_t ESPControlRx(CAN_frame_t stFrame)
 {
     /*
@@ -235,6 +372,8 @@ esp_err_t ESPControlRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x10) return ESP_ERR_INVALID_ARG;
+
+    tSinceESPControl = 0;
 
     /* Standard Signals */
     BRestart = (bool)(((stFrame.abData[0] >> 7) & 0x1));
@@ -285,6 +424,8 @@ esp_err_t MCUStatusTelemCarRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x11) return ESP_ERR_INVALID_ARG;
+
+    tSinceMCUStatusTelemCar = 0;
 
     /* Standard Signals */
     tLastTaskTime1msTelemCar = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)) * 50.0f);
@@ -341,6 +482,8 @@ esp_err_t MCUStatusTelemPitsRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x12) return ESP_ERR_INVALID_ARG;
 
+    tSinceMCUStatusTelemPits = 0;
+
     /* Standard Signals */
     tLastTaskTime1msTelemPits = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)) * 50.0f);
     tMaxTaskTime1msTelemPits = (uint8_t)((float)(((stFrame.abData[1] >> 0) & 0xFF)) * 50.0f);
@@ -395,6 +538,8 @@ esp_err_t MCUStatusIMDMonitorRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x13) return ESP_ERR_INVALID_ARG;
+
+    tSinceMCUStatusIMDMonitor = 0;
 
     /* Standard Signals */
     tLastTaskTime1msIMDMon = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)) * 50.0f);
@@ -451,6 +596,8 @@ esp_err_t MCUStatusLoggerRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x14) return ESP_ERR_INVALID_ARG;
 
+    tSinceMCUStatusLogger = 0;
+
     /* Standard Signals */
     tLastTaskTime1msLogger = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)) * 50.0f);
     tMaxTaskTime1msLogger = (uint8_t)((float)(((stFrame.abData[1] >> 0) & 0xFF)) * 50.0f);
@@ -505,6 +652,8 @@ esp_err_t MCUStatusPDURx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x15) return ESP_ERR_INVALID_ARG;
+
+    tSinceMCUStatusPDU = 0;
 
     /* Standard Signals */
     tLastTaskTime1msPDU = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)) * 50.0f);
@@ -561,6 +710,8 @@ esp_err_t StatusAPPSRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x16) return ESP_ERR_INVALID_ARG;
 
+    tSinceStatusAPPS = 0;
+
     /* Standard Signals */
     tLastTaskTime1msAPPS = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)) * 50.0f);
     tMaxTaskTime1msAPPS = (uint8_t)((float)(((stFrame.abData[1] >> 0) & 0xFF)) * 50.0f);
@@ -615,6 +766,8 @@ esp_err_t MCUStatusScreenRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x17) return ESP_ERR_INVALID_ARG;
+
+    tSinceMCUStatusScreen = 0;
 
     /* Standard Signals */
     tLastTaskTime1msScreen = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)) * 50.0f);
@@ -671,6 +824,8 @@ esp_err_t MCUStatusDashRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x18) return ESP_ERR_INVALID_ARG;
 
+    tSinceMCUStatusDash = 0;
+
     /* Standard Signals */
     tLastTaskTime1msDash = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)) * 50.0f);
     tMaxTaskTime1msDash = (uint8_t)((float)(((stFrame.abData[1] >> 0) & 0xFF)) * 50.0f);
@@ -724,6 +879,8 @@ esp_err_t MCUStatusDynoRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x19) return ESP_ERR_INVALID_ARG;
+
+    tSinceMCUStatusDyno = 0;
 
     /* Standard Signals */
     tLastTaskTime1msDyno = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)) * 50.0f);
@@ -780,6 +937,8 @@ esp_err_t MCUStatusTempMonRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x1A) return ESP_ERR_INVALID_ARG;
 
+    tSinceMCUStatusTempMon = 0;
+
     /* Standard Signals */
     tLastTaskTime1msTempMon = (uint8_t)((float)(((stFrame.abData[0] >> 0) & 0xFF)) * 50.0f);
     tMaxTaskTime1msTempMon = (uint8_t)((float)(((stFrame.abData[1] >> 0) & 0xFF)) * 50.0f);
@@ -835,6 +994,8 @@ esp_err_t SetAcCurrentRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x24) return ESP_ERR_INVALID_ARG;
 
+    tSinceSetAcCurrent = 0;
+
     /* Standard Signals */
     CMD_TargetAcCurrent = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     return ESP_OK;
@@ -875,6 +1036,8 @@ esp_err_t CellVoltagesRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x36) return ESP_ERR_INVALID_ARG;
+
+    tSinceCellVoltages = 0;
 
 
     /* Mux Switch */
@@ -940,6 +1103,8 @@ esp_err_t IMDDataRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x40) return ESP_ERR_INVALID_ARG;
 
+    tSinceIMDData = 0;
+
     /* Standard Signals */
     BIMDOff = (bool)(((stFrame.abData[0] >> 7) & 0x1));
     BIMDUnderVoltage = (bool)(((stFrame.abData[0] >> 6) & 0x1));
@@ -999,6 +1164,8 @@ esp_err_t SetBrakeCurrentRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x44) return ESP_ERR_INVALID_ARG;
 
+    tSinceSetBrakeCurrent = 0;
+
     /* Standard Signals */
     CMD_TargetBrakeCurrent = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     return ESP_OK;
@@ -1039,6 +1206,8 @@ esp_err_t SetERPMRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x64) return ESP_ERR_INVALID_ARG;
+
+    tSinceSetERPM = 0;
 
     /* Standard Signals */
     CMD_TargetSpeed = (float)((float)((((uint32_t)((stFrame.abData[0] >> 0) & 0xFF)) << 24) | (((uint32_t)((stFrame.abData[1] >> 0) & 0xFF)) << 16) | (((uint32_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint32_t)((stFrame.abData[3] >> 0) & 0xFF))));
@@ -1082,6 +1251,8 @@ esp_err_t StatusAPPSSensorRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x81) return ESP_ERR_INVALID_ARG;
+
+    tSinceStatusAPPSSensor = 0;
 
     /* Standard Signals */
     rAPPs[0] = (float)((float)(((stFrame.abData[0] >> 0) & 0xFF)));
@@ -1135,6 +1306,8 @@ esp_err_t SetPositionRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x84) return ESP_ERR_INVALID_ARG;
 
+    tSinceSetPosition = 0;
+
     /* Standard Signals */
     CMD_TargetPosition = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     return ESP_OK;
@@ -1175,6 +1348,8 @@ esp_err_t DynoPressuresRawRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x90) return ESP_ERR_INVALID_ARG;
+
+    tSinceDynoPressuresRaw = 0;
 
     /* Standard Signals */
     VDynoPressureRaw[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.0001f);
@@ -1226,6 +1401,8 @@ esp_err_t DynoTempsRawRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x91) return ESP_ERR_INVALID_ARG;
 
+    tSinceDynoTempsRaw = 0;
+
     /* Standard Signals */
     VDynoTempRaw[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.0001f);
     VDynoTempRaw[1] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.0001f);
@@ -1272,6 +1449,8 @@ esp_err_t DynoPressuresRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x92) return ESP_ERR_INVALID_ARG;
+
+    tSinceDynoPressures = 0;
 
     /* Standard Signals */
     pDynoPressure[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.0005f + -6.0f);
@@ -1323,6 +1502,8 @@ esp_err_t DynoTempsRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x93) return ESP_ERR_INVALID_ARG;
 
+    tSinceDynoTemps = 0;
+
     /* Standard Signals */
     TDynoTemp[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.005f + -30.0f);
     TDynoTemp[1] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.005f + -30.0f);
@@ -1370,11 +1551,13 @@ esp_err_t DynoCoolingRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x94) return ESP_ERR_INVALID_ARG;
 
+    tSinceDynoCooling = 0;
+
     /* Standard Signals */
-    rFanDutyManual = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.002f);
-    rPumpDutyManual = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.002f);
-    NFanMode = (uint8_t)(((stFrame.abData[4] >> 4) & 0xF));
-    NPumpMode = (uint8_t)(((stFrame.abData[4] >> 0) & 0xF));
+    rDynoFanDutyManual = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.002f);
+    rDynoPumpDutyManual = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.002f);
+    NDynoFanMode = (uint8_t)(((stFrame.abData[4] >> 4) & 0xF));
+    NDynoPumpMode = (uint8_t)(((stFrame.abData[4] >> 0) & 0xF));
     return ESP_OK;
 }
 
@@ -1394,12 +1577,12 @@ esp_err_t DynoCoolingTx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)rFanDutyManual) / 0.002f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)rFanDutyManual) / 0.002f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)rPumpDutyManual) / 0.002f) & 0xFFFF) >> 8) & 0xFF) << 0);
-    stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)rPumpDutyManual) / 0.002f) & 0xFFFF) >> 0) & 0xFF) << 0);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)NFanMode & 0xF) >> 0) & 0xF) << 4);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)NPumpMode & 0xF) >> 0) & 0xF) << 0);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)rDynoFanDutyManual) / 0.002f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)rDynoFanDutyManual) / 0.002f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)rDynoPumpDutyManual) / 0.002f) & 0xFFFF) >> 8) & 0xFF) << 0);
+    stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)rDynoPumpDutyManual) / 0.002f) & 0xFFFF) >> 0) & 0xFF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)NDynoFanMode & 0xF) >> 0) & 0xF) << 4);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)NDynoPumpMode & 0xF) >> 0) & 0xF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
 }
@@ -1417,6 +1600,8 @@ esp_err_t SetRelCurrentRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0xA4) return ESP_ERR_INVALID_ARG;
+
+    tSinceSetRelCurrent = 0;
 
     /* Standard Signals */
     CMD_TargetRelativeCurrent = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
@@ -1459,12 +1644,14 @@ esp_err_t PDUStats1Rx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0xB0) return ESP_ERR_INVALID_ARG;
 
+    tSincePDUStats1 = 0;
+
     /* Standard Signals */
     rRadFanDuty = (uint8_t)(((stFrame.abData[0] >> 0) & 0xFF));
     NRadFanMode = (uint8_t)(((stFrame.abData[1] >> 4) & 0xF));
     IRadFan = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xF)) << 12) | (((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 4) | ((uint16_t)((stFrame.abData[3] >> 4) & 0xF))) * 0.001f);
     rPumpDuty[0] = (uint8_t)((((stFrame.abData[3] >> 0) & 0xF) << 4) | ((stFrame.abData[4] >> 4) & 0xF));
-    NPump1Mode = (uint8_t)(((stFrame.abData[4] >> 0) & 0xF));
+    NPumpMode[0] = (uint8_t)(((stFrame.abData[4] >> 0) & 0xF));
     IPump[0] = (float)((float)((((uint16_t)((stFrame.abData[5] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[6] >> 0) & 0xFF))) * 0.001f);
     rPumpDuty[1] = (uint8_t)(((stFrame.abData[7] >> 0) & 0xFF));
     return ESP_OK;
@@ -1493,7 +1680,7 @@ esp_err_t PDUStats1Tx(twai_node_handle_t stCANBus)
     stFrame.abData[3] |= (uint8_t)(((((uint32_t)(((float)IRadFan) / 0.001f) & 0xFFFF) >> 0) & 0xF) << 4);
     stFrame.abData[3] |= (uint8_t)(((((uint32_t)rPumpDuty[0] & 0xFF) >> 4) & 0xF) << 0);
     stFrame.abData[4] |= (uint8_t)(((((uint32_t)rPumpDuty[0] & 0xFF) >> 0) & 0xF) << 4);
-    stFrame.abData[4] |= (uint8_t)(((((uint32_t)NPump1Mode & 0xF) >> 0) & 0xF) << 0);
+    stFrame.abData[4] |= (uint8_t)(((((uint32_t)NPumpMode[0] & 0xF) >> 0) & 0xF) << 0);
     stFrame.abData[5] |= (uint8_t)(((((uint32_t)(((float)IPump[0]) / 0.001f) & 0xFFFF) >> 8) & 0xFF) << 0);
     stFrame.abData[6] |= (uint8_t)(((((uint32_t)(((float)IPump[0]) / 0.001f) & 0xFFFF) >> 0) & 0xFF) << 0);
     stFrame.abData[7] |= (uint8_t)(((((uint32_t)rPumpDuty[1] & 0xFF) >> 0) & 0xFF) << 0);
@@ -1515,8 +1702,10 @@ esp_err_t PDUStats2Rx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0xB1) return ESP_ERR_INVALID_ARG;
 
+    tSincePDUStats2 = 0;
+
     /* Standard Signals */
-    NPump2Mode = (uint8_t)(((stFrame.abData[0] >> 4) & 0xF));
+    NPumpMode[1] = (uint8_t)(((stFrame.abData[0] >> 4) & 0xF));
     IPump[1] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xF)) << 12) | (((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 4) | ((uint16_t)((stFrame.abData[2] >> 4) & 0xF))) * 0.001f);
     rAccuFanDuty[0] = (uint8_t)((((stFrame.abData[2] >> 0) & 0xF) << 4) | ((stFrame.abData[3] >> 4) & 0xF));
     NAccuFanMode[0] = (uint8_t)(((stFrame.abData[3] >> 0) & 0xF));
@@ -1542,7 +1731,7 @@ esp_err_t PDUStats2Tx(twai_node_handle_t stCANBus)
     stFrame.byDLC = 8;
     memset(stFrame.abData, 0, 8);
 
-    stFrame.abData[0] |= (uint8_t)(((((uint32_t)NPump2Mode & 0xF) >> 0) & 0xF) << 4);
+    stFrame.abData[0] |= (uint8_t)(((((uint32_t)NPumpMode[1] & 0xF) >> 0) & 0xF) << 4);
     stFrame.abData[0] |= (uint8_t)(((((uint32_t)(((float)IPump[1]) / 0.001f) & 0xFFFF) >> 12) & 0xF) << 0);
     stFrame.abData[1] |= (uint8_t)(((((uint32_t)(((float)IPump[1]) / 0.001f) & 0xFFFF) >> 4) & 0xFF) << 0);
     stFrame.abData[2] |= (uint8_t)(((((uint32_t)(((float)IPump[1]) / 0.001f) & 0xFFFF) >> 0) & 0xF) << 4);
@@ -1570,6 +1759,8 @@ esp_err_t PDUStats3Rx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0xB2) return ESP_ERR_INVALID_ARG;
+
+    tSincePDUStats3 = 0;
 
     /* Standard Signals */
     IAccuFan[1] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.001f);
@@ -1615,6 +1806,8 @@ esp_err_t SetRelBrakeCurrentRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0xC4) return ESP_ERR_INVALID_ARG;
 
+    tSinceSetRelBrakeCurrent = 0;
+
     /* Standard Signals */
     CMD_TargeRelativeBrakeCurrent = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     return ESP_OK;
@@ -1655,6 +1848,8 @@ esp_err_t SetDigOutputRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0xE4) return ESP_ERR_INVALID_ARG;
+
+    tSinceSetDigOutput = 0;
 
     /* Standard Signals */
     CMD_SetDigOutput[3] = (bool)(((stFrame.abData[0] >> 3) & 0x1));
@@ -1702,6 +1897,8 @@ esp_err_t SetMaxAcCurrentRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x104) return ESP_ERR_INVALID_ARG;
 
+    tSinceSetMaxAcCurrent = 0;
+
     /* Standard Signals */
     CMD_MaxAcCurrent = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     return ESP_OK;
@@ -1742,6 +1939,8 @@ esp_err_t SetMaxAcBrakeCurrentRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x124) return ESP_ERR_INVALID_ARG;
+
+    tSinceSetMaxAcBrakeCurrent = 0;
 
     /* Standard Signals */
     CMD_MaxAcBrakeCurrent = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
@@ -1784,6 +1983,8 @@ esp_err_t SetMaxDcCurrentRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x144) return ESP_ERR_INVALID_ARG;
 
+    tSinceSetMaxDcCurrent = 0;
+
     /* Standard Signals */
     CMD_MaxDcCurrent = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     return ESP_OK;
@@ -1824,6 +2025,8 @@ esp_err_t SetMaxDcBrakeCurrentRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x164) return ESP_ERR_INVALID_ARG;
+
+    tSinceSetMaxDcBrakeCurrent = 0;
 
     /* Standard Signals */
     CMD_MaxDcBrakeCurrent = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
@@ -1866,6 +2069,8 @@ esp_err_t SetDriveEnableRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x184) return ESP_ERR_INVALID_ARG;
 
+    tSinceSetDriveEnable = 0;
+
     /* Standard Signals */
     CMD_DriveEnable = (uint8_t)(((stFrame.abData[0] >> 0) & 0xFF));
     return ESP_OK;
@@ -1905,6 +2110,8 @@ esp_err_t FRTireTemp1Rx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x200) return ESP_ERR_INVALID_ARG;
+
+    tSinceFRTireTemp1 = 0;
 
     /* Standard Signals */
     TFRTireChannel[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -1956,6 +2163,8 @@ esp_err_t FRTireTemp2Rx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x201) return ESP_ERR_INVALID_ARG;
 
+    tSinceFRTireTemp2 = 0;
+
     /* Standard Signals */
     TFRTireChannel[4] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
     TFRTireChannel[5] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -2005,6 +2214,8 @@ esp_err_t FRTireTemp3Rx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x202) return ESP_ERR_INVALID_ARG;
+
+    tSinceFRTireTemp3 = 0;
 
     /* Standard Signals */
     TFRTireChannel[8] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -2056,6 +2267,8 @@ esp_err_t FRTireTemp4Rx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x203) return ESP_ERR_INVALID_ARG;
 
+    tSinceFRTireTemp4 = 0;
+
     /* Standard Signals */
     TFRTireChannel[12] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
     TFRTireChannel[13] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -2105,6 +2318,8 @@ esp_err_t FLTireTemp1Rx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x204) return ESP_ERR_INVALID_ARG;
+
+    tSinceFLTireTemp1 = 0;
 
     /* Standard Signals */
     TFLTireChannel[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -2156,6 +2371,8 @@ esp_err_t FLTireTemp2Rx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x205) return ESP_ERR_INVALID_ARG;
 
+    tSinceFLTireTemp2 = 0;
+
     /* Standard Signals */
     TFLTireChannel[4] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
     TFLTireChannel[5] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -2205,6 +2422,8 @@ esp_err_t FLTireTemp3Rx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x206) return ESP_ERR_INVALID_ARG;
+
+    tSinceFLTireTemp3 = 0;
 
     /* Standard Signals */
     TFLTireChannel[8] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -2256,6 +2475,8 @@ esp_err_t FLTireTemp4Rx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x207) return ESP_ERR_INVALID_ARG;
 
+    tSinceFLTireTemp4 = 0;
+
     /* Standard Signals */
     TFLTireChannel[12] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
     TFLTireChannel[13] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -2305,6 +2526,8 @@ esp_err_t RRTireTemp1Rx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x208) return ESP_ERR_INVALID_ARG;
+
+    tSinceRRTireTemp1 = 0;
 
     /* Standard Signals */
     TRRTireChannel[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -2356,6 +2579,8 @@ esp_err_t RRTireTemp2Rx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x209) return ESP_ERR_INVALID_ARG;
 
+    tSinceRRTireTemp2 = 0;
+
     /* Standard Signals */
     TRRTireChannel[4] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
     TRRTireChannel[5] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -2405,6 +2630,8 @@ esp_err_t RRTireTemp3Rx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x20A) return ESP_ERR_INVALID_ARG;
+
+    tSinceRRTireTemp3 = 0;
 
     /* Standard Signals */
     TRRTireChannel[8] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -2456,6 +2683,8 @@ esp_err_t RRTireTemp4Rx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x20B) return ESP_ERR_INVALID_ARG;
 
+    tSinceRRTireTemp4 = 0;
+
     /* Standard Signals */
     TRRTireChannel[12] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
     TRRTireChannel[13] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -2505,6 +2734,8 @@ esp_err_t RLTireTemp1Rx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x20C) return ESP_ERR_INVALID_ARG;
+
+    tSinceRLTireTemp1 = 0;
 
     /* Standard Signals */
     TRLTireChannel[0] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -2556,6 +2787,8 @@ esp_err_t RLTireTemp2Rx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x20D) return ESP_ERR_INVALID_ARG;
 
+    tSinceRLTireTemp2 = 0;
+
     /* Standard Signals */
     TRLTireChannel[4] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
     TRLTireChannel[5] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -2605,6 +2838,8 @@ esp_err_t RLTireTemp3Rx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x20E) return ESP_ERR_INVALID_ARG;
+
+    tSinceRLTireTemp3 = 0;
 
     /* Standard Signals */
     TRLTireChannel[8] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -2656,6 +2891,8 @@ esp_err_t RLTireTemp4Rx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x20F) return ESP_ERR_INVALID_ARG;
 
+    tSinceRLTireTemp4 = 0;
+
     /* Standard Signals */
     TRLTireChannel[12] = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f + -100.0f);
     TRLTireChannel[13] = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f + -100.0f);
@@ -2706,6 +2943,8 @@ esp_err_t TargetIqInfoRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x3E4) return ESP_ERR_INVALID_ARG;
 
+    tSinceTargetIqInfo = 0;
+
     /* Standard Signals */
     ControlMode = (uint8_t)(((stFrame.abData[0] >> 0) & 0xFF));
     TargetIq = (float)((float)((((uint16_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[2] >> 0) & 0xFF))) * 0.1f);
@@ -2753,6 +2992,8 @@ esp_err_t ERPM_DUTY_VOLTAGERx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x404) return ESP_ERR_INVALID_ARG;
+
+    tSinceERPM_DUTY_VOLTAGE = 0;
 
     /* Standard Signals */
     Actual_ERPM = (float)((float)((((uint32_t)((stFrame.abData[0] >> 0) & 0xFF)) << 24) | (((uint32_t)((stFrame.abData[1] >> 0) & 0xFF)) << 16) | (((uint32_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint32_t)((stFrame.abData[3] >> 0) & 0xFF))));
@@ -2803,6 +3044,8 @@ esp_err_t AC_DC_currentRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x424) return ESP_ERR_INVALID_ARG;
 
+    tSinceAC_DC_current = 0;
+
     /* Standard Signals */
     Actual_ACCurrent = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     Actual_DCCurrent = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
@@ -2846,6 +3089,8 @@ esp_err_t TemperaturesRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x444) return ESP_ERR_INVALID_ARG;
+
+    tSinceTemperatures = 0;
 
     /* Standard Signals */
     Actual_TempController = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
@@ -2892,6 +3137,8 @@ esp_err_t FOCRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x464) return ESP_ERR_INVALID_ARG;
+
+    tSinceFOC = 0;
 
     /* Standard Signals */
     Actual_FOC_id = (float)((float)((((uint32_t)((stFrame.abData[0] >> 0) & 0xFF)) << 24) | (((uint32_t)((stFrame.abData[1] >> 0) & 0xFF)) << 16) | (((uint32_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint32_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.01f);
@@ -2940,6 +3187,8 @@ esp_err_t Inverter_MISCRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x484) return ESP_ERR_INVALID_ARG;
+
+    tSinceInverter_MISC = 0;
 
     /* Standard Signals */
     Actual_Throttle = (float)((float)(((stFrame.abData[0] >> 0) & 0xFF)));
@@ -3026,6 +3275,8 @@ esp_err_t MinMaxAcCurrentRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x4A4) return ESP_ERR_INVALID_ARG;
 
+    tSinceMinMaxAcCurrent = 0;
+
     /* Standard Signals */
     MaxAcCurrent = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     AvailableMaxAcCurrent = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
@@ -3075,6 +3326,8 @@ esp_err_t MinMaxDcCurrentRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x4C4) return ESP_ERR_INVALID_ARG;
+
+    tSinceMinMaxDcCurrent = 0;
 
     /* Standard Signals */
     MaxDcCurrent = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
@@ -3126,6 +3379,8 @@ esp_err_t CellStats1Rx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x6B0) return ESP_ERR_INVALID_ARG;
 
+    tSinceCellStats1 = 0;
+
     /* Standard Signals */
     Pack_Current = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     Pack_Inst_Voltage = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
@@ -3174,6 +3429,8 @@ esp_err_t CellStats2Rx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x6B1) return ESP_ERR_INVALID_ARG;
+
+    tSinceCellStats2 = 0;
 
     /* Standard Signals */
     Pack_CCL = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 4.0f);
@@ -3224,6 +3481,8 @@ esp_err_t CellStats3Rx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x6B2) return ESP_ERR_INVALID_ARG;
+
+    tSinceCellStats3 = 0;
 
     /* Standard Signals */
     Maximum_Pack_Voltage = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
@@ -3276,6 +3535,8 @@ esp_err_t CellStats4Rx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x6B3) return ESP_ERR_INVALID_ARG;
+
+    tSinceCellStats4 = 0;
 
     /* Standard Signals */
     Low_Cell_Voltage_ID = (uint8_t)(((stFrame.abData[0] >> 0) & 0xFF));
@@ -3330,6 +3591,8 @@ esp_err_t CellStats5Rx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x6B4) return ESP_ERR_INVALID_ARG;
 
+    tSinceCellStats5 = 0;
+
     /* Standard Signals */
     Avg_Cell_Resistance = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.01f);
     Low_Cell_Resistance = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.01f);
@@ -3378,6 +3641,8 @@ esp_err_t ElconInterface2Rx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x1806E5F4) return ESP_ERR_INVALID_ARG;
 
+    tSinceElconInterface2 = 0;
+
     /* Standard Signals */
     Maximum_Cell_Voltage = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     Pack_CCL = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
@@ -3423,6 +3688,8 @@ esp_err_t ElconInterface1Rx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x1806E7F4) return ESP_ERR_INVALID_ARG;
+
+    tSinceElconInterface1 = 0;
 
     /* Standard Signals */
     Maximum_Pack_Voltage = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
@@ -3470,6 +3737,8 @@ esp_err_t ElconInterface3Rx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x1806E9F4) return ESP_ERR_INVALID_ARG;
 
+    tSinceElconInterface3 = 0;
+
     /* Standard Signals */
     Maximum_Cell_Voltage = (float)((float)((((uint16_t)((stFrame.abData[0] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[1] >> 0) & 0xFF))) * 0.1f);
     Pack_CCL = (float)((float)((((uint16_t)((stFrame.abData[2] >> 0) & 0xFF)) << 8) | ((uint16_t)((stFrame.abData[3] >> 0) & 0xFF))) * 0.1f);
@@ -3515,6 +3784,8 @@ esp_err_t CellTempGeneralRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x1838F380) return ESP_ERR_INVALID_ARG;
+
+    tSinceCellTempGeneral = 0;
 
     /* Standard Signals */
     TCellMin = (int8_t)(((stFrame.abData[4] >> 0) & 0xFF));
@@ -3580,6 +3851,8 @@ esp_err_t BMSCellTempRx(CAN_frame_t stFrame)
     */
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x1839F380) return ESP_ERR_INVALID_ARG;
+
+    tSinceBMSCellTemp = 0;
 
     /* Checksum verification (Rule 1) */
     uint8_t received_checksum = stFrame.abData[7];
@@ -3652,6 +3925,8 @@ esp_err_t TempMonAddressCastRx(CAN_frame_t stFrame)
     if (stFrame.byDLC != 8) return ESP_ERR_INVALID_SIZE;
     if (stFrame.dwID != 0x18EEFF80) return ESP_ERR_INVALID_ARG;
 
+    tSinceTempMonAddressCast = 0;
+
     /* Standard Signals */
     NTempMonJ1939Address = (uint32_t)((((uint32_t)((stFrame.abData[0] >> 0) & 0xFF)) << 16) | (((uint32_t)((stFrame.abData[1] >> 0) & 0xFF)) << 8) | ((uint32_t)((stFrame.abData[2] >> 0) & 0xFF)));
     NTempMonTargetAddress = (uint8_t)(((stFrame.abData[3] >> 0) & 0xFF));
@@ -3686,5 +3961,84 @@ esp_err_t TempMonAddressCastTx(twai_node_handle_t stCANBus)
     stFrame.abData[7] |= (uint8_t)((((0x401E90 & 0xFFFFFF) >> 0) & 0xFF) << 0);
 
     return CAN_transmit(stCANBus, &stFrame);
+}
+
+/* Periodic RX health checks - autogenerated */
+
+void CANRxCheck1ms(void)
+{
+    tSinceCellVoltages += 1; if (tSinceCellVoltages > 40) BCellVoltagesInError = true;
+    tSinceSetRelCurrent += 1; if (tSinceSetRelCurrent > 5) BSetRelCurrentInError = true;
+    tSinceFRTireTemp1 += 1; if (tSinceFRTireTemp1 > 150) BFRTireTemp1InError = true;
+    tSinceFRTireTemp2 += 1; if (tSinceFRTireTemp2 > 150) BFRTireTemp2InError = true;
+    tSinceFRTireTemp3 += 1; if (tSinceFRTireTemp3 > 150) BFRTireTemp3InError = true;
+    tSinceFRTireTemp4 += 1; if (tSinceFRTireTemp4 > 150) BFRTireTemp4InError = true;
+    tSinceFLTireTemp1 += 1; if (tSinceFLTireTemp1 > 150) BFLTireTemp1InError = true;
+    tSinceFLTireTemp2 += 1; if (tSinceFLTireTemp2 > 150) BFLTireTemp2InError = true;
+    tSinceFLTireTemp3 += 1; if (tSinceFLTireTemp3 > 150) BFLTireTemp3InError = true;
+    tSinceFLTireTemp4 += 1; if (tSinceFLTireTemp4 > 150) BFLTireTemp4InError = true;
+    tSinceRRTireTemp1 += 1; if (tSinceRRTireTemp1 > 150) BRRTireTemp1InError = true;
+    tSinceRRTireTemp2 += 1; if (tSinceRRTireTemp2 > 150) BRRTireTemp2InError = true;
+    tSinceRRTireTemp3 += 1; if (tSinceRRTireTemp3 > 150) BRRTireTemp3InError = true;
+    tSinceRRTireTemp4 += 1; if (tSinceRRTireTemp4 > 150) BRRTireTemp4InError = true;
+    tSinceRLTireTemp1 += 1; if (tSinceRLTireTemp1 > 150) BRLTireTemp1InError = true;
+    tSinceRLTireTemp2 += 1; if (tSinceRLTireTemp2 > 150) BRLTireTemp2InError = true;
+    tSinceRLTireTemp3 += 1; if (tSinceRLTireTemp3 > 150) BRLTireTemp3InError = true;
+    tSinceRLTireTemp4 += 1; if (tSinceRLTireTemp4 > 150) BRLTireTemp4InError = true;
+    tSinceTargetIqInfo += 1; if (tSinceTargetIqInfo > 125) BTargetIqInfoInError = true;
+    tSinceERPM_DUTY_VOLTAGE += 1; if (tSinceERPM_DUTY_VOLTAGE > 125) BERPM_DUTY_VOLTAGEInError = true;
+    tSinceAC_DC_current += 1; if (tSinceAC_DC_current > 125) BAC_DC_currentInError = true;
+    tSinceTemperatures += 1; if (tSinceTemperatures > 125) BTemperaturesInError = true;
+    tSinceFOC += 1; if (tSinceFOC > 125) BFOCInError = true;
+    tSinceInverter_MISC += 1; if (tSinceInverter_MISC > 125) BInverter_MISCInError = true;
+    tSinceMinMaxAcCurrent += 1; if (tSinceMinMaxAcCurrent > 125) BMinMaxAcCurrentInError = true;
+    tSinceMinMaxDcCurrent += 1; if (tSinceMinMaxDcCurrent > 125) BMinMaxDcCurrentInError = true;
+    tSinceCellStats1 += 1; if (tSinceCellStats1 > 40) BCellStats1InError = true;
+    tSinceCellTempGeneral += 1; if (tSinceCellTempGeneral > 50) BCellTempGeneralInError = true;
+}
+
+void CANRxCheck100ms(void)
+{
+    tSinceESPControl += 100; if (tSinceESPControl > 500) BESPControlInError = true;
+    tSinceMCUStatusTelemCar += 100; if (tSinceMCUStatusTelemCar > 5000) BMCUStatusTelemCarInError = true;
+    tSinceMCUStatusTelemPits += 100; if (tSinceMCUStatusTelemPits > 5000) BMCUStatusTelemPitsInError = true;
+    tSinceMCUStatusIMDMonitor += 100; if (tSinceMCUStatusIMDMonitor > 5000) BMCUStatusIMDMonitorInError = true;
+    tSinceMCUStatusLogger += 100; if (tSinceMCUStatusLogger > 5000) BMCUStatusLoggerInError = true;
+    tSinceMCUStatusPDU += 100; if (tSinceMCUStatusPDU > 5000) BMCUStatusPDUInError = true;
+    tSinceStatusAPPS += 100; if (tSinceStatusAPPS > 5000) BStatusAPPSInError = true;
+    tSinceMCUStatusScreen += 100; if (tSinceMCUStatusScreen > 5000) BMCUStatusScreenInError = true;
+    tSinceMCUStatusDash += 100; if (tSinceMCUStatusDash > 5000) BMCUStatusDashInError = true;
+    tSinceMCUStatusDyno += 100; if (tSinceMCUStatusDyno > 5000) BMCUStatusDynoInError = true;
+    tSinceMCUStatusTempMon += 100; if (tSinceMCUStatusTempMon > 5000) BMCUStatusTempMonInError = true;
+    tSinceSetAcCurrent += 100; if (tSinceSetAcCurrent > 500) BSetAcCurrentInError = true;
+    tSinceIMDData += 100; if (tSinceIMDData > 500) BIMDDataInError = true;
+    tSinceSetBrakeCurrent += 100; if (tSinceSetBrakeCurrent > 500) BSetBrakeCurrentInError = true;
+    tSinceSetERPM += 100; if (tSinceSetERPM > 500) BSetERPMInError = true;
+    tSinceStatusAPPSSensor += 100; if (tSinceStatusAPPSSensor > 500) BStatusAPPSSensorInError = true;
+    tSinceSetPosition += 100; if (tSinceSetPosition > 500) BSetPositionInError = true;
+    tSinceDynoPressuresRaw += 100; if (tSinceDynoPressuresRaw > 500) BDynoPressuresRawInError = true;
+    tSinceDynoTempsRaw += 100; if (tSinceDynoTempsRaw > 500) BDynoTempsRawInError = true;
+    tSinceDynoPressures += 100; if (tSinceDynoPressures > 500) BDynoPressuresInError = true;
+    tSinceDynoTemps += 100; if (tSinceDynoTemps > 500) BDynoTempsInError = true;
+    tSinceDynoCooling += 100; if (tSinceDynoCooling > 500) BDynoCoolingInError = true;
+    tSincePDUStats1 += 100; if (tSincePDUStats1 > 500) BPDUStats1InError = true;
+    tSincePDUStats2 += 100; if (tSincePDUStats2 > 500) BPDUStats2InError = true;
+    tSincePDUStats3 += 100; if (tSincePDUStats3 > 500) BPDUStats3InError = true;
+    tSinceSetRelBrakeCurrent += 100; if (tSinceSetRelBrakeCurrent > 500) BSetRelBrakeCurrentInError = true;
+    tSinceSetDigOutput += 100; if (tSinceSetDigOutput > 500) BSetDigOutputInError = true;
+    tSinceSetMaxAcCurrent += 100; if (tSinceSetMaxAcCurrent > 500) BSetMaxAcCurrentInError = true;
+    tSinceSetMaxAcBrakeCurrent += 100; if (tSinceSetMaxAcBrakeCurrent > 500) BSetMaxAcBrakeCurrentInError = true;
+    tSinceSetMaxDcCurrent += 100; if (tSinceSetMaxDcCurrent > 500) BSetMaxDcCurrentInError = true;
+    tSinceSetMaxDcBrakeCurrent += 100; if (tSinceSetMaxDcBrakeCurrent > 500) BSetMaxDcBrakeCurrentInError = true;
+    tSinceSetDriveEnable += 100; if (tSinceSetDriveEnable > 500) BSetDriveEnableInError = true;
+    tSinceCellStats2 += 100; if (tSinceCellStats2 > 520) BCellStats2InError = true;
+    tSinceCellStats3 += 100; if (tSinceCellStats3 > 520) BCellStats3InError = true;
+    tSinceCellStats4 += 100; if (tSinceCellStats4 > 520) BCellStats4InError = true;
+    tSinceCellStats5 += 100; if (tSinceCellStats5 > 520) BCellStats5InError = true;
+    tSinceElconInterface2 += 100; if (tSinceElconInterface2 > 4040) BElconInterface2InError = true;
+    tSinceElconInterface1 += 100; if (tSinceElconInterface1 > 4040) BElconInterface1InError = true;
+    tSinceElconInterface3 += 100; if (tSinceElconInterface3 > 4040) BElconInterface3InError = true;
+    tSinceBMSCellTemp += 100; if (tSinceBMSCellTemp > 500) BBMSCellTempInError = true;
+    tSinceTempMonAddressCast += 100; if (tSinceTempMonAddressCast > 1000) BTempMonAddressCastInError = true;
 }
 
