@@ -106,6 +106,8 @@ void task_100ms(void)
     /* CAN error handling */
     CANRxCheck1ms();
 
+     display_empty_buffer();
+
     /* Every Second */
     if ( wNCounter % (PERIOD_1S / PERIOD_TASK_100MS) == 0 ) 
     {
