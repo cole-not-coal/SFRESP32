@@ -28,6 +28,9 @@ void task_100ms(void);
 void reflash_task_100ms(void);
 void pin_toggle(gpio_num_t pin);
 void reflash_task_BG();
+void check_main_contactors_closed(void);
+void handle_contactor_sequence(void);
+void monitor_BMS_state(void);
 
 #define SFRTasks
 #endif
