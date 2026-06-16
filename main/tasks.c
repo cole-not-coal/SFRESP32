@@ -9,6 +9,7 @@ Tasks are:
 Written by Cole Perera and Aditya Parnandi for Sheffield Formula Racing 2025
 */
 #include "tasks.h"
+#include "freertos/queue.h"
 
 /* --------------------------- Local Types ----------------------------- */
 
@@ -18,6 +19,10 @@ extern uint8_t byMACAddress[6];
 extern esp_reset_reason_t eResetReason;
 extern eChipMode_t eDeviceMode;
 static esp_partition_t *stOTAPartition = NULL;
+extern FILE *stFile;
+extern QueueHandle_t xCANRingBuffer;
+extern dword dwNDroppedCANFrames;
+boolean bFlushSDCard = FALSE;
 
 /* --------------------------- Global Variables ----------------------------- */
 dword adwMaxTaskTime[eTASK_TOTAL];
@@ -39,9 +44,6 @@ void task_BG(void)
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_BG] = eTASK_ACTIVE;
 
-    /* Flush CAN buffer to SD card */
-    sdcard_empty_buffer();
-
     /* Service the watchdog if all task have been completed at least once */
     word wNTaskCounter = 0;
     boolean bTasksComplete = TRUE;
@@ -60,6 +62,12 @@ void task_BG(void)
         {
             astTaskState[wNTaskCounter] = eTASK_INACTIVE;
         }
+    }
+
+    sdcard_empty_buffer();
+    if (bFlushSDCard) {
+        fsync(fileno(stFile));
+        bFlushSDCard = FALSE;
     }
 
     /* Update max task time */
@@ -114,6 +122,13 @@ void task_100ms(void)
     {
         /* Toggle LED */
         pin_toggle(GPIO_ONBOARD_LED); 
+
+        bFlushSDCard = TRUE;
+        /* Is CAN Queue Full? */
+        if (dwNDroppedCANFrames > 0)
+        {
+            ESP_LOGW(SFR_TAG, "%d CAN frames dropped due to full buffer", (int)dwNDroppedCANFrames);
+        }
 
         /* Send Status Message */
         /* This is not how you should send a CAN message but in this special case it is better this way */
