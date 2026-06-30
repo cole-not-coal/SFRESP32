@@ -141,7 +141,6 @@ void task_1ms(void)
 /* Task that runs every 100ms. */
 void task_100ms(void)
 {
-    
     static qword qwtTaskTimer;
     static word wNCounter;
     static word NTempID = 0;
@@ -173,7 +172,6 @@ void task_100ms(void)
         TCellSum += (float)TCell[wNCellCounter];
     }
     TCellAvg = (int8_t)(TCellSum / (float)NCellTemps);
-
     
     BMSCellTempTx(stCANBus0);
 
