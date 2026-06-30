@@ -41,7 +41,6 @@ stSensorMap_t stSensorMapTCell = {
 const uint8_t byNCellMapping[22] = {
     4,  6,  8,  10, 12, 3, 5, 7, 9, 11, 13, 
     14, 16, 18, 20, 22, 24, 15, 17, 19, 21, 2
-    
 };
 
 /* --------------------------- Local Variables ----------------------------- */ 
@@ -328,6 +327,7 @@ void input_select(uint8_t byNInput)
 
 float read_cell(uint8_t byNCell)
 {
+    float fCellTempRaw = 0.0f;
     if (byNCell > 109)
     {
         return -999.0f; // Invalid cell number
@@ -335,5 +335,7 @@ float read_cell(uint8_t byNCell)
     uint8_t byNSelection = byNCellMapping[byNCell % 22];
     
     input_select(byNSelection);
-    return MCP320X_read(MCP320XDevs[0], (uint8_t)(byNCell / 22));
+    fCellTempRaw = MCP320X_read(MCP320XDevs[0], (uint8_t)(byNCell / 22)); 
+    input_select(0); 
+    return fCellTempRaw;
 }
