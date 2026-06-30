@@ -28,6 +28,8 @@ void task_100ms(void);
 void reflash_task_100ms(void);
 void pin_toggle(gpio_num_t pin);
 void reflash_task_BG();
+float read_cell(uint8_t byNCell);
+void input_select(uint8_t byNInput);
 
 #define SFRTasks
 #endif

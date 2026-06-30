@@ -39,6 +39,11 @@
 
 /* TempMonitor Only */
 #define SPI_MCP3208_CS 17
+#define SELECT_INPUT_1 0    //0:Mux IC 1, 1:Mux IC 2
+#define SELECT_INPUT_2 1    //Mux Channel Select Bit 0
+#define SELECT_INPUT_3 2    //Mux Channel Select Bit 1
+#define SELECT_INPUT_4 21   //Mux Channel Select Bit 2
+#define SELECT_INPUT_5 16   //Mux Channel Select Bit 3
 
 /* Dyno Only */
 #define SPI_MCP3204_1_CS 17

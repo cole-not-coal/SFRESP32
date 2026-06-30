@@ -38,13 +38,18 @@ stSensorMap_t stSensorMapTCell = {
     }
 };
 
+const uint8_t byNCellMapping[22] = {
+    4,  6,  8,  10, 12, 3, 5, 7, 9, 11, 13, 
+    14, 16, 18, 20, 22, 24, 15, 17, 19, 21, 2
+    
+};
 
 /* --------------------------- Local Variables ----------------------------- */ 
 extern uint8_t byMACAddress[6];
 extern esp_reset_reason_t eResetReason;
 extern eChipMode_t eDeviceMode;
 static esp_partition_t *stOTAPartition = NULL;
-extern spi_device_handle_t MCP320XDevs[2];
+extern spi_device_handle_t MCP320XDevs[1];
 
 /* --------------------------- Global Variables ----------------------------- */
 dword adwMaxTaskTime[eTASK_TOTAL];
@@ -112,8 +117,7 @@ void task_1ms(void)
     dwTimeSincePowerUpms++;
 
     /* Read Temp Values */
-    //Placeholder
-    TCellRaw = MCP320X_read(MCP320XDevs[0], 0);
+    TCellRaw = read_cell(NTempID);
     TCellRaw = convert_sensor(TCellRaw, &stSensorMapTCell);
     if (TCellRaw < -40.0f || TCellRaw > 120.0f)
     {
@@ -307,7 +311,29 @@ void reflash_task_BG()
 
 void pin_toggle(gpio_num_t ePin)
 {
-    static boolean BLEDState = false;
+     static boolean BLEDState = false;
     BLEDState = !BLEDState;
     gpio_set_level(ePin, BLEDState);
+}
+
+void input_select(uint8_t byNInput)
+{
+    gpio_set_level(SELECT_INPUT_1, byNInput & 0x01);
+    gpio_set_level(SELECT_INPUT_2, (byNInput >> 1) & 0x01);
+    gpio_set_level(SELECT_INPUT_3, (byNInput >> 2) & 0x01);
+    gpio_set_level(SELECT_INPUT_4, (byNInput >> 3) & 0x01);
+    gpio_set_level(SELECT_INPUT_5, (byNInput >> 4) & 0x01);
+}
+
+
+float read_cell(uint8_t byNCell)
+{
+    if (byNCell > 109)
+    {
+        return -999.0f; // Invalid cell number
+    }
+    uint8_t byNSelection = byNCellMapping[byNCell % 22];
+    
+    input_select(byNSelection);
+    return MCP320X_read(MCP320XDevs[0], (uint8_t)(byNCell / 22));
 }

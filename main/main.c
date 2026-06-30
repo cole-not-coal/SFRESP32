@@ -39,7 +39,7 @@ esp_timer_handle_t stTaskInterrupt1ms;
 esp_timer_handle_t stTaskInterrupt100ms;
 esp_reset_reason_t eResetReason;
 eChipMode_t eDeviceMode = eNORMAL;
-spi_device_handle_t MCP320XDevs[2];
+spi_device_handle_t MCP320XDevs[1];
 
 /* --------------------------- Function prototypes ----------------------------- */
 static void timers_init(void);
@@ -132,8 +132,8 @@ static void main_init(void)
     // }
 
     /* ADC MCP3204/8 This is a example config is required */
-    uint8_t aNCSPins[2] = {SPI_MCP3204_1_CS, SPI_MCP3204_2_CS};
-    eStatus = MCP320X_init(2, aNCSPins, MCP320XDevs);
+    uint8_t aNCSPins[1] = {SPI_MCP3208_CS};
+    eStatus = MCP320X_init(1, aNCSPins, MCP320XDevs);
     if (eStatus != ESP_OK)
     {
         ESP_LOGE(SFR_TAG, "Failed to initialise MCP320X: %s", esp_err_to_name(eStatus));
@@ -201,6 +201,18 @@ static void GPIO_init(void)
         .intr_type = GPIO_INTR_DISABLE
     };
     gpio_config(&onboardLEDConfig);
+    
+    gpio_config_t astSelectInput[5];
+    uint8_t aNSelectInputPins[5] = {SELECT_INPUT_1, SELECT_INPUT_2, SELECT_INPUT_3, SELECT_INPUT_4, SELECT_INPUT_5};
+    for (uint8_t NCounter = 0; NCounter < 5; NCounter++)
+    {
+        astSelectInput[NCounter].pin_bit_mask = 1ULL << aNSelectInputPins[NCounter];
+        astSelectInput[NCounter].mode = GPIO_MODE_OUTPUT;
+        astSelectInput[NCounter].pull_up_en = 0;
+        astSelectInput[NCounter].pull_down_en = 0;
+        astSelectInput[NCounter].intr_type = GPIO_INTR_DISABLE;
+        gpio_config(&astSelectInput[NCounter]);
+    }
 }
 
 void set_device_mode(eChipMode_t mode)
