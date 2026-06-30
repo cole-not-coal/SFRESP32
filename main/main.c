@@ -151,6 +151,11 @@ static void main_init(void)
     {
         ESP_LOGE(SFR_TAG, "Failed to initialise CAN Reflash: %s", esp_err_to_name(eStatus));
     }
+    
+    /* Default from CAN spec https://www.orionbms.com/downloads/misc/thermistor_module_canbus.pdf */
+    NTempMonJ1939Address = 0xF30080;
+    NTempMonTargetAddress = 0xF3;
+    NTempMonNumber = 0x00;
 
     /* External Clock */
     // eStatus = I2C_init();

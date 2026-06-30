@@ -71,6 +71,7 @@ void task_BG(void)
 void task_1ms(void)
 {
     qword qwtTaskTimer;
+    static word NTempID = 0;
 
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_1MS] = eTASK_ACTIVE;
@@ -80,6 +81,11 @@ void task_1ms(void)
 
     /* Update time since power up */
     dwTimeSincePowerUpms++;
+
+    /* Read Temp Values */
+    //Placeholder
+    TCell[NTempID] = NTempID - 10;
+    NTempID = (NTempID + 1) % 110;
 
     /* Update max task time */
     qwtTaskTimer = esp_timer_get_time() - qwtTaskTimer;
@@ -96,12 +102,25 @@ void task_100ms(void)
     
     static qword qwtTaskTimer;
     static word wNCounter;
+    static word NTempID = 0;
 
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_100MS] = eTASK_ACTIVE;
 
     /* CAN error handling */
     CANRxCheck1ms();
+
+    TempMonAddressCastTx(stCANBus0);
+
+    TCellMin = 30;
+    TCellMax = 40;
+    TCellAvg = 35;
+    NCellTemps = 110;
+    NTCellMaxID = 5;
+    NCellMinID = 6;
+    BMSCellTempTx(stCANBus0);
+    CellTempGeneralTx(stCANBus0);
+    NTempID = (NTempID + 1) % 110;
 
     /* Every Second */
     if ( wNCounter % (PERIOD_1S / PERIOD_TASK_100MS) == 0 ) 
