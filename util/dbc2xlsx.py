@@ -300,7 +300,7 @@ def _style_message_blocks(ws, header_row: int, header_map: dict[str, int]):
 
 	- Thin borders on all cells
 	- Thick outer border around each message (grouped by ID)
-	- Columns A through N (1..14) are styled
+	- Columns A through P (1..16) are styled
 	"""
 
 	id_col = header_map.get("ID")
@@ -354,7 +354,7 @@ def _style_message_blocks(ws, header_row: int, header_map: dict[str, int]):
 		if end < start:
 			continue
 		for r in range(start, end + 1):
-			for c in range(1, 14 + 1):  # Columns A..N
+			for c in range(1, 16 + 1):  # Columns A..P
 				left = thin
 				right = thin
 				top = thin
@@ -362,7 +362,7 @@ def _style_message_blocks(ws, header_row: int, header_map: dict[str, int]):
 
 				if c == 1:
 					left = thick
-				if c == 14:
+				if c == 16:
 					right = thick
 				if r == start:
 					top = thick
