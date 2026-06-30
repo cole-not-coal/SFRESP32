@@ -11,6 +11,32 @@ Written by Cole Perera and Aditya Parnandi for Sheffield Formula Racing 2025
 #include "tasks.h"
 
 /* --------------------------- Local Types ----------------------------- */
+stSensorMap_t stSensorMapTCell = {
+    .fLowerLimit = 1.0f,
+    .fUpperLimit = 3.0f,
+    .afLookupTable = {
+        {0, 1.304, 1.308, 1.311, 1.314, 1.317, 1.320, 1.322, 1.325, 1.328, 
+        1.331, 1.334, 1.338, 1.341, 1.345, 1.350, 1.354, 1.359, 1.364, 1.369, 
+        1.374, 1.380, 1.386, 1.392, 1.398, 1.405, 1.412, 1.419, 1.427, 1.435, 
+        1.443, 1.451, 1.460, 1.469, 1.479, 1.489, 1.499, 1.510, 1.521, 1.533, 
+        1.545, 1.557, 1.570, 1.584, 1.598, 1.613, 1.628, 1.643, 1.659, 1.676, 
+        1.693, 1.710, 1.728, 1.746, 1.765, 1.784, 1.803, 1.823, 1.843, 1.863, 
+        1.884, 1.904, 1.925, 1.946, 1.966, 1.987, 2.008, 2.029, 2.049, 2.070, 
+        2.090, 2.110, 2.129, 2.148, 2.167, 2.185, 2.203, 2.220, 2.237, 2.253, 
+        2.268, 2.283, 2.297, 2.310, 2.322, 2.334, 2.345, 2.355, 2.364, 2.373, 
+        2.381, 2.389, 2.396, 2.402, 2.408, 2.414, 2.420, 2.426, 2.433, 5},
+        {120.00, 118.38, 116.77, 115.15, 113.54, 111.92, 110.30, 108.69, 107.07, 105.45, 
+        103.84, 102.22, 100.61, 98.99, 97.37, 95.76, 94.14, 92.53, 90.91, 89.29, 
+        87.68, 86.06, 84.44, 82.83, 81.21, 79.60, 77.98, 76.36, 74.75, 73.13, 
+        71.52, 69.90, 68.28, 66.67, 65.05, 63.43, 61.82, 60.20, 58.59, 56.97, 
+        55.35, 53.74, 52.12, 50.51, 48.89, 47.27, 45.66, 44.04, 42.42, 40.81, 
+        39.19, 37.58, 35.96, 34.34, 32.73, 31.11, 29.49, 27.88, 26.26, 24.65, 
+        23.03, 21.41, 19.80, 18.18, 16.57, 14.95, 13.33, 11.72, 10.10, 08.48, 
+        06.87, 05.25, 03.64, 02.02, 00.40, -1.21, -2.83, -4.44, -6.06, -7.68, 
+        -9.29, -10.91, -12.53, -14.14, -15.76, -17.37, -18.99, -20.61, -22.22, -23.84, 
+        -25.45, -27.07, -28.69, -30.30, -31.92, -33.54, -35.15, -36.77, -38.38, -40.00}       
+    }
+};
 
 
 /* --------------------------- Local Variables ----------------------------- */ 
@@ -18,6 +44,7 @@ extern uint8_t byMACAddress[6];
 extern esp_reset_reason_t eResetReason;
 extern eChipMode_t eDeviceMode;
 static esp_partition_t *stOTAPartition = NULL;
+extern spi_device_handle_t MCP320XDevs[2];
 
 /* --------------------------- Global Variables ----------------------------- */
 dword adwMaxTaskTime[eTASK_TOTAL];
@@ -72,6 +99,8 @@ void task_1ms(void)
 {
     qword qwtTaskTimer;
     static word NTempID = 0;
+    float TCellRaw = 0.0f;
+    int8_t TCellActual = 0;
 
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_1MS] = eTASK_ACTIVE;
@@ -84,7 +113,17 @@ void task_1ms(void)
 
     /* Read Temp Values */
     //Placeholder
-    TCell[NTempID] = NTempID - 10;
+    TCellRaw = MCP320X_read(MCP320XDevs[0], 0);
+    TCellRaw = convert_sensor(TCellRaw, &stSensorMapTCell);
+    if (TCellRaw < -40.0f || TCellRaw > 120.0f)
+    {
+        //Out of range error
+        TCellActual = 127;
+    } else
+    {
+        TCellActual = (int8_t)TCellRaw;
+    }
+    TCell[NTempID] = TCellActual;
     NTempID = (NTempID + 1) % 110;
 
     /* Update max task time */
@@ -117,7 +156,8 @@ void task_100ms(void)
     TCellAvg = 35;
     NCellTemps = 110;
     NTCellMaxID = 5;
-    NCellMinID = 6;
+    NTCellMinID = 6;
+    NTCellID = NTempID;
     BMSCellTempTx(stCANBus0);
     CellTempGeneralTx(stCANBus0);
     NTempID = (NTempID + 1) % 110;
