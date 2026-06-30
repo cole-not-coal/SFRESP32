@@ -38,9 +38,22 @@ stSensorMap_t stSensorMapTCell = {
     }
 };
 
-const uint8_t byNCellMapping[22] = {
-    4,  6,  8,  10, 12, 3, 5, 7, 9, 11, 13, 
-    14, 16, 18, 20, 22, 24, 15, 17, 19, 21, 2
+const uint8_t byNCellMapping[CELL_COUNT] = {
+    //Stack 1
+     4,  6,  8, 10, 12,  3,  5,  7,  9, 11,  2, 
+    14, 12, 21, 19, 17, 15, 24, 22, 20, 18, 16, 
+
+    //Stack 2
+    11,  9,  7,  5,  3, 12, 10,  8,  6,  4,  2, 
+    14, 16, 18, 20, 22, 24, 15, 17, 19, 21, 23,
+
+    //Stack 3
+    11,  9,  7,  5,  3, 12, 10,  8,  6,  4,  2, 
+    14, 16, 18, 20, 22, 24, 15, 17, 19, 21, 23, 
+
+    //Stack 4
+    14, 23, 21, 19, 17, 15, 24, 22, 20, 16, 18, 
+    11,  2,  9,  7,  5,  3, 12, 10,  8,  6, 4
 };
 
 /* --------------------------- Local Variables ----------------------------- */ 
@@ -61,6 +74,12 @@ dword dwTimeSincePowerUpms = 0;
 #define PERIOD_10S 10000        // ms
 #define PERIOD_1S 1000          // ms
 #define MAX_eREFLASH_TIME_US 300000000 // us
+#define TEMP_GENERAL_TX_RATE 5 //Number of CAN messages per 100ms 
+#define CELL_TEMP_MAX 120.0
+#define CELL_TEMP_MIN -40.0
+#define ADC_SETTLE_TIME_US 5000 //Time between switching mux and reading ADC
+#define CELL_COUNT_STACK 22 //Number of cells per stack
+#define CELL_CORRECTION -0.05 //Correction for first cell of each stack (V)
 
 /* --------------------------- Functions ----------------------------- */
 /* Background task that runs as often as processor time is available. */
@@ -102,9 +121,6 @@ void task_BG(void)
 void task_1ms(void)
 {
     qword qwtTaskTimer;
-    static word NTempID = 0;
-    float TCellRaw = 0.0f;
-    int8_t TCellActual = 0;
 
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_1MS] = eTASK_ACTIVE;
@@ -114,20 +130,6 @@ void task_1ms(void)
 
     /* Update time since power up */
     dwTimeSincePowerUpms++;
-
-    /* Read Temp Values */
-    TCellRaw = read_cell(NTempID);
-    TCellRaw = convert_sensor(TCellRaw, &stSensorMapTCell);
-    if (TCellRaw < -40.0f || TCellRaw > 120.0f)
-    {
-        //Out of range error
-        TCellActual = 127;
-    } else
-    {
-        TCellActual = (int8_t)TCellRaw;
-    }
-    TCell[NTempID] = TCellActual;
-    NTempID = (NTempID + 1) % 110;
 
     /* Update max task time */
     qwtTaskTimer = esp_timer_get_time() - qwtTaskTimer;
@@ -144,20 +146,34 @@ void task_100ms(void)
     static qword qwtTaskTimer;
     static word wNCounter;
     static word NTempID = 0;
+    static word NTempID2 = 0;
     float TCellSum = 0.0f;
-    NCellTemps = 110;
+    float TCellRaw = 0.0f;
+    float TCellActual = 0.0f;
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_100MS] = eTASK_ACTIVE;
 
+    /* Read Temp Values */
+    TCellRaw = read_cell(NTempID2);
+    TCellRaw = convert_sensor(TCellRaw, &stSensorMapTCell);
+    if (TCellRaw < CELL_TEMP_MIN || TCellRaw > CELL_TEMP_MAX)
+    {
+        //Out of range error
+        TCellActual = 127;
+    } else
+    {
+        TCellActual = (int8_t)TCellRaw;
+    }
+    TCell[NTempID2] = TCellActual;
+    NTempID2 = (NTempID2 + 1) % CELL_COUNT;
+
     /* CAN error handling */
     CANRxCheck1ms();
-
-    TempMonAddressCastTx(stCANBus0);
     
     TCellMin = 127;
     TCellMax = -128;
     TCellSum = 0.0f;
-    for (word wNCellCounter = 0; wNCellCounter < NCellTemps; wNCellCounter++)
+    for (word wNCellCounter = 0; wNCellCounter < CELL_COUNT; wNCellCounter++)
     {
         if (TCell[wNCellCounter] < TCellMin)
         {
@@ -171,15 +187,17 @@ void task_100ms(void)
         }
         TCellSum += (float)TCell[wNCellCounter];
     }
-    TCellAvg = (int8_t)(TCellSum / (float)NCellTemps);
+    TCellAvg = (int8_t)(TCellSum / (float)CELL_COUNT);
     
+    /* CAN messages */
+    TempMonAddressCastTx(stCANBus0);
     BMSCellTempTx(stCANBus0);
 
-    for (word wNCellCounter = 0; wNCellCounter < 5; wNCellCounter++)
+    for (word wNCellCounter = 0; wNCellCounter < TEMP_GENERAL_TX_RATE; wNCellCounter++)
     {
         NTCellID = NTempID;
         CellTempGeneralTx(stCANBus0);
-        NTempID = (NTempID + 1) % 110;
+        NTempID = (NTempID + 1) % CELL_COUNT;
     }
 
     /* Every Second */
@@ -326,14 +344,15 @@ void input_select(uint8_t byNInput)
 float read_cell(uint8_t byNCell)
 {
     float fCellTempRaw = 0.0f;
-    if (byNCell > 109)
+    if (byNCell >= CELL_COUNT)
     {
         return -999.0f; // Invalid cell number
     }
-    uint8_t byNSelection = byNCellMapping[byNCell % 22];
+    uint8_t byNSelection = byNCellMapping[byNCell];
     
     input_select(byNSelection);
-    fCellTempRaw = MCP320X_read(MCP320XDevs[0], (uint8_t)(byNCell / 22)); 
-    input_select(0); 
+    ets_delay_us(ADC_SETTLE_TIME_US);
+    fCellTempRaw = MCP320X_read(MCP320XDevs[0], (uint8_t)(byNCell / CELL_COUNT_STACK));
+    ets_delay_us(ADC_SETTLE_TIME_US); 
     return fCellTempRaw;
 }

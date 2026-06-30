@@ -156,6 +156,7 @@ static void main_init(void)
     NTempMonJ1939Address = 0xF30080;
     NTempMonTargetAddress = 0xF3;
     NTempMonNumber = 0x00;
+    NCellTemps = CELL_COUNT;
 
     /* External Clock */
     // eStatus = I2C_init();

@@ -6,6 +6,7 @@
 #include "freertos/task.h"
 #include "esp_task_wdt.h"
 #include "esp_timer.h"
+#include "rom/ets_sys.h"
 #include "sfrtypes.h"
 
 #include "pin.h"
@@ -20,6 +21,8 @@
 #include "main.h"
 #include "CAN/canDecodeAuto.h"
 #include "mcp320X.h"
+
+#define CELL_COUNT 88 //Number of cells to monitor
 
 /* --------------------------- Function prototypes ----------------------------- */
 void task_BG(void);
