@@ -10,6 +10,19 @@ Written by Cole Perera and Aditya Parnandi for Sheffield Formula Racing 2025
 */
 #include "tasks.h"
 
+/* --------------------------- Definitions ----------------------------- */
+#define PERIOD_TASK_100MS 100   // ms
+#define PERIOD_10S 10000        // ms
+#define PERIOD_1S 1000          // ms
+#define MAX_eREFLASH_TIME_US 300000000 // us
+#define TEMP_GENERAL_TX_RATE 5 //Number of CAN messages per 100ms 
+#define CELL_TEMP_MAX 120.0
+#define CELL_TEMP_MIN -40.0
+#define ADC_SETTLE_TIME_US 5000 //Time between switching mux and reading ADC
+#define CELL_STACK_COUNT 22 //Number of cells per stack
+#define STACK_COUNT 4 //Number of stacks
+#define MIN_STACK_HEALTH 30.0
+
 /* --------------------------- Local Types ----------------------------- */
 stSensorMap_t stSensorMapTCell = {
     .fLowerLimit = 1.0f,
@@ -40,20 +53,20 @@ stSensorMap_t stSensorMapTCell = {
 
 const uint8_t byNCellMapping[CELL_COUNT] = {
     //Stack 1
-     4,  6,  8, 10, 12,  3,  5,  7,  9, 11,  2, 
-    14, 12, 21, 19, 17, 15, 24, 22, 20, 18, 16, 
+    11,  6,  1,  7,  2,  8,  3,  9,  4, 10,  5,
+    12, 17, 22, 16, 21, 15, 20, 14, 19, 13, 18, 
 
     //Stack 2
-    11,  9,  7,  5,  3, 12, 10,  8,  6,  4,  2, 
-    14, 16, 18, 20, 22, 24, 15, 17, 19, 21, 23,
+    33, 27, 32, 26, 31, 25, 30, 24, 29, 23, 28, 
+    34, 40, 35, 41, 36, 42, 37, 43, 38, 44, 39,
 
     //Stack 3
-    11,  9,  7,  5,  3, 12, 10,  8,  6,  4,  2, 
-    14, 16, 18, 20, 22, 24, 15, 17, 19, 21, 23, 
+    55, 49, 54, 48, 53, 47, 52, 46, 51, 45, 50,
+    56, 62, 57, 63, 58, 64, 59, 65, 60, 66, 61,
 
     //Stack 4
-    14, 23, 21, 19, 17, 15, 24, 22, 20, 16, 18, 
-    11,  2,  9,  7,  5,  3, 12, 10,  8,  6, 4
+    79, 83, 88, 82, 87, 81, 86, 80, 85, 78, 84,
+    67, 72, 76, 71, 77, 70, 75, 69, 74, 68, 73
 };
 
 /* --------------------------- Local Variables ----------------------------- */ 
@@ -63,23 +76,15 @@ extern eChipMode_t eDeviceMode;
 static esp_partition_t *stOTAPartition = NULL;
 extern spi_device_handle_t MCP320XDevs[1];
 
+const uint8_t byNCellStackMap[CELL_STACK_COUNT] = {
+    2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+};
+
 /* --------------------------- Global Variables ----------------------------- */
 dword adwMaxTaskTime[eTASK_TOTAL];
 dword adwLastTaskTime[eTASK_TOTAL];
 eTaskState_t astTaskState[eTASK_TOTAL];
 dword dwTimeSincePowerUpms = 0;
-
-/* --------------------------- Definitions ----------------------------- */
-#define PERIOD_TASK_100MS 100   // ms
-#define PERIOD_10S 10000        // ms
-#define PERIOD_1S 1000          // ms
-#define MAX_eREFLASH_TIME_US 300000000 // us
-#define TEMP_GENERAL_TX_RATE 5 //Number of CAN messages per 100ms 
-#define CELL_TEMP_MAX 120.0
-#define CELL_TEMP_MIN -40.0
-#define ADC_SETTLE_TIME_US 5000 //Time between switching mux and reading ADC
-#define CELL_COUNT_STACK 22 //Number of cells per stack
-#define CELL_CORRECTION -0.05 //Correction for first cell of each stack (V)
 
 /* --------------------------- Functions ----------------------------- */
 /* Background task that runs as often as processor time is available. */
@@ -145,27 +150,81 @@ void task_100ms(void)
 {
     static qword qwtTaskTimer;
     static word wNCounter;
+    word wNCounter2;
+    word wTCellErrorCount = 0;
+    word wNIndex;
     static word NTempID = 0;
-    static word NTempID2 = 0;
+    static word NStackCount = 0;
     float TCellSum = 0.0f;
-    float TCellRaw = 0.0f;
-    float TCellActual = 0.0f;
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_100MS] = eTASK_ACTIVE;
 
     /* Read Temp Values */
-    TCellRaw = read_cell(NTempID2);
-    TCellRaw = convert_sensor(TCellRaw, &stSensorMapTCell);
-    if (TCellRaw < CELL_TEMP_MIN || TCellRaw > CELL_TEMP_MAX)
+    input_select(byNCellStackMap[NStackCount]);
+    for (wNCounter2 = 0; wNCounter2 < STACK_COUNT; wNCounter2++)
     {
-        //Out of range error
-        TCellActual = 127;
-    } else
-    {
-        TCellActual = (int8_t)TCellRaw;
+        wNIndex = NStackCount + CELL_STACK_COUNT * wNCounter2;
+        wNIndex = byNCellMapping[wNIndex];
+        VTADCCell[wNIndex] = MCP320X_read(MCP320XDevs[0], wNCounter2);
+        TCell[wNIndex] = (int8_t)convert_sensor(VTADCCell[wNIndex], &stSensorMapTCell);
+        NTConversionMethodCell[wNIndex] = 1;
+        if (TCell[wNIndex] < CELL_TEMP_MIN || TCell[wNIndex] > CELL_TEMP_MAX)
+        {
+            //Out of range
+            BTCellSimulated[wNIndex] = TRUE;
+            TCell[wNIndex] = TCellAvg;
+        }
     }
-    TCell[NTempID2] = TCellActual;
-    NTempID2 = (NTempID2 + 1) % CELL_COUNT;
+    NStackCount = (NStackCount + 1) % CELL_STACK_COUNT;
+
+    /* Error handling 
+    Calculates the health of each stacks temperature sensors.
+    If health is below threshold then all simulated cells become error cells. */
+    for(wNCounter2 = 0; wNCounter2 < CELL_COUNT; wNCounter2++)
+    {
+        if(BTCellSimulated[wNCounter2])
+        {
+            wTCellErrorCount++;
+        }
+        //This switch case should be replced with something that does not rely on magic numbers.
+        switch(wTCellErrorCount)
+        {
+            case 21:
+                rTHealthStack[0] = (float)(CELL_STACK_COUNT - wTCellErrorCount)
+                    /CELL_STACK_COUNT * 100.0;
+                wTCellErrorCount = 0;
+                break;
+            case 43:
+                rTHealthStack[1] = (float)(CELL_STACK_COUNT - wTCellErrorCount)
+                    /CELL_STACK_COUNT * 100.0;
+                wTCellErrorCount = 0;
+                break;
+            case 65:
+                rTHealthStack[2] = (float)(CELL_STACK_COUNT - wTCellErrorCount)
+                    /CELL_STACK_COUNT * 100.0;
+                wTCellErrorCount = 0;
+                break;
+            case 87:
+                rTHealthStack[3] = (float)(CELL_STACK_COUNT - wTCellErrorCount)
+                    /CELL_STACK_COUNT * 100.0;
+                wTCellErrorCount = 0;
+                break;
+        }
+    }
+    for(wNCounter2 = 0; wNCounter2 < CELL_COUNT; wNCounter2++)
+    {
+        /* Skips over healthy stacks */
+        if(rTHealthStack[wNCounter2/CELL_STACK_COUNT] > MIN_STACK_HEALTH)
+        {
+            wNCounter2 += CELL_STACK_COUNT - 1;
+            continue;
+        }
+        if(BTCellSimulated[wNCounter2])
+        {
+            BTCellInError[wNCounter2] = TRUE;
+            TCell[wNCounter2] = 127;
+        }
+    }
 
     /* CAN error handling */
     CANRxCheck1ms();
@@ -175,6 +234,12 @@ void task_100ms(void)
     TCellSum = 0.0f;
     for (word wNCellCounter = 0; wNCellCounter < CELL_COUNT; wNCellCounter++)
     {
+        /* Skip errored cells */
+        if (BTCellInError[wNCellCounter])
+        {
+            continue;
+        }
+        /* Calculate stats */
         if (TCell[wNCellCounter] < TCellMin)
         {
             TCellMin = TCell[wNCellCounter];
@@ -197,6 +262,8 @@ void task_100ms(void)
     {
         NTCellID = NTempID;
         CellTempGeneralTx(stCANBus0);
+        CellID_Temp = NTempID;
+        CellTempStatsTx(stCANBus0);
         NTempID = (NTempID + 1) % CELL_COUNT;
     }
 
@@ -338,21 +405,5 @@ void input_select(uint8_t byNInput)
     gpio_set_level(SELECT_INPUT_3, (byNInput >> 2) & 0x01);
     gpio_set_level(SELECT_INPUT_4, (byNInput >> 3) & 0x01);
     gpio_set_level(SELECT_INPUT_5, (byNInput >> 4) & 0x01);
-}
-
-
-float read_cell(uint8_t byNCell)
-{
-    float fCellTempRaw = 0.0f;
-    if (byNCell >= CELL_COUNT)
-    {
-        return -999.0f; // Invalid cell number
-    }
-    uint8_t byNSelection = byNCellMapping[byNCell];
-    
-    input_select(byNSelection);
     ets_delay_us(ADC_SETTLE_TIME_US);
-    fCellTempRaw = MCP320X_read(MCP320XDevs[0], (uint8_t)(byNCell / CELL_COUNT_STACK));
-    ets_delay_us(ADC_SETTLE_TIME_US); 
-    return fCellTempRaw;
 }
