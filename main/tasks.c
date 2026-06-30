@@ -142,7 +142,8 @@ void task_100ms(void)
     static qword qwtTaskTimer;
     static word wNCounter;
     static word NTempID = 0;
-
+    float TCellSum = 0.0f;
+    NCellTemps = 110;
     qwtTaskTimer = esp_timer_get_time();
     astTaskState[eTASK_100MS] = eTASK_ACTIVE;
 
@@ -150,17 +151,35 @@ void task_100ms(void)
     CANRxCheck1ms();
 
     TempMonAddressCastTx(stCANBus0);
+    
+    TCellMin = 127;
+    TCellMax = -128;
+    TCellSum = 0.0f;
+    for (word wNCellCounter = 0; wNCellCounter < NCellTemps; wNCellCounter++)
+    {
+        if (TCell[wNCellCounter] < TCellMin)
+        {
+            TCellMin = TCell[wNCellCounter];
+            NTCellMinID = wNCellCounter + 1;
+        }
+        if (TCell[wNCellCounter] > TCellMax)
+        {
+            TCellMax = TCell[wNCellCounter];
+            NTCellMaxID = wNCellCounter + 1;
+        }
+        TCellSum += (float)TCell[wNCellCounter];
+    }
+    TCellAvg = (int8_t)(TCellSum / (float)NCellTemps);
 
-    TCellMin = 30;
-    TCellMax = 40;
-    TCellAvg = 35;
-    NCellTemps = 110;
-    NTCellMaxID = 5;
-    NTCellMinID = 6;
-    NTCellID = NTempID;
+    
     BMSCellTempTx(stCANBus0);
-    CellTempGeneralTx(stCANBus0);
-    NTempID = (NTempID + 1) % 110;
+
+    for (word wNCellCounter = 0; wNCellCounter < 5; wNCellCounter++)
+    {
+        NTCellID = NTempID;
+        CellTempGeneralTx(stCANBus0);
+        NTempID = (NTempID + 1) % 110;
+    }
 
     /* Every Second */
     if ( wNCounter % (PERIOD_1S / PERIOD_TASK_100MS) == 0 ) 
