@@ -131,7 +131,7 @@ void initStaticBackground(void)
     EVE_cmd_text(EVE_VSIZE/2+15, 5, 29, EVE_OPT_CENTERX, "R");
 
     char abySOCBuffer[4];
-    sprintf(abySOCBuffer, "%3d", (uint8_t)(Pack_SOC));  // convert battery percentage to string for display
+    sprintf(abySOCBuffer, "%3d", (uint8_t)(rSOC));  // convert battery percentage to string for display
 
     // // Rectangle for battery percentage
     EVE_widget_rectangle(EVE_VSIZE/2 - 80, 50 , 160U, 80U, 0, 10, WHITE);  // x, y, width, height, border, transparency, colour
@@ -194,13 +194,13 @@ void TFT_display(void)
         EVE_tag(0); /* no touch */
         EVE_cmd_append(MEM_DL_STATIC, dwNStaticDisplaySize); /* insert static part of display-list from copy in gfx-mem */
 
-        if (Pack_SOC < 0.01f && TCellAvg == 0 && Actual_TempMotor < 0.01f && Actual_TempController < 0.01f) {
+        if (rSOC < 0.01f && TCellAvg == 0 && Actual_TempMotor < 0.01f && Actual_TempController < 0.01f) {
             colour = ORANGE;
             message = "No CAN data!";
         } 
         // Danger messages
         // Low Battery
-        else if (Pack_SOC < 20.0f) {
+        else if (rSOC < 20.0f) {
             colour = RED;
             message = "Low battery!";
         }
@@ -225,7 +225,7 @@ void TFT_display(void)
 
 
         // battery percentage
-        sprintf(BatteryBuffer, "%3.0f%%", Pack_SOC);  
+        sprintf(BatteryBuffer, "%3.0f%%", rSOC);  
         EVE_color_rgb(BLACK);
         EVE_cmd_text(EVE_VSIZE/2-5, EVE_HSIZE/2-65, 31, EVE_OPT_CENTER, BatteryBuffer);  //x, y, font
 
