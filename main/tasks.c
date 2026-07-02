@@ -15,7 +15,7 @@ Written by Cole Perera and Aditya Parnandi for Sheffield Formula Racing 2025
 #define PERIOD_10S 10000        // ms
 #define PERIOD_1S 1000          // ms
 #define MAX_eREFLASH_TIME_US 300000000 // us
-#define TEMP_GENERAL_TX_RATE 5 //Number of CAN messages per 100ms 
+#define TEMP_GENERAL_TX_RATE 1 //Number of CAN messages per 100ms 
 #define CELL_TEMP_MAX 120.0
 #define CELL_TEMP_MIN -40.0
 #define ADC_SETTLE_TIME_US 5000 //Time between switching mux and reading ADC
